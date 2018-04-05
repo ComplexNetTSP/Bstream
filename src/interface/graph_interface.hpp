@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 28/03/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       graph_interface.hpp
+/// @brief      Python wrapper for the Graph class
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       05/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
 #include <iostream>

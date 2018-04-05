@@ -1,7 +1,7 @@
 ///-------------------------------------------------------------------------------------------------
 ///
-/// @file       TIntervalSetInterface.cpp
-/// @brief      Description
+/// @file       tintervalset_interface.cpp
+/// @brief      Python wrapper for the TimeInterval and TimeInteravalSet class
 /// @author     Vincent Gauthier <vgauthier@luxbulb.org>
 /// @date       04/04/2018
 /// @version    0.1

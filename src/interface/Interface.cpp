@@ -1,7 +1,7 @@
 ///-------------------------------------------------------------------------------------------------
 ///
 /// @file       Interface.cpp
-/// @brief      Description
+/// @brief      Main file for the Python wrapper
 /// @author     Vincent Gauthier <vgauthier@luxbulb.org>
 /// @date       05/04/2018
 /// @version    0.1
