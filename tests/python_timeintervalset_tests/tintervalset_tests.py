@@ -34,10 +34,22 @@ class TestTIntervalSet(unittest.TestCase):
     def test_Erase(self):
         ti = pybstream.TimeIntervalSet(0, 10)
         ti.append(1, 2)
-        ti.append(6,8)
+        ti.append(6, 8)
         ti.erase()
         self.assertEqual(ti.size(), 0)
         self.assertEqual(ti.length(), 0)
+
+    def test_Iter(self):
+        ti = pybstream.TimeIntervalSet(0, 10)
+        ti.append(1, 2)
+        ti.append(6, 8)
+        result_upper = [2, 8]
+        result_lower = [1, 6]
+        i = 0
+        for elem in ti:
+            self.assertEqual(elem.upper(), result_upper[i])
+            self.assertEqual(elem.lower(), result_lower[i])
+            i += 1
 
 if __name__ == '__main__':
     unittest.main()

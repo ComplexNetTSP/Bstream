@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 24/03/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       graph_tests.cpp
+/// @brief      Tests for the Graph clas
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       05/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #include "GraphType.hpp"
 
