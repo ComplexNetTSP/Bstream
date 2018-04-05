@@ -15,7 +15,8 @@ SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic")
 SET(CMAKE_VERBOSE_MAKEFILE off )
 
 # add libary
-FIND_PACKAGE(Boost COMPONENTS system REQUIRED)
+set(Boost_USE_MULTITHREADED ON)
+FIND_PACKAGE(Boost COMPONENTS system graph REQUIRED)
 if (Boost_FOUND)
     MESSAGE("-- Found Boost " ${Boost_MAJOR_VERSION} "." ${Boost_MINOR_VERSION} " include directory:\t" ${Boost_INCLUDE_DIRS})
 endif()
