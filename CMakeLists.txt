@@ -1,0 +1,77 @@
+cmake_minimum_required(VERSION 3.10)
+project(bstream VERSION 0.1.1)
+
+# enable tests
+include(CTest)
+enable_testing()
+
+# option
+SET(PYTHON_LIBRARY /usr/local/anaconda/lib/libpython3.6m.dylib)
+SET(PYTHON_INCLUDE_DIR /usr/local/anaconda/include/python3.6m)
+SET(PYTHON_EXECUTABLE /usr/local/anaconda/bin/python3.6)
+
+SET(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic")
+SET(CMAKE_VERBOSE_MAKEFILE off )
+
+# add libary
+FIND_PACKAGE(Boost COMPONENTS system REQUIRED)
+if (Boost_FOUND)
+    MESSAGE("-- Found Boost " ${Boost_MAJOR_VERSION} "." ${Boost_MINOR_VERSION} " include directory:\t" ${Boost_INCLUDE_DIRS})
+endif()
+
+FIND_PACKAGE(PythonLibs 3 REQUIRED)
+if (PYTHONLIBS_FOUND)
+    MESSAGE("-- Found Python 3 library:\t" ${PYTHON_LIBRARIES})
+    MESSAGE("-- Found Python 3 include dir:\t" ${PYTHON_INCLUDE_DIRS})
+endif()
+
+FIND_PACKAGE(pybind11 REQUIRED)
+if (pybind11_FOUND)
+    MESSAGE("-- Found pybind11:\t" ${pybind11_INCLUDE_DIR})
+endif()
+
+FIND_PACKAGE(PythonInterp REQUIRED)
+if (PYTHONINTERP_FOUND)
+    MESSAGE("-- Found Python 3 interpretor:\t" ${PYTHON_EXECUTABLE})
+endif()
+
+
+# The file(GLOB...) allows for wildcard additions:
+file(GLOB SOURCES
+        "src/graph/*.cpp"
+        "src/tinterval/*.cpp")
+file(GLOB SOURCES_INTERFACE "src/interface/*.cpp")
+
+SET(SRC_INCLUDE_DIR
+        "src/graph"
+        "src/interface"
+        "src/tinterval")
+INCLUDE_DIRECTORIES(
+        ${Boost_INCLUDE_DIRS}
+        ${pybind11_INCLUDE_DIR}
+        ${PYTHON_INCLUDE_DIRS}
+        ${SRC_INCLUDE_DIR})
+
+# Build target
+LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+
+ADD_LIBRARY(pybstream SHARED
+        ${SOURCES}
+        ${SOURCES_INTERFACE} src/interface/tintervalset_interface.hpp src/interface/Interface.cpp)
+
+SET_TARGET_PROPERTIES(pybstream
+        PROPERTIES
+        PREFIX ""
+        )
+
+if (WIN32)
+    # .PYD file extension on Windows
+    SET_TARGET_PROPERTIES(pybstream PROPERTIES SUFFIX ".pyd")
+elseif (UNIX)
+    # .SO file extension on Linux/Mac OS
+    SET_TARGET_PROPERTIES(pybstream PROPERTIES SUFFIX ".so")
+endif()
+
+# add tests
+ADD_SUBDIRECTORY(tests)
