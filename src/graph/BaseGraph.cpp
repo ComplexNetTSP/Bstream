@@ -121,6 +121,13 @@ namespace boost::bstream
         return boost::out_degree(v, G);
     }
 
+    template<typename DirectedS>
+    pair<typename BaseGraph<DirectedS>::edge_iterator, typename BaseGraph<DirectedS>::edge_iterator>
+    BaseGraph<DirectedS>::edges()
+    {
+        return boost::edges(G);;
+    }
+
     template class BaseGraph<boost::undirectedS>;
     template class BaseGraph<boost::bidirectionalS>;
 

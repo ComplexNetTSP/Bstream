@@ -24,18 +24,17 @@ namespace boost::bstream
     template<typename DirectedS>
     class BaseGraph
     {
-    private:
-        typedef adjacency_list<
+    public:
+        typedef adjacency_list <
                 vecS,
                 vecS,
                 DirectedS
-                > adjacency;
+        > Adjacency;
 
-        typedef graph_traits<adjacency> traits;
-        typedef typename traits::directed_category directed_category;
-    public:
+        typedef graph_traits <Adjacency> traits;
         typedef typename traits::vertex_descriptor vertex_t;
         typedef typename traits::edge_descriptor edge_t;
+        typedef typename traits::directed_category directed_category;
         typedef typename traits::vertex_iterator vertex_iterator;
         typedef typename traits::edge_iterator edge_iterator;
         typedef typename traits::vertices_size_type vertex_size_t;
@@ -51,31 +50,31 @@ namespace boost::bstream
          * @brief Return true if graph is directed.
          * @return boolean
          */
-        bool is_directed() const;
+        virtual bool is_directed() const;
 
         /**
          * @brief Add a single node and update node attributes.
          * @return vertex_descriptor
          */
-        vertex_t add_vertex();
+        virtual vertex_t add_vertex();
 
         /**
          * @brief The number of edges in the graph.
          * @return edge_size_t
          */
-        edge_t add_edge(vertex_t& s, vertex_t& t);
+        virtual edge_t add_edge(vertex_t& s, vertex_t& t);
 
         /**
          * @brief The number of vertices in the graph.
          * @return vertex_size_t
          */
-        vertex_size_t num_vertices();
+        virtual vertex_size_t num_vertices();
 
         /**
          * @brief The number of edges in the graph.
          * @return edge_size_t
          */
-        edge_size_t num_edges();
+        virtual edge_size_t num_edges();
 
         /**
          * @brief test if the edge (u,v) exist
@@ -83,7 +82,7 @@ namespace boost::bstream
          * @param t
          * @return boolean
          */
-        bool has_edge(vertex_t& s, vertex_t& t);
+        virtual bool has_edge(vertex_t& s, vertex_t& t);
 
         /**
          * @brief remove the a vertex and his adjacent edge
@@ -96,15 +95,17 @@ namespace boost::bstream
          * @param s
          * @param t
          */
-        void remove_edge(vertex_t& s, vertex_t& t);
+        virtual void remove_edge(vertex_t& s, vertex_t& t);
 
-        void remove_edge(edge_t& e);
+        virtual void remove_edge(edge_t& e);
 
         /**
          * @brief a vertex iterator
          * @return pair<begin, end>
          */
         std::pair<vertex_iterator, vertex_iterator> vertices();
+
+        std::pair<edge_iterator, edge_iterator> edges();
 
 
         /**
@@ -113,22 +114,22 @@ namespace boost::bstream
          * @param v vertex_t
          * @return the number of edge adjacent to a vertex
          */
-        vertex_size_t degree(vertex_t& v);
+        virtual vertex_size_t degree(vertex_t& v);
 
         /**
          * @brief return in_degree of a vertex
          * @param v vertex_t
          * @return the number of in-edge adjacent to a vertex
          */
-        vertex_size_t in_degree(vertex_t& v);
+        virtual vertex_size_t in_degree(vertex_t& v);
 
-        vertex_size_t out_degree(vertex_t& v);
+        virtual vertex_size_t out_degree(vertex_t& v);
 
-    private:
+    protected:
         /**
          * Adjacency list of the graph
          */
-        adjacency G;
+        Adjacency G;
     };
 
 } // end namespace boost::src

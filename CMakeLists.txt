@@ -59,7 +59,7 @@ LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
 ADD_LIBRARY(pybstream SHARED
         ${SOURCES}
-        ${SOURCES_INTERFACE} src/interface/tintervalset_interface.hpp src/interface/Interface.cpp)
+        ${SOURCES_INTERFACE} src/interface/tintervalset_interface.hpp src/interface/Interface.cpp src/graph/LinkStreamBase.cpp src/graph/LinkStreamBase.hpp tests/linkstream_tests/linkstream_tests.cpp)
 
 SET_TARGET_PROPERTIES(pybstream
         PROPERTIES
