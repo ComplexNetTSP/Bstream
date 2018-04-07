@@ -27,7 +27,7 @@ if (PYTHONLIBS_FOUND)
     MESSAGE("-- Found Python 3 include dir:\t" ${PYTHON_INCLUDE_DIRS})
 endif()
 
-FIND_PACKAGE(pybind11 REQUIRED)
+FIND_PACKAGE(pybind11)
 if (pybind11_FOUND)
     MESSAGE("-- Found pybind11:\t" ${pybind11_INCLUDE_DIR})
 endif()
@@ -47,7 +47,8 @@ file(GLOB SOURCES_INTERFACE "src/interface/*.cpp")
 SET(SRC_INCLUDE_DIR
         "src/graph"
         "src/interface"
-        "src/tinterval")
+        "src/tinterval"
+        "src/utils")
 INCLUDE_DIRECTORIES(
         ${Boost_INCLUDE_DIRS}
         ${pybind11_INCLUDE_DIR}
@@ -59,7 +60,7 @@ LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
 ADD_LIBRARY(pybstream SHARED
         ${SOURCES}
-        ${SOURCES_INTERFACE} src/graph/graphio.hpp)
+        ${SOURCES_INTERFACE} src/utils/utils.hpp)
 
 SET_TARGET_PROPERTIES(pybstream
         PROPERTIES

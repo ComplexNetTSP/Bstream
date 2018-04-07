@@ -3,6 +3,7 @@
 //
 
 #include "GraphType.hpp"
+#include "CSVReader.hpp"
 
 #define BOOST_TEST_MODULE LinkStreamBase_tests
 
@@ -54,4 +55,11 @@ BOOST_AUTO_TEST_CASE(linkstream_exception)
     LinkStream::vertex_t a=0, b=1;
     LinkStream g(4, 0, 10);
     BOOST_CHECK_THROW( g.add_edge(a, b, 0, 13), LinkStreamException);
+}
+
+BOOST_AUTO_TEST_CASE(linkstream_read_edgefile)
+{
+    auto cvs = CSVReader("#", ',');
+    auto L = cvs.read_undirected("./edges.csv");
+    L.print_edges();
 }

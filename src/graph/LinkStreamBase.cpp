@@ -68,8 +68,12 @@ namespace boost::bstream
         bool ok;
 
         //!< check that the edge time interval is in the linkstream definition interval
-        if(!icl::contains(interval_def, make_time_interval(b, e)))
-            throw LinkStreamBaseException("Edge TimeInterval is contains inside the LinkStream definition");
+        if(!icl::contains(interval_def, make_time_interval(b, e))){
+            std::ostringstream msg;
+            msg << "Edge TimeInterval " << make_time_interval(b, e)
+                << "is not contains inside " << interval_def << endl;
+            throw LinkStreamBaseException(msg.str());
+        }
 
         std::tie(edge_exist, ok) = boost::edge(s, t, GraphBase<DirectedS>::G);
         if(ok){
