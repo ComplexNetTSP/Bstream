@@ -22,7 +22,7 @@ namespace boost::bstream
      * @tparam DirectedS
      */
     template<typename DirectedS>
-    class BaseGraph
+    class GraphBase
     {
     public:
         typedef adjacency_list <
@@ -40,11 +40,11 @@ namespace boost::bstream
         typedef typename traits::vertices_size_type vertex_size_t;
         typedef typename traits::edges_size_type edge_size_t;
 
-        BaseGraph() {};
+        GraphBase() {};
 
-        BaseGraph(int num_vertex);
+        GraphBase(int num_vertex);
 
-        ~BaseGraph() = default;
+        ~GraphBase() = default;
 
         /**
          * @brief Return true if graph is directed.

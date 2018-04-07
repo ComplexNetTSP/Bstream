@@ -8,13 +8,13 @@
 #include <map>
 #include <ctime>
 
-#include "BaseGraph.hpp"
+#include "GraphBase.hpp"
 #include "TimeIntervalSet.hpp"
 
 namespace boost::bstream
 {
     template <typename DirectedS>
-    class LinkStreamBase: public BaseGraph<DirectedS>
+    class LinkStreamBase: public GraphBase<DirectedS>
     {
     public:
         LinkStreamBase(time_t b=0, time_t e=0);
@@ -27,18 +27,18 @@ namespace boost::bstream
 
         time_t definition_length();
 
-        typename BaseGraph<DirectedS>::edge_t
-        add_edge(typename BaseGraph<DirectedS>::vertex_t& s, typename BaseGraph<DirectedS>::vertex_t& t);
+        typename GraphBase<DirectedS>::edge_t
+        add_edge(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t);
 
-        typename BaseGraph<DirectedS>::edge_t
-        add_edge(typename BaseGraph<DirectedS>::vertex_t& s, typename BaseGraph<DirectedS>::vertex_t& t, time_t b, time_t e);
+        typename GraphBase<DirectedS>::edge_t
+        add_edge(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t, time_t b, time_t e);
 
-        void remove_vertex(typename BaseGraph<DirectedS>::vertex_t& v);
+        void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 
         void print_edges();
     protected:
         TimeInterval interval_def;
-        std::map<typename BaseGraph<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalVertexMap;
+        std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalVertexMap;
     };
 }
 

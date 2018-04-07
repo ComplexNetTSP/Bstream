@@ -7,13 +7,13 @@
 
 #include <boost/graph/detail/edge.hpp>
 
-#include "BaseGraph.hpp"
+#include "GraphBase.hpp"
 #include "LinkStreamBase.hpp"
 
 namespace boost::bstream
 {
-    typedef BaseGraph<undirectedS> Graph;
-    typedef BaseGraph<bidirectionalS> DiGraph;
+    typedef GraphBase<undirectedS> Graph;
+    typedef GraphBase<bidirectionalS> DiGraph;
     typedef LinkStreamBase<undirectedS> LinkStream;
     typedef LinkStreamBase<bidirectionalS> DiLinkStream;
 } // end namespace boost::src

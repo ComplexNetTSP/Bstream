@@ -10,7 +10,7 @@
 ///-------------------------------------------------------------------------------------------------
 
 #include <tuple>
-#include "BaseGraph.hpp"
+#include "GraphBase.hpp"
 
 using namespace std;
 
@@ -18,28 +18,28 @@ namespace boost::bstream
 {
 
     template<typename DirectedS>
-    BaseGraph<DirectedS>::BaseGraph(int num_vertex)
+    GraphBase<DirectedS>::GraphBase(int num_vertex)
     {
         for(auto i=0; i < num_vertex; ++i)
             add_vertex();
     }
 
     template<typename DirectedS>
-    bool BaseGraph<DirectedS>::is_directed() const
+    bool GraphBase<DirectedS>::is_directed() const
     {
         return detail::is_directed(directed_category());
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::vertex_t
-    BaseGraph<DirectedS>::add_vertex()
+    typename GraphBase<DirectedS>::vertex_t
+    GraphBase<DirectedS>::add_vertex()
     {
         return boost::add_vertex(G);
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::edge_t
-    BaseGraph<DirectedS>::add_edge(BaseGraph<DirectedS>::vertex_t& s, BaseGraph<DirectedS>::vertex_t& t)
+    typename GraphBase<DirectedS>::edge_t
+    GraphBase<DirectedS>::add_edge(GraphBase<DirectedS>::vertex_t& s, GraphBase<DirectedS>::vertex_t& t)
     {
         bool ok;
         edge_t e;
@@ -48,15 +48,15 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::vertex_size_t
-    BaseGraph<DirectedS>::num_vertices()
+    typename GraphBase<DirectedS>::vertex_size_t
+    GraphBase<DirectedS>::num_vertices()
     {
         return boost::num_vertices(G);
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::edge_size_t
-    BaseGraph<DirectedS>::num_edges()
+    typename GraphBase<DirectedS>::edge_size_t
+    GraphBase<DirectedS>::num_edges()
     {
         if(is_directed())
             return boost::num_edges(G);
@@ -65,22 +65,22 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    bool BaseGraph<DirectedS>::has_edge(BaseGraph<DirectedS>::vertex_t& s, BaseGraph<DirectedS>::vertex_t& t)
+    bool GraphBase<DirectedS>::has_edge(GraphBase<DirectedS>::vertex_t& s, GraphBase<DirectedS>::vertex_t& t)
     {
         return boost::edge(s, t, G).second;
     }
 
     template<typename DirectedS>
-    void BaseGraph<DirectedS>::remove_vertex(BaseGraph<DirectedS>::vertex_t &v)
+    void GraphBase<DirectedS>::remove_vertex(GraphBase<DirectedS>::vertex_t &v)
     {
         boost::clear_vertex(v, G);
         boost::remove_vertex(v, G);
     }
 
     template<typename DirectedS>
-    void BaseGraph<DirectedS>::remove_edge(BaseGraph<DirectedS>::vertex_t &s, BaseGraph<DirectedS>::vertex_t &t)
+    void GraphBase<DirectedS>::remove_edge(GraphBase<DirectedS>::vertex_t &s, GraphBase<DirectedS>::vertex_t &t)
     {
-        BaseGraph<DirectedS>::edge_t e;
+        GraphBase<DirectedS>::edge_t e;
         bool exist;
         std::tie(e, exist) = boost::edge(s,t,G);
         if(exist)
@@ -88,47 +88,47 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void BaseGraph<DirectedS>::remove_edge(BaseGraph<DirectedS>::edge_t &e)
+    void GraphBase<DirectedS>::remove_edge(GraphBase<DirectedS>::edge_t &e)
     {
         boost::remove_edge(e, G);
     }
 
     template<typename DirectedS>
-    std::pair<typename BaseGraph<DirectedS>::vertex_iterator, typename BaseGraph<DirectedS>::vertex_iterator>
-    BaseGraph<DirectedS>::vertices()
+    std::pair<typename GraphBase<DirectedS>::vertex_iterator, typename GraphBase<DirectedS>::vertex_iterator>
+    GraphBase<DirectedS>::vertices()
     {
         return boost::vertices(G);
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::vertex_size_t
-    BaseGraph<DirectedS>::degree(BaseGraph<DirectedS>::vertex_t& v)
+    typename GraphBase<DirectedS>::vertex_size_t
+    GraphBase<DirectedS>::degree(GraphBase<DirectedS>::vertex_t& v)
     {
         return boost::degree(v, G);
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::vertex_size_t
-    BaseGraph<DirectedS>::in_degree(BaseGraph<DirectedS>::vertex_t& v)
+    typename GraphBase<DirectedS>::vertex_size_t
+    GraphBase<DirectedS>::in_degree(GraphBase<DirectedS>::vertex_t& v)
     {
         return boost::in_degree(v, G);
     }
 
     template<typename DirectedS>
-    typename BaseGraph<DirectedS>::vertex_size_t
-    BaseGraph<DirectedS>::out_degree(BaseGraph<DirectedS>::vertex_t& v)
+    typename GraphBase<DirectedS>::vertex_size_t
+    GraphBase<DirectedS>::out_degree(GraphBase<DirectedS>::vertex_t& v)
     {
         return boost::out_degree(v, G);
     }
 
     template<typename DirectedS>
-    pair<typename BaseGraph<DirectedS>::edge_iterator, typename BaseGraph<DirectedS>::edge_iterator>
-    BaseGraph<DirectedS>::edges()
+    pair<typename GraphBase<DirectedS>::edge_iterator, typename GraphBase<DirectedS>::edge_iterator>
+    GraphBase<DirectedS>::edges()
     {
         return boost::edges(G);;
     }
 
-    template class BaseGraph<boost::undirectedS>;
-    template class BaseGraph<boost::bidirectionalS>;
+    template class GraphBase<boost::undirectedS>;
+    template class GraphBase<boost::bidirectionalS>;
 
 }
