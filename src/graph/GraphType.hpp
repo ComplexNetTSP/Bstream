@@ -12,6 +12,8 @@
 
 namespace boost::bstream
 {
+    typedef LinkStreamBaseException LinkStreamException;
+    typedef LinkStreamBaseException DiLinkStreamException;
     typedef GraphBase<undirectedS> Graph;
     typedef GraphBase<bidirectionalS> DiGraph;
     typedef LinkStreamBase<undirectedS> LinkStream;

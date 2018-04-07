@@ -48,3 +48,10 @@ BOOST_AUTO_TEST_CASE(linkstream_add_edge)
 
     g.print_edges();
 }
+
+BOOST_AUTO_TEST_CASE(linkstream_exception)
+{
+    LinkStream::vertex_t a=0, b=1;
+    LinkStream g(4, 0, 10);
+    BOOST_CHECK_THROW( g.add_edge(a, b, 0, 13), LinkStreamException);
+}

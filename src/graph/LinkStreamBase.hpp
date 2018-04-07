@@ -7,12 +7,19 @@
 
 #include <map>
 #include <ctime>
+#include <stdexcept>
 
 #include "GraphBase.hpp"
 #include "TimeIntervalSet.hpp"
 
 namespace boost::bstream
 {
+    class LinkStreamBaseException: public std::runtime_error
+    {
+    public:
+        LinkStreamBaseException(const std::string& what): std::runtime_error(what) {};
+    };
+
     template <typename DirectedS>
     class LinkStreamBase: public GraphBase<DirectedS>
     {

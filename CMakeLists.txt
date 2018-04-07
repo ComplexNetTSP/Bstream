@@ -59,7 +59,7 @@ LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
 ADD_LIBRARY(pybstream SHARED
         ${SOURCES}
-        ${SOURCES_INTERFACE})
+        ${SOURCES_INTERFACE} src/graph/graphio.hpp)
 
 SET_TARGET_PROPERTIES(pybstream
         PROPERTIES

@@ -3,6 +3,7 @@
 //
 
 #include <limits>
+#include <boost/icl/interval_set.hpp>
 
 #include "LinkStreamBase.hpp"
 
@@ -62,8 +63,14 @@ namespace boost::bstream
                                         time_t b,
                                         time_t e)
     {
+
         typename GraphBase<DirectedS>::edge_t edge_exist;
         bool ok;
+
+        //!< check that the edge time interval is in the linkstream definition interval
+        if(!icl::contains(interval_def, make_time_interval(b, e)))
+            throw LinkStreamBaseException("Edge TimeInterval is contains inside the LinkStream definition");
+
         std::tie(edge_exist, ok) = boost::edge(s, t, GraphBase<DirectedS>::G);
         if(ok){
             TimeIntervalVertexMap[edge_exist].append(b, e);
