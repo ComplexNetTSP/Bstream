@@ -7,17 +7,23 @@
 
 #include <string>
 #include <map>
+#include <stdexcept>
 #include <boost/graph/detail/edge.hpp>
 
 #include "GraphType.hpp"
 
 namespace boost::bstream
 {
+    class CSVReaderException: public std::runtime_error
+    {
+    public:
+        CSVReaderException(const std::string& what): std::runtime_error(what) {};
+    };
+
     /**
-     * @class   EdgeListReader
+     * @class   CSVReader
      * @brief   Class definition that enable to read edge files.
      */
-
     class CSVReader
     {
     private:
@@ -26,7 +32,7 @@ namespace boost::bstream
         bool isDirected;
     public:
         /**
-         * @brief   Initialize a TSVReader.
+         * @brief   Initialize a CSVReader.
          * @param   commentPrefix Character use define a comment in the edge file.
          * @param   delimiter Character use to delimit a fields in the edge file.
          */

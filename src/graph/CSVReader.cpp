@@ -22,7 +22,7 @@ namespace boost::bstream
         time_t tmin=std::numeric_limits<time_t>::max(), tmax=0;
 
         if (file.fail())
-            throw std::runtime_error("Could not open file");
+            throw CSVReaderException("Could not open file");
 
         // first pass create the vertices
         while(!file.eof()) {
@@ -41,7 +41,7 @@ namespace boost::bstream
                         if(std::stoi(tokens[3]) > tmax)
                             tmax = std::stoi(tokens[3]);
                     } else {
-                        throw std::runtime_error("Unsupported file format");
+                        throw CSVReaderException("Unsupported file format");
                     }
                 }
             }
