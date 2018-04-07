@@ -73,6 +73,8 @@ namespace boost::bstream
 
         iterator end() { return interval_set.end(); };
 
+        bool contains(const time_t &t1, const time_t &t2);
+
         void erase();
 
         friend std::ostream & operator<<(std::ostream &out, TimeIntervalSet &tis) {

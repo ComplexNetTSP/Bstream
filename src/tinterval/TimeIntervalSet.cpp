@@ -36,7 +36,7 @@ namespace boost::bstream
     TimeIntervalSet::append(const time_t &t1, const time_t &t2)
     {
         auto ti = make_time_interval(t1, t2);
-        if (contains(interval_definition, ti)) {
+        if (boost::icl::contains(interval_definition, ti)) {
             interval_set.insert(ti);
             return true;
         }else {
@@ -85,6 +85,12 @@ namespace boost::bstream
     void TimeIntervalSet::erase()
     {
         interval_set.erase(begin(), end());
+    }
+
+    bool TimeIntervalSet::contains(const time_t &t1, const time_t &t2)
+    {
+        auto ti = make_time_interval(t1, t2);
+        return boost::icl::contains(interval_set, ti);
     }
 
     TimeInterval make_time_interval(time_t b, time_t e)

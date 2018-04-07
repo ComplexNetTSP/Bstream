@@ -12,14 +12,16 @@
 
 #include "TimeIntervalSet.hpp"
 
-#define BOOST_TEST_MODULE TIntervalSet_tests
+#define BOOST_TEST_MODULE TImeIntervalSet_tests
 
 #include <boost/test/included/unit_test.hpp>
+#include <boost/icl/interval_set.hpp>
 #include <ctime>
 #include <limits>
 
 using namespace boost::bstream;
 using namespace std;
+using namespace boost::icl;
 
 BOOST_AUTO_TEST_CASE(constructor)
 {
@@ -92,7 +94,7 @@ BOOST_AUTO_TEST_CASE(append)
 
 }
 
-BOOST_AUTO_TEST_CASE(length)
+BOOST_AUTO_TEST_CASE(TimeInterval_length)
 {
     time_t t1 = 0, t2 = 10;
     const TimeInterval ti = make_time_interval(t1, t2);
@@ -111,7 +113,7 @@ BOOST_AUTO_TEST_CASE(length)
     BOOST_CHECK(tsi.length() == 5);
 }
 
-BOOST_AUTO_TEST_CASE(erase)
+BOOST_AUTO_TEST_CASE(erase_TimeIntervalSet)
 {
     TimeIntervalSet tsi;
     tsi.append(1, 3);
@@ -121,11 +123,20 @@ BOOST_AUTO_TEST_CASE(erase)
     BOOST_CHECK(tsi.length() == 0);
 }
 
-BOOST_AUTO_TEST_CASE(test_TimeInterval)
+BOOST_AUTO_TEST_CASE(test_TimeInterval_are_equal)
 {
     auto a = make_time_interval(0,10);
     auto b = make_time_interval(0,10);
     auto c =  make_time_interval(0,6);
     BOOST_CHECK(a == b);
     BOOST_CHECK(a != c);
+}
+
+BOOST_AUTO_TEST_CASE(test_TimeInterval_is_in_TimeIntervalSet)
+{
+    TimeIntervalSet tsi;
+    tsi.append(1, 3);
+    tsi.append(5, 15);
+    BOOST_CHECK(tsi.contains(7,10));
+    BOOST_CHECK(tsi.contains(7,19) == false);
 }

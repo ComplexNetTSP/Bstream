@@ -47,11 +47,11 @@ namespace boost::bstream
         bool ok;
         std::tie(e_exist, ok) = boost::edge(s, t, GraphBase<DirectedS>::G);
         if(ok){
-            TimeIntervalVertexMap[e_exist].append(interval_def.lower(), interval_def.upper());
+            TimeIntervalSetVertexMap[e_exist].append(interval_def.lower(), interval_def.upper());
             return e_exist;
         }else{
             auto e = GraphBase<DirectedS>::add_edge(s, t);
-            TimeIntervalVertexMap[e].append(interval_def.lower(), interval_def.upper());
+            TimeIntervalSetVertexMap[e].append(interval_def.lower(), interval_def.upper());
             return e;
         }
     }
@@ -77,11 +77,11 @@ namespace boost::bstream
 
         std::tie(edge_exist, ok) = boost::edge(s, t, GraphBase<DirectedS>::G);
         if(ok){
-            TimeIntervalVertexMap[edge_exist].append(b, e);
+            TimeIntervalSetVertexMap[edge_exist].append(b, e);
             return edge_exist;
         }else{
             auto edge = GraphBase<DirectedS>::add_edge(s, t);
-            TimeIntervalVertexMap[edge].append(b, e);
+            TimeIntervalSetVertexMap[edge].append(b, e);
             return edge;
         }
     }
@@ -100,7 +100,28 @@ namespace boost::bstream
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
             cout << "\t" << boost::source(*it, GraphBase<DirectedS>::G)
                  << "," << boost::target(*it, GraphBase<DirectedS>::G)
-                 << " " << TimeIntervalVertexMap[*it] << endl;
+                 << " " << TimeIntervalSetVertexMap[*it] << endl;
+        }
+    }
+
+    template<typename DirectedS>
+    pair<typename GraphBase<DirectedS>::edge_t, bool>
+    LinkStreamBase<DirectedS>::is_edge_active(
+            typename GraphBase<DirectedS>::vertex_t &s,
+            typename GraphBase<DirectedS>::vertex_t &t,
+            time_t b, time_t e)
+    {
+        auto res = boost::edge(s, t, GraphBase<DirectedS>::G);
+        if(res.second){
+            auto edge_tis = TimeIntervalSetVertexMap[res.first];
+            if(edge_tis.contains(b, e)){
+                return res;
+            }else{
+                res.second = false;
+                return res;
+            }
+        }else{
+            return res;
         }
     }
 

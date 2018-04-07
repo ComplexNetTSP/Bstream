@@ -40,12 +40,15 @@ namespace boost::bstream
         typename GraphBase<DirectedS>::edge_t
         add_edge(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t, time_t b, time_t e);
 
+        std::pair<typename GraphBase<DirectedS>::edge_t, bool>
+        is_edge_active(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t, time_t b, time_t e);
+
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 
         void print_edges();
     protected:
         TimeInterval interval_def;
-        std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalVertexMap;
+        std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalSetVertexMap;
     };
 }
 

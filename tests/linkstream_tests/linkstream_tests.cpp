@@ -10,9 +10,9 @@
 #include <boost/test/included/unit_test.hpp>
 #include <memory>
 
-using namespace std;
-using namespace boost;
 using namespace boost::bstream;
+using namespace std;
+using namespace boost::icl;
 
 BOOST_AUTO_TEST_CASE(linkstream_constructor)
 {
@@ -57,9 +57,27 @@ BOOST_AUTO_TEST_CASE(linkstream_exception)
     BOOST_CHECK_THROW( g.add_edge(a, b, 0, 13), LinkStreamException);
 }
 
+
 BOOST_AUTO_TEST_CASE(linkstream_read_edgefile)
 {
     auto cvs = CSVReader("#", ',');
     auto L = cvs.read_undirected("./edges.csv");
     L.print_edges();
+}
+
+
+BOOST_AUTO_TEST_CASE(linkstream_is_active)
+{
+    LinkStream::vertex_t a=0, b=1, c=2, d=3;
+    LinkStream g(4, 0, 10);
+    g.add_edge(a, b, 0, 4);
+    g.add_edge(a, b, 6, 9);
+    g.add_edge(a, c, 2, 5);
+    g.add_edge(b, c, 1, 8);
+    g.add_edge(b, d, 7, 10);
+    g.add_edge(c, d, 6, 9);
+
+    BOOST_CHECK(g.is_edge_active(a, b, 7, 8));
+    BOOST_CHECK(g.is_edge_active(a, b, 1, 2));
+    BOOST_CHECK(g.is_edge_active(a, b, 7, 15) == false);
 }
