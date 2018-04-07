@@ -120,3 +120,12 @@ BOOST_AUTO_TEST_CASE(erase)
     BOOST_CHECK(tsi.size() == 0);
     BOOST_CHECK(tsi.length() == 0);
 }
+
+BOOST_AUTO_TEST_CASE(test_TimeInterval)
+{
+    auto a = make_time_interval(0,10);
+    auto b = make_time_interval(0,10);
+    auto c =  make_time_interval(0,6);
+    BOOST_CHECK(a == b);
+    BOOST_CHECK(a != c);
+}
