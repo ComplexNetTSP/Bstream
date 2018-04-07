@@ -63,6 +63,8 @@ BOOST_AUTO_TEST_CASE(linkstream_read_edgefile)
     auto cvs = CSVReader("#", ',');
     auto L = cvs.read_undirected("./edges.csv");
     L.print_edges();
+
+    BOOST_CHECK_THROW(cvs.read_undirected("./xxxx.csv"), CSVReaderException);
 }
 
 
@@ -77,7 +79,7 @@ BOOST_AUTO_TEST_CASE(linkstream_is_active)
     g.add_edge(b, d, 7, 10);
     g.add_edge(c, d, 6, 9);
 
-    BOOST_CHECK(g.is_edge_active(a, b, 7, 8));
-    BOOST_CHECK(g.is_edge_active(a, b, 1, 2));
-    BOOST_CHECK(g.is_edge_active(a, b, 7, 15) == false);
+    BOOST_CHECK(g.is_edge_active(a, b, 7, 8).second);
+    BOOST_CHECK(g.is_edge_active(a, b, 1, 2).second);
+    BOOST_CHECK(g.is_edge_active(a, b, 7, 15).second == false);
 }
