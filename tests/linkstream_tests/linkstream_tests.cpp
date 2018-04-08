@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_degree)
     BOOST_CHECK(L.degree(c) == 1.3);
 }
 
-BOOST_AUTO_TEST_CASE(LinkStream_degree_handshaking_lemma)
+BOOST_AUTO_TEST_CASE(LinkStream_handshaking_lemma)
 {
     LinkStream L(0, 10);
     auto a = L.add_vertex("A");
