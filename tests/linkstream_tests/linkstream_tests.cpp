@@ -119,3 +119,25 @@ BOOST_AUTO_TEST_CASE(LinkStream_degree)
 
     BOOST_CHECK(L.degree(c) == 1.3);
 }
+
+BOOST_AUTO_TEST_CASE(LinkStream_degree_handshaking_lemma)
+{
+    LinkStream L(0, 10);
+    auto a = L.add_vertex("A");
+    auto b = L.add_vertex("B");
+    auto c = L.add_vertex("C");
+    auto d = L.add_vertex("D");
+    L.add_edge(a, b, 0, 10);
+    L.add_edge(a, b, 0, 10);
+    L.add_edge(b, d, 0, 10);
+
+    L.add_edge(b, c, 0, 10);
+    L.add_edge(a, c, 0, 10);
+    L.add_edge(d, c, 0, 10);
+
+    // check the handshaking lemma
+    double sum_degree = 0;
+    for(auto it = L.vertices().first; it!= L.vertices().second; ++it)
+        sum_degree += L.degree(*it);
+    BOOST_CHECK(sum_degree == 2 * L.num_edges());
+}
