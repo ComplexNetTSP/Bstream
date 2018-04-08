@@ -23,20 +23,20 @@ endif()
 
 FIND_PACKAGE(PythonLibs 3 REQUIRED)
 if (PYTHONLIBS_FOUND)
-    MESSAGE("-- Found Python 3 library:\t" ${PYTHON_LIBRARIES})
-    MESSAGE("-- Found Python 3 include dir:\t" ${PYTHON_INCLUDE_DIRS})
+    MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
+    MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
 endif()
 
 find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
 if (PYBIND11_INCLUDE_DIRS)
-    MESSAGE("-- Found pybind11:\t" ${PYBIND11_INCLUDE_DIRS})
+    MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
 else()
     MESSAGE("-- Error pybind11 not found")
 endif()
 
 FIND_PACKAGE(PythonInterp REQUIRED)
 if (PYTHONINTERP_FOUND)
-    MESSAGE("-- Found Python 3 interpretor:\t" ${PYTHON_EXECUTABLE})
+    MESSAGE("-- Found Python 3 interpretor: " ${PYTHON_EXECUTABLE})
 endif()
 
 
@@ -62,7 +62,7 @@ LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
 ADD_LIBRARY(pybstream SHARED
         ${SOURCES}
-        ${SOURCES_INTERFACE} src/utils/utils.hpp)
+        ${SOURCES_INTERFACE})
 
 SET_TARGET_PROPERTIES(pybstream
         PROPERTIES

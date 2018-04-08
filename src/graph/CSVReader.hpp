@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 07/04/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       CSVReader.hpp
+/// @brief      CSVReader Description
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       08/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #ifndef BSTREAM_TSVREADER_HPP
 #define BSTREAM_TSVREADER_HPP
@@ -29,14 +37,13 @@ namespace boost::bstream
     private:
         std::string commentPrefix;
         char delimiter;
-        bool isDirected;
     public:
         /**
          * @brief   Initialize a CSVReader.
          * @param   commentPrefix Character use define a comment in the edge file.
          * @param   delimiter Character use to delimit a fields in the edge file.
          */
-        CSVReader(std::string commentPrefix="#", char delimiter=',')
+        CSVReader(char delimiter=',', std::string commentPrefix="#")
                 :commentPrefix(commentPrefix), delimiter(delimiter) {}
 
         /**
@@ -44,9 +51,11 @@ namespace boost::bstream
          * @param   path File path of the edge file to be read.
          * @return  Graph
          */
-        LinkStream read_undirected(const std::string &path);
+        LinkStream read_linkstream(const std::string &path);
 
-        DiLinkStream read_directed(const std::string &path);
+        DiLinkStream read_dilinkstream(const std::string &path);
+
+        Graph read_graph(const std::string &path);
     };
 
 } // end namspace boost::bstream

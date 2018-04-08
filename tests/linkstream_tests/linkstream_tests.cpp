@@ -66,11 +66,10 @@ BOOST_AUTO_TEST_CASE(LinkStream_exception)
 
 BOOST_AUTO_TEST_CASE(LinkStream_read_edgefile)
 {
-    auto cvs = CSVReader("#", ',');
-    auto L = cvs.read_undirected("./edges.csv");
-    //L.print_edges();
+    auto cvs = CSVReader(',', "#");
+    auto L = cvs.read_linkstream("./edges.csv");
 
-    BOOST_CHECK_THROW(cvs.read_undirected("./xxxx.csv"), CSVReaderException);
+    BOOST_CHECK_THROW(cvs.read_linkstream("./xxxx.csv"), CSVReaderException);
 }
 
 

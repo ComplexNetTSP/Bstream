@@ -81,5 +81,11 @@ class TestGraph(unittest.TestCase):
             sum += g.degree(v)
         self.assertEqual(sum, 2*g.num_edges())
 
+    def test_Graph_read_csv(self):
+        csv = pybstream.CSVReader()
+        g = csv.read_graph("./tests/python_graph_tests/edges.csv")
+        self.assertFalse(g.is_directed())
+
+
 if __name__ == '__main__':
     unittest.main()
