@@ -42,7 +42,7 @@ class TestGraph(unittest.TestCase):
         self.assertTrue(g.has_edge(v1, v2))
         self.assertTrue(g.has_edge(v2, v1))
         self.assertEqual(g.num_vertices(), 2)
-        self.assertEqual(g.num_edges(), 2)
+        self.assertEqual(g.num_edges(), 1)
 
     def test_Graph_degree(self):
         # Tests the Graph
@@ -54,8 +54,14 @@ class TestGraph(unittest.TestCase):
         g.add_edge(v2, v3)
         g.add_edge(v3, v1)
         self.assertEqual(g.num_vertices(), 3)
-        self.assertEqual(g.num_edges(), 6)
+        self.assertEqual(g.num_edges(), 3)
         self.assertEqual(g.degree(v1), 2)
+
+        # check and the Handshaking lemma
+        sum = 0
+        for v in g.vertices():
+            sum += g.degree(v)
+        self.assertEqual(sum, 2*g.num_edges())
 
         # Tests the Digraph
         g = pybstream.DiGraph()
@@ -68,6 +74,12 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.num_vertices(), 3)
         self.assertEqual(g.num_edges(), 3)
         self.assertEqual(g.degree(v1), 2)
+
+        # check and the Handshaking lemma
+        sum = 0
+        for v in g.vertices():
+            sum += g.degree(v)
+        self.assertEqual(sum, 2*g.num_edges())
 
 if __name__ == '__main__':
     unittest.main()

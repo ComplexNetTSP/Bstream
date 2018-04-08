@@ -55,6 +55,12 @@ void graph_interface(py::module &m)
     graph.def("degree", &bs::Graph::degree);
     graph.def("in_degree", &bs::Graph::in_degree);
     graph.def("out_degree", &bs::Graph::out_degree);
+
+    graph.def("vertices", [](bs::Graph &g){
+        auto it = g.vertices();
+        return py::make_iterator(it.first, it.second);
+    }, py::keep_alive<0, 1>());
+
     graph.def("__repr__", [](bs::Graph &g) {
                 return "<class Graph>";
     });
@@ -64,7 +70,7 @@ void graph_interface(py::module &m)
     digraph.def(py::init<>());
     digraph.def(py::init<int>());
     digraph.def("is_directed", &bs::DiGraph::is_directed);
-    digraph.def("add_vertex", &bs::DiGraph::add_vertex);
+    digraph.def("add_vertex", &bs::DiGraph::add_vertex, py::arg("name") = "");
     digraph.def("add_edge", &bs::DiGraph::add_edge);
     digraph.def("num_vertices", &bs::DiGraph::num_vertices);
     digraph.def("num_edges", &bs::DiGraph::num_edges);
@@ -72,6 +78,10 @@ void graph_interface(py::module &m)
     digraph.def("degree", &bs::DiGraph::degree);
     digraph.def("in_degree", &bs::DiGraph::in_degree);
     digraph.def("out_degree", &bs::DiGraph::out_degree);
+    digraph.def("vertices", [](bs::DiGraph &g){
+        auto it = g.vertices();
+        return py::make_iterator(it.first, it.second);
+    }, py::keep_alive<0, 1>());
     digraph.def("__repr__", [](bs::DiGraph &g) {
                 return "<class DiGraph>";
     });
