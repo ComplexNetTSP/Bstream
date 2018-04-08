@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(linkstream_constructor)
 {
     // build undirected graph
     LinkStream g;
-    BOOST_CHECK(g.is_directed() == false);
+    BOOST_CHECK(!g.is_directed());
     BOOST_CHECK(g.num_vertices() == 0);
     BOOST_CHECK(g.num_edges() == 0);
 
@@ -81,5 +81,5 @@ BOOST_AUTO_TEST_CASE(linkstream_is_active)
 
     BOOST_CHECK(g.is_edge_active(a, b, 7, 8).second);
     BOOST_CHECK(g.is_edge_active(a, b, 1, 2).second);
-    BOOST_CHECK(g.is_edge_active(a, b, 7, 15).second == false);
+    BOOST_CHECK(!g.is_edge_active(a, b, 7, 15).second);
 }

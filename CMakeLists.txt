@@ -27,9 +27,11 @@ if (PYTHONLIBS_FOUND)
     MESSAGE("-- Found Python 3 include dir:\t" ${PYTHON_INCLUDE_DIRS})
 endif()
 
-FIND_PACKAGE(pybind11)
-if (pybind11_FOUND)
-    MESSAGE("-- Found pybind11:\t" ${pybind11_INCLUDE_DIR})
+find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
+if (PYBIND11_INCLUDE_DIRS)
+    MESSAGE("-- Found pybind11:\t" ${PYBIND11_INCLUDE_DIRS})
+else()
+    MESSAGE("-- Error pybind11 not found")
 endif()
 
 FIND_PACKAGE(PythonInterp REQUIRED)
@@ -51,7 +53,7 @@ SET(SRC_INCLUDE_DIR
         "src/utils")
 INCLUDE_DIRECTORIES(
         ${Boost_INCLUDE_DIRS}
-        ${pybind11_INCLUDE_DIR}
+        ${PYBIND11_INCLUDE_DIRS}
         ${PYTHON_INCLUDE_DIRS}
         ${SRC_INCLUDE_DIR})
 
