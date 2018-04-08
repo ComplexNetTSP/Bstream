@@ -16,7 +16,6 @@ using namespace std;
 
 namespace boost::bstream
 {
-
     template<typename DirectedS>
     GraphBase<DirectedS>::GraphBase(int num_vertex)
     {
@@ -45,7 +44,14 @@ namespace boost::bstream
     {
         bool ok;
         edge_t e;
-        tie(e, ok) = boost::add_edge(s, t, G);
+        // we do not allow for multiedge
+        if(!boost::edge(s, t, G).second) {
+            tie(e, ok) = boost::add_edge(s, t, G);
+            if (!ok)
+                throw GraphBaseException("Unable to add the edge");
+        }else{
+            e = boost::edge(s, t, G).first;
+        }
         return e;
     }
 

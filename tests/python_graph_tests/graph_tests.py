@@ -85,6 +85,8 @@ class TestGraph(unittest.TestCase):
         csv = pybstream.CSVReader()
         g = csv.read_graph("./tests/python_graph_tests/edges.csv")
         self.assertFalse(g.is_directed())
+        self.assertEqual(g.num_vertices(), 4);
+        self.assertEqual(g.num_edges(), 5);
 
 
 if __name__ == '__main__':

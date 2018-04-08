@@ -15,9 +15,16 @@
 
 #include <boost/graph/adjacency_list.hpp>
 #include <iostream>
+#include <stdexcept>
 
 namespace boost::bstream
 {
+    class GraphBaseException: public std::runtime_error
+    {
+    public:
+        GraphBaseException(const std::string& what): std::runtime_error(what) {};
+    };
+
     struct VertexProperty
     {
         std::string name;
