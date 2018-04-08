@@ -46,8 +46,6 @@ BOOST_AUTO_TEST_CASE(linkstream_add_edge)
     g.add_edge(b, c, 1, 8);
     g.add_edge(b, d, 7, 10);
     g.add_edge(c, d, 6, 9);
-
-    g.print_edges();
 }
 
 BOOST_AUTO_TEST_CASE(linkstream_exception)
@@ -70,14 +68,18 @@ BOOST_AUTO_TEST_CASE(linkstream_read_edgefile)
 
 BOOST_AUTO_TEST_CASE(linkstream_is_active)
 {
-    LinkStream::vertex_t a=0, b=1, c=2, d=3;
-    LinkStream g(4, 0, 10);
+    LinkStream g(0, 10);
+    auto a = g.add_vertex("A");
+    auto b = g.add_vertex("B");
+    auto c = g.add_vertex("C");
+    auto d = g.add_vertex("D");
     g.add_edge(a, b, 0, 4);
     g.add_edge(a, b, 6, 9);
     g.add_edge(a, c, 2, 5);
     g.add_edge(b, c, 1, 8);
     g.add_edge(b, d, 7, 10);
     g.add_edge(c, d, 6, 9);
+    g.print_edges();
 
     BOOST_CHECK(g.is_edge_active(a, b, 7, 8).second);
     BOOST_CHECK(g.is_edge_active(a, b, 1, 2).second);

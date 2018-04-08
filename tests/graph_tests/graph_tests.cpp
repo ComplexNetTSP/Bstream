@@ -209,3 +209,16 @@ BOOST_AUTO_TEST_CASE(directed_remove_edge)
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 2);
 }
+
+BOOST_AUTO_TEST_CASE(GraphBase_add_vertex_with_name)
+{
+    Graph g;
+    auto v1 = g.add_vertex("A");
+    auto v2 = g.add_vertex("B");
+    auto v3 = g.add_vertex("C");
+    auto v4 = g.add_vertex();
+    BOOST_CHECK(g.vertex_name(v1) == "A");
+    BOOST_CHECK(g.vertex_name(v2) == "B");
+    BOOST_CHECK(g.vertex_name(v3) == "C");
+    BOOST_CHECK(g.vertex_name(v4).empty());
+}

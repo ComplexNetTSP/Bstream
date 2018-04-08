@@ -24,24 +24,35 @@ namespace boost::bstream
     class LinkStreamBase: public GraphBase<DirectedS>
     {
     public:
-        LinkStreamBase(time_t b=0, time_t e=0);
+        LinkStreamBase();
 
-        LinkStreamBase(int num_vertex, time_t b=0, time_t e=0);
+        LinkStreamBase(int num_vertex);
+
+        LinkStreamBase(time_t b, time_t e);
+
+        LinkStreamBase(int num_vertex, time_t b, time_t e);
 
         ~LinkStreamBase() = default;
+
+        void set_definition(const time_t t1, time_t t2);
 
         std::pair<time_t, time_t> definition() const;
 
         time_t definition_length();
 
         typename GraphBase<DirectedS>::edge_t
-        add_edge(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t);
+        add_edge(typename GraphBase<DirectedS>::vertex_t& s,
+                 typename GraphBase<DirectedS>::vertex_t& t);
 
         typename GraphBase<DirectedS>::edge_t
-        add_edge(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t, time_t b, time_t e);
+        add_edge(typename GraphBase<DirectedS>::vertex_t& s,
+                 typename GraphBase<DirectedS>::vertex_t& t,
+                 time_t b, time_t e);
 
         std::pair<typename GraphBase<DirectedS>::edge_t, bool>
-        is_edge_active(typename GraphBase<DirectedS>::vertex_t& s, typename GraphBase<DirectedS>::vertex_t& t, time_t b, time_t e);
+        is_edge_active(typename GraphBase<DirectedS>::vertex_t& s,
+                       typename GraphBase<DirectedS>::vertex_t& t,
+                       time_t b, time_t e);
 
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 

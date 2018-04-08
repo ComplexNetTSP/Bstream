@@ -12,15 +12,24 @@ using namespace std;
 namespace boost::bstream
 {
     template<typename DirectedS>
-    LinkStreamBase<DirectedS>::LinkStreamBase(time_t b, time_t e) {
-        if(b==0 && e==0)
-            interval_def = make_time_interval(0, std::numeric_limits<time_t>::max());
-        else
-            interval_def = make_time_interval(b, e);
+    LinkStreamBase<DirectedS>::LinkStreamBase()
+    {
+        interval_def = make_time_interval(0, std::numeric_limits<time_t>::max());
     }
 
     template<typename DirectedS>
-    LinkStreamBase<DirectedS>::LinkStreamBase(int num_vertex, time_t b, time_t e): LinkStreamBase(b,e){
+    LinkStreamBase<DirectedS>::LinkStreamBase(int num_vertex)
+            : LinkStreamBase<DirectedS>(num_vertex, 0, std::numeric_limits<time_t>::max()){}
+
+    template<typename DirectedS>
+    LinkStreamBase<DirectedS>::LinkStreamBase(time_t b, time_t e)
+    {
+       interval_def = make_time_interval(b, e);
+    }
+
+    template<typename DirectedS>
+    LinkStreamBase<DirectedS>::LinkStreamBase(int num_vertex, time_t b, time_t e): LinkStreamBase(b,e)
+    {
         for(auto i=0; i< num_vertex; ++i)
             this->add_vertex();
     }
@@ -98,9 +107,15 @@ namespace boost::bstream
         cout << *this;
         auto e_iterator = GraphBase<DirectedS>::edges();
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
+            auto s = boost::source(*it, GraphBase<DirectedS>::G);
+            auto t = boost::target(*it, GraphBase<DirectedS>::G);
+            auto s_name = GraphBase<DirectedS>::vertex_name(s);
+            auto t_name = GraphBase<DirectedS>::vertex_name(t);
             cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
-                 << "(" << boost::source(*it, GraphBase<DirectedS>::G)
-                 << "," << boost::target(*it, GraphBase<DirectedS>::G) << ")" << endl;
+                 << "(" << s << "," << t << ")" ;
+            if(!s_name.empty() && !t_name.empty())
+                cout << " (" << s_name << "," << t_name << ")" ;
+            cout << endl;
         }
     }
 
@@ -123,6 +138,12 @@ namespace boost::bstream
         }else{
             return res;
         }
+    }
+
+    template<typename DirectedS>
+    void LinkStreamBase<DirectedS>::set_definition(const time_t t1, time_t t2)
+    {
+        interval_def = make_time_interval(t1, t2);
     }
 
     template class LinkStreamBase<boost::undirectedS>;

@@ -18,6 +18,11 @@
 
 namespace boost::bstream
 {
+    struct VertexProperty
+    {
+        std::string name;
+    };
+
     /**
      * @brief class basegraph
      * @tparam DirectedS
@@ -29,7 +34,8 @@ namespace boost::bstream
         typedef adjacency_list <
                 vecS,
                 vecS,
-                DirectedS
+                DirectedS,
+                VertexProperty
         > Adjacency;
 
         typedef graph_traits <Adjacency> traits;
@@ -47,8 +53,6 @@ namespace boost::bstream
 
         ~GraphBase() = default;
 
-        //todo: add name to vertex
-
         /**
          * @brief Return true if graph is directed.
          * @return boolean
@@ -59,13 +63,15 @@ namespace boost::bstream
          * @brief Add a single node and update node attributes.
          * @return vertex_descriptor
          */
-        virtual vertex_t add_vertex();
+        virtual vertex_t add_vertex(const std::string name="");
 
         /**
          * @brief The number of edges in the graph.
          * @return edge_size_t
          */
         virtual edge_t add_edge(vertex_t& s, vertex_t& t);
+
+        virtual std::string vertex_name(vertex_t& v);
 
         /**
          * @brief The number of vertices in the graph.

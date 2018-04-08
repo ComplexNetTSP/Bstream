@@ -32,9 +32,11 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename GraphBase<DirectedS>::vertex_t
-    GraphBase<DirectedS>::add_vertex()
+    GraphBase<DirectedS>::add_vertex(const std::string name)
     {
-        return boost::add_vertex(G);
+        auto v= boost::add_vertex(G);
+        G[v].name = name;
+        return v;
     }
 
     template<typename DirectedS>
@@ -126,6 +128,12 @@ namespace boost::bstream
     GraphBase<DirectedS>::edges()
     {
         return boost::edges(G);;
+    }
+
+    template<typename DirectedS>
+    std::string GraphBase<DirectedS>::vertex_name(GraphBase::vertex_t &v)
+    {
+        return G[v].name;
     }
 
     template class GraphBase<boost::undirectedS>;
