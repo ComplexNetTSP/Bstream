@@ -46,6 +46,7 @@ namespace boost::bstream
         typedef typename traits::edge_iterator edge_iterator;
         typedef typename traits::vertices_size_type vertex_size_t;
         typedef typename traits::edges_size_type edge_size_t;
+        typedef typename traits::adjacency_iterator adjacency_iterator;
 
         GraphBase() {};
 
@@ -123,7 +124,7 @@ namespace boost::bstream
          * @param v vertex_t
          * @return the number of edge adjacent to a vertex
          */
-        virtual vertex_size_t degree(vertex_t& v);
+        virtual double degree(vertex_t& v);
 
         /**
          * @brief return in_degree of a vertex
@@ -133,6 +134,8 @@ namespace boost::bstream
         virtual vertex_size_t in_degree(vertex_t& v);
 
         virtual vertex_size_t out_degree(vertex_t& v);
+
+        virtual std::pair<adjacency_iterator, adjacency_iterator> neighbors(vertex_t& v);
 
         friend std::ostream & operator<<(std::ostream &out, GraphBase &g)
         {

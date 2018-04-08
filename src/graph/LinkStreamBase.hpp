@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 06/04/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       LinkStreamBase.hpp
+/// @brief      LinkStreamBase Declaration
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       08/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #ifndef BSTREAM_LINKSTREAM_HPP
 #define BSTREAM_LINKSTREAM_HPP
@@ -53,6 +61,8 @@ namespace boost::bstream
         is_edge_active(typename GraphBase<DirectedS>::vertex_t& s,
                        typename GraphBase<DirectedS>::vertex_t& t,
                        time_t b, time_t e);
+
+        double degree(typename GraphBase<DirectedS>::vertex_t& v);
 
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 

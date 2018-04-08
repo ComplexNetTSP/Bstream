@@ -103,12 +103,12 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::vertex_size_t
-    GraphBase<DirectedS>::degree(GraphBase<DirectedS>::vertex_t& v)
+    double GraphBase<DirectedS>::degree(GraphBase<DirectedS>::vertex_t& v)
     {
-        return boost::degree(v, G);
+        return static_cast<double>(boost::degree(v, G));
     }
 
+    //todo: change the return type to double and add test
     template<typename DirectedS>
     typename GraphBase<DirectedS>::vertex_size_t
     GraphBase<DirectedS>::in_degree(GraphBase<DirectedS>::vertex_t& v)
@@ -116,6 +116,7 @@ namespace boost::bstream
         return boost::in_degree(v, G);
     }
 
+    //todo: change the return type to double and add test
     template<typename DirectedS>
     typename GraphBase<DirectedS>::vertex_size_t
     GraphBase<DirectedS>::out_degree(GraphBase<DirectedS>::vertex_t& v)
@@ -134,6 +135,13 @@ namespace boost::bstream
     std::string GraphBase<DirectedS>::vertex_name(GraphBase::vertex_t &v)
     {
         return G[v].name;
+    }
+
+    template<typename DirectedS>
+    pair<typename GraphBase<DirectedS>::adjacency_iterator, typename GraphBase<DirectedS>::adjacency_iterator>
+    GraphBase<DirectedS>::neighbors(GraphBase::vertex_t &v)
+    {
+        return boost::adjacent_vertices(v, G);
     }
 
     template class GraphBase<boost::undirectedS>;

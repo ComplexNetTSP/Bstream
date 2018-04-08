@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 06/04/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       LinkStreamBase.cpp
+/// @brief      LinkStreamBase Implementation
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       08/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #include <limits>
 #include <boost/icl/interval_set.hpp>
@@ -144,6 +152,18 @@ namespace boost::bstream
     void LinkStreamBase<DirectedS>::set_definition(const time_t t1, time_t t2)
     {
         interval_def = make_time_interval(t1, t2);
+    }
+
+    template<typename DirectedS>
+    double LinkStreamBase<DirectedS>::degree(typename GraphBase<DirectedS>::vertex_t &v)
+    {
+        double sum = 0;
+        auto n_it = GraphBase<DirectedS>::neighbors(v);
+        for(auto it=n_it.first; it != n_it.second; ++it){
+            auto e = boost::edge(v, *it,  GraphBase<DirectedS>::G);
+            sum += TimeIntervalSetVertexMap[e.first].length();
+        }
+        return sum/(interval_def.upper() - interval_def.lower());
     }
 
     template class LinkStreamBase<boost::undirectedS>;

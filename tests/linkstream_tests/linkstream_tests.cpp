@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 06/04/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       linkstream_tests.cpp
+/// @brief      Tests for the LinkStreamBase class
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       08/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #include "GraphType.hpp"
 #include "CSVReader.hpp"
@@ -14,7 +22,7 @@ using namespace boost::bstream;
 using namespace std;
 using namespace boost::icl;
 
-BOOST_AUTO_TEST_CASE(linkstream_constructor)
+BOOST_AUTO_TEST_CASE(LinkStream_constructor)
 {
     // build undirected graph
     LinkStream g;
@@ -36,7 +44,7 @@ BOOST_AUTO_TEST_CASE(linkstream_constructor)
     BOOST_CHECK(g2.definition().second == 10);
 }
 
-BOOST_AUTO_TEST_CASE(linkstream_add_edge)
+BOOST_AUTO_TEST_CASE(LinkStream_add_edge)
 {
     LinkStream::vertex_t a=0, b=1, c=2, d=3;
     LinkStream g(4, 0, 10);
@@ -48,7 +56,7 @@ BOOST_AUTO_TEST_CASE(linkstream_add_edge)
     g.add_edge(c, d, 6, 9);
 }
 
-BOOST_AUTO_TEST_CASE(linkstream_exception)
+BOOST_AUTO_TEST_CASE(LinkStream_exception)
 {
     LinkStream::vertex_t a=0, b=1;
     LinkStream g(4, 0, 10);
@@ -56,17 +64,17 @@ BOOST_AUTO_TEST_CASE(linkstream_exception)
 }
 
 
-BOOST_AUTO_TEST_CASE(linkstream_read_edgefile)
+BOOST_AUTO_TEST_CASE(LinkStream_read_edgefile)
 {
     auto cvs = CSVReader("#", ',');
     auto L = cvs.read_undirected("./edges.csv");
-    L.print_edges();
+    //L.print_edges();
 
     BOOST_CHECK_THROW(cvs.read_undirected("./xxxx.csv"), CSVReaderException);
 }
 
 
-BOOST_AUTO_TEST_CASE(linkstream_is_active)
+BOOST_AUTO_TEST_CASE(LinkStream_is_active)
 {
     LinkStream g(0, 10);
     auto a = g.add_vertex("A");
@@ -79,9 +87,35 @@ BOOST_AUTO_TEST_CASE(linkstream_is_active)
     g.add_edge(b, c, 1, 8);
     g.add_edge(b, d, 7, 10);
     g.add_edge(c, d, 6, 9);
-    g.print_edges();
 
     BOOST_CHECK(g.is_edge_active(a, b, 7, 8).second);
     BOOST_CHECK(g.is_edge_active(a, b, 1, 2).second);
     BOOST_CHECK(!g.is_edge_active(a, b, 7, 15).second);
+}
+
+///*********************************************************************************************************************
+///
+/// Example taken from fig. 5 in [1]
+///
+/// [1] M. Latapy, T. Viard, C. Magnien,
+///     Stream Graphs and Link Streams for the Modeling of Interactions over Time, 2018.
+///     https://arxiv.org/pdf/1710.04073.pdf
+///
+///*********************************************************************************************************************
+BOOST_AUTO_TEST_CASE(LinkStream_degree)
+{
+    LinkStream L(0, 10);
+    auto a = L.add_vertex("A");
+    auto b = L.add_vertex("B");
+    auto c = L.add_vertex("C");
+    auto d = L.add_vertex("D");
+    L.add_edge(a, b, 0, 4);
+    L.add_edge(a, b, 6, 9);
+    L.add_edge(b, d, 7, 10);
+
+    L.add_edge(b, c, 1, 8);
+    L.add_edge(a, c, 2, 5);
+    L.add_edge(d, c, 6, 9);
+
+    BOOST_CHECK(L.degree(c) == 1.3);
 }
