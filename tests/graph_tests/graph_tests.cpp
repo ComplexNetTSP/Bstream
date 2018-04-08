@@ -21,7 +21,7 @@ using namespace std;
 using namespace boost;
 using namespace boost::bstream;
 
-BOOST_AUTO_TEST_CASE(generate_undirected_graph)
+BOOST_AUTO_TEST_CASE(GraphBase_undirected_constructor)
 {
     // build undirected graph
     Graph g;
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(generate_undirected_graph)
 }
 
 
-BOOST_AUTO_TEST_CASE(generate_directed_graph)
+BOOST_AUTO_TEST_CASE(GraphBase_directed_constructor)
 {
     // build directed graph
     DiGraph g;
@@ -57,33 +57,25 @@ BOOST_AUTO_TEST_CASE(generate_directed_graph)
 }
 
 
-BOOST_AUTO_TEST_CASE(add_vertex_directed_graph){
+BOOST_AUTO_TEST_CASE(GraphBase_directed_add_vertex){
     // build undirected graph
     DiGraph g;
     g.add_vertex();
     BOOST_CHECK(g.num_vertices() == 1);
-    //auto vp1 = g.vertex_properties(v1);
-    //BOOST_CHECK(vp1.id == 0);
     g.add_vertex();
     BOOST_CHECK(g.num_vertices() == 2);
-    //auto vp2 = g.vertex_properties(v2);
-    //BOOST_CHECK(vp2.id == 1);
 }
 
-BOOST_AUTO_TEST_CASE(add_vertex_undirected_graph){
+BOOST_AUTO_TEST_CASE(GraphBase_undirected_add_vertex){
     // build undirected graph
     Graph g;
     g.add_vertex();
     BOOST_CHECK(g.num_vertices() == 1);
-    //auto vp1 = g.vertex_properties(v1);
-    //BOOST_CHECK(vp1.id == 0);
     g.add_vertex();
     BOOST_CHECK(g.num_vertices() == 2);
-    //auto vp2 = g.vertex_properties(v2);
-    //BOOST_CHECK(vp2.id == 1);
 }
 
-BOOST_AUTO_TEST_CASE(add_edge_undirected_graph){
+BOOST_AUTO_TEST_CASE(GraphBase_undirected_add_edge){
     // build undirected graph
     Graph g;
     auto v1 = g.add_vertex();
@@ -93,10 +85,10 @@ BOOST_AUTO_TEST_CASE(add_edge_undirected_graph){
     BOOST_CHECK(g.has_edge(v1, v2));
     BOOST_CHECK(g.has_edge(v2, v1));
     BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 2);
+    BOOST_CHECK(g.num_edges() == 1);
 }
 
-BOOST_AUTO_TEST_CASE(add_edge_directed_graph){
+BOOST_AUTO_TEST_CASE(GraphBase_directed_add_edge){
     // build directed graph
     DiGraph g;
     auto v1 = g.add_vertex();
@@ -108,7 +100,7 @@ BOOST_AUTO_TEST_CASE(add_edge_directed_graph){
     BOOST_CHECK(g.num_edges() == 1);
 }
 
-BOOST_AUTO_TEST_CASE(remove_vertex_undirected_graph){
+BOOST_AUTO_TEST_CASE(GraphBase_undirected_remove_vertex){
     // build undirected graph
     Graph g;
     auto v1 = g.add_vertex();
@@ -118,15 +110,15 @@ BOOST_AUTO_TEST_CASE(remove_vertex_undirected_graph){
     g.add_edge(v2, v3);
     g.add_edge(v3, v1);
     BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 6);
+    BOOST_CHECK(g.num_edges() == 3);
 
     g.remove_vertex(v1);
     BOOST_CHECK(g.num_vertices() == 2);
-    BOOST_CHECK(g.num_edges() == 2);
+    BOOST_CHECK(g.num_edges() == 1);
 
 }
 
-BOOST_AUTO_TEST_CASE(remove_vertex_directed_graph){
+BOOST_AUTO_TEST_CASE(GraphBase_directed_remove_vertex){
     // build directed graph
     DiGraph g;
     auto v1 = g.add_vertex();
@@ -145,7 +137,7 @@ BOOST_AUTO_TEST_CASE(remove_vertex_directed_graph){
 }
 
 
-BOOST_AUTO_TEST_CASE(degree_directed_graph)
+BOOST_AUTO_TEST_CASE(GraphBase_directed_degree)
 {
     // build directed graph
     DiGraph g;
@@ -158,9 +150,15 @@ BOOST_AUTO_TEST_CASE(degree_directed_graph)
     BOOST_CHECK(g.out_degree(v1) == 1);
     BOOST_CHECK(g.in_degree(v1) == 1);
     BOOST_CHECK(g.degree(v1) == 2);
+
+    // check the handshaking lemma
+    double sum_degree = 0;
+    for(auto it = g.vertices().first; it!= g.vertices().second; ++it)
+        sum_degree += g.degree(*it);
+    BOOST_CHECK(sum_degree == 2 * g.num_edges());
 }
 
-BOOST_AUTO_TEST_CASE(degree_undirected_graph)
+BOOST_AUTO_TEST_CASE(GraphBase_undirected_degree)
 {
     // build undirected graph
     Graph g;
@@ -173,10 +171,16 @@ BOOST_AUTO_TEST_CASE(degree_undirected_graph)
     BOOST_CHECK(g.out_degree(v1) == 2);
     BOOST_CHECK(g.in_degree(v1) == 2);
     BOOST_CHECK(g.degree(v1) == 2);
+
+    // check the handshaking lemma
+    double sum_degree = 0;
+    for(auto it = g.vertices().first; it!= g.vertices().second; ++it)
+        sum_degree += g.degree(*it);
+    BOOST_CHECK(sum_degree == 2 * g.num_edges());
 }
 
 
-BOOST_AUTO_TEST_CASE(undirected_remove_edge)
+BOOST_AUTO_TEST_CASE(GraphBase_undirected_remove_edge)
 {
     // build undirected graph
     Graph g;
@@ -187,13 +191,13 @@ BOOST_AUTO_TEST_CASE(undirected_remove_edge)
     g.add_edge(v2, v3);
     g.add_edge(v3, v1);
     BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 6);
+    BOOST_CHECK(g.num_edges() == 3);
     g.remove_edge(v1, v2);
     BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 4);
+    BOOST_CHECK(g.num_edges() == 2);
 }
 
-BOOST_AUTO_TEST_CASE(directed_remove_edge)
+BOOST_AUTO_TEST_CASE(GraphBase_directed_remove_edge)
 {
     // build directed graph
     DiGraph g;

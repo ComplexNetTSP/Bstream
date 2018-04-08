@@ -62,7 +62,7 @@ namespace boost::bstream
                        typename GraphBase<DirectedS>::vertex_t& t,
                        time_t b, time_t e);
 
-        double degree(typename GraphBase<DirectedS>::vertex_t& v);
+        double degree(const typename GraphBase<DirectedS>::vertex_t& v);
 
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 

@@ -155,7 +155,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    double LinkStreamBase<DirectedS>::degree(typename GraphBase<DirectedS>::vertex_t &v)
+    double LinkStreamBase<DirectedS>::degree(const typename GraphBase<DirectedS>::vertex_t &v)
     {
         double sum = 0;
         auto n_it = GraphBase<DirectedS>::neighbors(v);

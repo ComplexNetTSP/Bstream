@@ -60,10 +60,7 @@ namespace boost::bstream
     typename GraphBase<DirectedS>::edge_size_t
     GraphBase<DirectedS>::num_edges()
     {
-        if(is_directed())
-            return boost::num_edges(G);
-        else
-            return 2 * boost::num_edges(G);
+        return boost::num_edges(G);
     }
 
     template<typename DirectedS>
@@ -103,7 +100,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    double GraphBase<DirectedS>::degree(GraphBase<DirectedS>::vertex_t& v)
+    double GraphBase<DirectedS>::degree(const GraphBase<DirectedS>::vertex_t& v)
     {
         return static_cast<double>(boost::degree(v, G));
     }
@@ -139,7 +136,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     pair<typename GraphBase<DirectedS>::adjacency_iterator, typename GraphBase<DirectedS>::adjacency_iterator>
-    GraphBase<DirectedS>::neighbors(GraphBase::vertex_t &v)
+    GraphBase<DirectedS>::neighbors(const GraphBase::vertex_t &v)
     {
         return boost::adjacent_vertices(v, G);
     }
