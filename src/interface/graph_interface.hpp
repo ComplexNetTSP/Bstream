@@ -47,7 +47,7 @@ void graph_interface(py::module &m)
     graph.def(py::init<>());
     graph.def(py::init<int>());
     graph.def("is_directed", &bs::Graph::is_directed);
-    graph.def("add_vertex", &bs::Graph::add_vertex);
+    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("name") = "");
     graph.def("add_edge", &bs::Graph::add_edge);
     graph.def("num_vertices", &bs::Graph::num_vertices);
     graph.def("num_edges", &bs::Graph::num_edges);
