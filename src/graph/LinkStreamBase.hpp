@@ -46,6 +46,18 @@ namespace boost::bstream
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 
         void print_edges();
+
+        friend std::ostream & operator<<(std::ostream &out, LinkStreamBase &l)
+        {
+            if(l.is_directed())
+                out << "DiLinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges() << ")" << std::endl;
+            else
+                out << "LinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges()
+                    <<  ", T=" << l.interval_def << ")" << std::endl;
+            return out;
+        }
+
+
     protected:
         TimeInterval interval_def;
         std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalSetVertexMap;

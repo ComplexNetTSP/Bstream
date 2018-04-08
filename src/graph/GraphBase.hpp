@@ -14,6 +14,7 @@
 #define BSTREAM_BGRAPHBASE_H
 
 #include <boost/graph/adjacency_list.hpp>
+#include <iostream>
 
 namespace boost::bstream
 {
@@ -45,6 +46,8 @@ namespace boost::bstream
         GraphBase(int num_vertex);
 
         ~GraphBase() = default;
+
+        //todo: add name to vertex
 
         /**
          * @brief Return true if graph is directed.
@@ -124,6 +127,15 @@ namespace boost::bstream
         virtual vertex_size_t in_degree(vertex_t& v);
 
         virtual vertex_size_t out_degree(vertex_t& v);
+
+        friend std::ostream & operator<<(std::ostream &out, GraphBase &g)
+        {
+            if(g.is_directed())
+                out << "DiGraph(|V|=" << g.num_vertices() << ", |E|" << g.num_edges() << ")" << std::endl;
+            else
+                out << "Graph(|V|=" << g.num_vertices() << ", |E|" << g.num_edges() << ")" << std::endl;
+            return out;
+        }
 
     protected:
         /**

@@ -78,7 +78,7 @@ namespace boost::bstream
         void erase();
 
         friend std::ostream & operator<<(std::ostream &out, TimeIntervalSet &tis) {
-            out << "Set = {" ;
+            out << "{" ;
             for(auto it = tis.begin(); it != tis.end(); ++it)
             {
                 if(it != --tis.end())

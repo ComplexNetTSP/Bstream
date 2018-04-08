@@ -95,12 +95,12 @@ namespace boost::bstream
     template<typename DirectedS>
     void LinkStreamBase<DirectedS>::print_edges()
     {
-        cout << "LinkStream def:" << interval_def << endl;
+        cout << *this;
         auto e_iterator = GraphBase<DirectedS>::edges();
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
-            cout << "\t" << boost::source(*it, GraphBase<DirectedS>::G)
-                 << "," << boost::target(*it, GraphBase<DirectedS>::G)
-                 << " " << TimeIntervalSetVertexMap[*it] << endl;
+            cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
+                 << "(" << boost::source(*it, GraphBase<DirectedS>::G)
+                 << "," << boost::target(*it, GraphBase<DirectedS>::G) << ")" << endl;
         }
     }
 
