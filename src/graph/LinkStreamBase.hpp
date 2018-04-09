@@ -48,6 +48,9 @@ namespace boost::bstream
 
         time_t definition_length();
 
+        //todo: implement the method num_edge specific for linkstream and change the definition in GraphBase
+        double num_edges();
+
         typename GraphBase<DirectedS>::edge_t
         add_edge(typename GraphBase<DirectedS>::vertex_t& s,
                  typename GraphBase<DirectedS>::vertex_t& t);
@@ -64,6 +67,7 @@ namespace boost::bstream
 
         double degree(const typename GraphBase<DirectedS>::vertex_t& v);
 
+        //todo: add the remove vertex method, check first about the graph properties
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 
         void print_edges();

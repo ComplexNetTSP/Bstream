@@ -62,12 +62,12 @@ namespace boost::bstream
     {
         typename GraphBase<DirectedS>::edge_t e_exist;
         bool ok;
-        std::tie(e_exist, ok) = boost::edge(s, t, GraphBase<DirectedS>::G);
+        std::tie(e_exist, ok) = boost::edge(s, t, this->G);
         if(ok){
             TimeIntervalSetVertexMap[e_exist].append(interval_def.lower(), interval_def.upper());
             return e_exist;
         }else{
-            auto e = GraphBase<DirectedS>::add_edge(s, t);
+            auto e = this->add_edge(s, t);
             TimeIntervalSetVertexMap[e].append(interval_def.lower(), interval_def.upper());
             return e;
         }
@@ -92,7 +92,7 @@ namespace boost::bstream
             throw LinkStreamBaseException(msg.str());
         }
 
-        std::tie(edge_exist, ok) = boost::edge(s, t, GraphBase<DirectedS>::G);
+        std::tie(edge_exist, ok) = boost::edge(s, t, this->G);
         if(ok){
             TimeIntervalSetVertexMap[edge_exist].append(b, e);
             return edge_exist;
@@ -113,12 +113,12 @@ namespace boost::bstream
     void LinkStreamBase<DirectedS>::print_edges()
     {
         cout << *this;
-        auto e_iterator = GraphBase<DirectedS>::edges();
+        auto e_iterator = this->edges();
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
-            auto s = boost::source(*it, GraphBase<DirectedS>::G);
-            auto t = boost::target(*it, GraphBase<DirectedS>::G);
-            auto s_name = GraphBase<DirectedS>::vertex_name(s);
-            auto t_name = GraphBase<DirectedS>::vertex_name(t);
+            auto s = boost::source(*it, this->G);
+            auto t = boost::target(*it, this->G);
+            auto s_name = this->vertex_name(s);
+            auto t_name = this->vertex_name(t);
             cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
                  << "(" << s << "," << t << ")" ;
             if(!s_name.empty() && !t_name.empty())
@@ -134,7 +134,7 @@ namespace boost::bstream
             typename GraphBase<DirectedS>::vertex_t &t,
             time_t b, time_t e)
     {
-        auto res = boost::edge(s, t, GraphBase<DirectedS>::G);
+        auto res = boost::edge(s, t, this->G);
         if(res.second){
             auto edge_tis = TimeIntervalSetVertexMap[res.first];
             if(edge_tis.contains(b, e)){
@@ -158,12 +158,22 @@ namespace boost::bstream
     double LinkStreamBase<DirectedS>::degree(const typename GraphBase<DirectedS>::vertex_t &v)
     {
         double sum = 0;
-        auto n_it = GraphBase<DirectedS>::neighbors(v);
+        auto n_it = this->neighbors(v);
         for(auto it=n_it.first; it != n_it.second; ++it){
-            auto e = boost::edge(v, *it,  GraphBase<DirectedS>::G);
+            auto e = boost::edge(v, *it,  this->G);
             sum += TimeIntervalSetVertexMap[e.first].length();
         }
         return sum/(interval_def.upper() - interval_def.lower());
+    }
+
+    template<typename DirectedS>
+    double LinkStreamBase<DirectedS>::num_edges()
+    {
+        auto edge_it = this->edges();
+        double sum = 0;
+        for(auto it = edge_it.first; it != edge_it.second; ++it)
+            sum += TimeIntervalSetVertexMap[*it].length();
+        return sum / (interval_def.upper() - interval_def.lower());
     }
 
     template class LinkStreamBase<boost::undirectedS>;

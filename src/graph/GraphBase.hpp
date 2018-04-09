@@ -25,11 +25,6 @@ namespace boost::bstream
         GraphBaseException(const std::string& what): std::runtime_error(what) {};
     };
 
-    struct VertexProperty
-    {
-        std::string name;
-    };
-
     /**
      * @brief class basegraph
      * @tparam DirectedS
@@ -42,7 +37,7 @@ namespace boost::bstream
                 vecS,
                 vecS,
                 DirectedS,
-                VertexProperty
+                boost::property<boost::vertex_name_t, std::string>
         > Adjacency;
 
         typedef graph_traits <Adjacency> traits;
@@ -91,7 +86,7 @@ namespace boost::bstream
          * @brief The number of edges in the graph.
          * @return edge_size_t
          */
-        virtual edge_size_t num_edges();
+        virtual double num_edges();
 
         /**
          * @brief test if the edge (u,v) exist
@@ -138,9 +133,9 @@ namespace boost::bstream
          * @param v vertex_t
          * @return the number of in-edge adjacent to a vertex
          */
-        virtual vertex_size_t in_degree(vertex_t& v);
+        virtual double in_degree(vertex_t& v);
 
-        virtual vertex_size_t out_degree(vertex_t& v);
+        virtual double out_degree(vertex_t& v);
 
         virtual std::pair<adjacency_iterator, adjacency_iterator> neighbors(const vertex_t& v);
 

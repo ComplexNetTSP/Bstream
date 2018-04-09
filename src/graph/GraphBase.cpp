@@ -33,8 +33,9 @@ namespace boost::bstream
     typename GraphBase<DirectedS>::vertex_t
     GraphBase<DirectedS>::add_vertex(const std::string name)
     {
-        auto v= boost::add_vertex(G);
-        G[v].name = name;
+        auto v = boost::add_vertex(G);
+        auto name_map = get(boost::vertex_name, G);
+        name_map[v] = name;
         return v;
     }
 
@@ -63,10 +64,9 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::edge_size_t
-    GraphBase<DirectedS>::num_edges()
+    double GraphBase<DirectedS>::num_edges()
     {
-        return boost::num_edges(G);
+        return static_cast<double>(boost::num_edges(G));
     }
 
     template<typename DirectedS>
@@ -111,20 +111,16 @@ namespace boost::bstream
         return static_cast<double>(boost::degree(v, G));
     }
 
-    //todo: change the return type to double and add test
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::vertex_size_t
-    GraphBase<DirectedS>::in_degree(GraphBase<DirectedS>::vertex_t& v)
+    double GraphBase<DirectedS>::in_degree(GraphBase<DirectedS>::vertex_t& v)
     {
-        return boost::in_degree(v, G);
+        return static_cast<double>(boost::in_degree(v, G));
     }
 
-    //todo: change the return type to double and add test
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::vertex_size_t
-    GraphBase<DirectedS>::out_degree(GraphBase<DirectedS>::vertex_t& v)
+    double GraphBase<DirectedS>::out_degree(GraphBase<DirectedS>::vertex_t& v)
     {
-        return boost::out_degree(v, G);
+        return static_cast<double>(boost::out_degree(v, G));
     }
 
     template<typename DirectedS>
@@ -137,7 +133,8 @@ namespace boost::bstream
     template<typename DirectedS>
     std::string GraphBase<DirectedS>::vertex_name(GraphBase::vertex_t &v)
     {
-        return G[v].name;
+        auto name_map = get(boost::vertex_name, G);
+        return name_map[v];
     }
 
     template<typename DirectedS>
