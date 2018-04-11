@@ -70,7 +70,11 @@ namespace boost::bstream
         //todo: add the remove vertex method, check first about the graph properties
         void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 
+        double density();
+
         void print_edges();
+
+        //todo density
 
         friend std::ostream & operator<<(std::ostream &out, LinkStreamBase &l)
         {

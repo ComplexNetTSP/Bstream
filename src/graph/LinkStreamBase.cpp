@@ -45,7 +45,16 @@ namespace boost::bstream
     template<typename DirectedS>
     void LinkStreamBase<DirectedS>::remove_vertex(typename GraphBase<DirectedS>::vertex_t& v)
     {
-        //todo: remove all the TimeIntervalSet of the corresponding edge adjacent to the vertex v
+        for(auto it = this->neighbors(v).first; it != this->neighbors(v).second; ++it){
+            auto e = boost::edge(v, *it, this->G);
+            if(e.second){
+                TimeIntervalSetVertexMap.erase(e.first);
+            }
+            e = boost::edge(*it, v, this->G);
+            if(e.second){
+                TimeIntervalSetVertexMap.erase(e.first);
+            }
+        }
         GraphBase<DirectedS>::remove_vertex(v);
     }
 
@@ -174,6 +183,19 @@ namespace boost::bstream
         for(auto it = edge_it.first; it != edge_it.second; ++it)
             sum += TimeIntervalSetVertexMap[*it].length();
         return sum / (interval_def.upper() - interval_def.lower());
+    }
+
+    template<typename DirectedS>
+    double LinkStreamBase<DirectedS>::density()
+    {
+        double sumL = 0.0;
+        for(auto it = this->edges().first; it != this->edges().second; ++it)
+            sumL += TimeIntervalSetVertexMap[*it].length();
+        auto temp = sumL / (this->num_vertices() * (this->num_vertices() - 1) * (interval_def.upper() - interval_def.lower()));
+        if(this->is_directed())
+            return temp;
+        else
+            return 2 * temp;
     }
 
     template class LinkStreamBase<boost::undirectedS>;

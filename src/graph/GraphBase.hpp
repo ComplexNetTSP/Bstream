@@ -25,6 +25,8 @@ namespace boost::bstream
         GraphBaseException(const std::string& what): std::runtime_error(what) {};
     };
 
+    //todo: add extension for biparti graph
+
     /**
      * @brief class basegraph
      * @tparam DirectedS
@@ -136,6 +138,8 @@ namespace boost::bstream
         virtual double in_degree(vertex_t& v);
 
         virtual double out_degree(vertex_t& v);
+
+        virtual double density();
 
         virtual std::pair<adjacency_iterator, adjacency_iterator> neighbors(const vertex_t& v);
 

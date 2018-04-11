@@ -144,6 +144,15 @@ namespace boost::bstream
         return boost::adjacent_vertices(v, G);
     }
 
+    template<typename DirectedS>
+    double GraphBase<DirectedS>::density()
+    {
+        if(this->is_directed())
+            return static_cast<double>(this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
+        else
+            return static_cast<double>(2 * this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
+    }
+
     template class GraphBase<boost::undirectedS>;
     template class GraphBase<boost::bidirectionalS>;
 

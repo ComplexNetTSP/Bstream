@@ -226,3 +226,26 @@ BOOST_AUTO_TEST_CASE(GraphBase_add_vertex_with_name)
     BOOST_CHECK(g.vertex_name(v3) == "C");
     BOOST_CHECK(g.vertex_name(v4).empty());
 }
+
+BOOST_AUTO_TEST_CASE(GraphBase_density)
+{
+    Graph g;
+    auto a = g.add_vertex("a");
+    auto b = g.add_vertex("b");
+    auto c = g.add_vertex("c");
+    g.add_edge(a, b);
+    g.add_edge(b, c);
+    g.add_edge(c, a);
+
+    BOOST_CHECK(g.density() == 1);
+
+    DiGraph ug;
+    auto d = ug.add_vertex("a");
+    auto e = ug.add_vertex("b");
+    auto f = ug.add_vertex("c");
+    ug.add_edge(d, e);
+    ug.add_edge(e, f);
+    ug.add_edge(f, d);
+
+    BOOST_CHECK(ug.density() == 0.5);
+}

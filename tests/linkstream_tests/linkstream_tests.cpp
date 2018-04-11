@@ -147,3 +147,24 @@ BOOST_AUTO_TEST_CASE(LinkStream_handshaking_lemma)
         sum_degree += L.degree(*it);
     BOOST_CHECK(sum_degree == 2 * L.num_edges());
 }
+
+BOOST_AUTO_TEST_CASE(LinkStream_density)
+{
+    LinkStream L(0, 10);
+    auto a = L.add_vertex("A");
+    auto b = L.add_vertex("B");
+    auto c = L.add_vertex("C");
+    L.add_edge(a, b, 0, 10);
+    L.add_edge(b, c, 0, 10);
+    L.add_edge(c, a, 0, 10);
+    BOOST_CHECK(L.density() == 1);
+
+    LinkStream LL(0, 10);
+    auto aa = LL.add_vertex("A");
+    auto bb = LL.add_vertex("B");
+    auto cc = LL.add_vertex("C");
+    LL.add_edge(aa, bb, 0, 5);
+    LL.add_edge(bb, cc, 0, 5);
+    LL.add_edge(cc, aa, 0, 5);
+    BOOST_CHECK(LL.density() == 0.5);
+}
