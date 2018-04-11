@@ -17,10 +17,10 @@ using namespace std;
 namespace boost::bstream
 {
     template<typename DirectedS>
-    GraphBase<DirectedS>::GraphBase(int num_vertex)
+    GraphBase<DirectedS>::GraphBase(int num_vertex, bool is_biparti): is_biparti(is_biparti)
     {
         for(auto i=0; i < num_vertex; ++i)
-            add_vertex();
+            this->add_vertex();
     }
 
     template<typename DirectedS>
@@ -34,8 +34,18 @@ namespace boost::bstream
     GraphBase<DirectedS>::add_vertex(const std::string name)
     {
         auto v = boost::add_vertex(G);
-        auto name_map = get(boost::vertex_name, G);
-        name_map[v] = name;
+        G[v].name = name;
+        G[v].group = 0;
+        return v;
+    }
+
+    template<typename DirectedS>
+    typename GraphBase<DirectedS>::vertex_t
+    GraphBase<DirectedS>::add_vertex_with_group(int group, const string name)
+    {
+        auto v = boost::add_vertex(G);
+        G[v].name = name;
+        G[v].group = group;
         return v;
     }
 
@@ -45,6 +55,12 @@ namespace boost::bstream
     {
         bool ok;
         edge_t e;
+        // test the case for biparti graph
+        if(is_biparti){
+            if(G[s].group == G[t].group)
+                throw GraphBaseException("Biparti graph: don't connect vertices form the same group");
+        }
+
         // we do not allow for multiedge
         if(!boost::edge(s, t, G).second) {
             tie(e, ok) = boost::add_edge(s, t, G);
@@ -133,8 +149,7 @@ namespace boost::bstream
     template<typename DirectedS>
     std::string GraphBase<DirectedS>::vertex_name(GraphBase::vertex_t &v)
     {
-        auto name_map = get(boost::vertex_name, G);
-        return name_map[v];
+        return G[v].name;
     }
 
     template<typename DirectedS>

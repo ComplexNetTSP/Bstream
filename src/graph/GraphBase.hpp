@@ -25,7 +25,11 @@ namespace boost::bstream
         GraphBaseException(const std::string& what): std::runtime_error(what) {};
     };
 
-    //todo: add extension for biparti graph
+    struct VertexGraphBase
+    {
+        std::string name;
+        int group;
+    };
 
     /**
      * @brief class basegraph
@@ -39,7 +43,7 @@ namespace boost::bstream
                 vecS,
                 vecS,
                 DirectedS,
-                boost::property<boost::vertex_name_t, std::string>
+                VertexGraphBase
         > Adjacency;
 
         typedef graph_traits <Adjacency> traits;
@@ -52,9 +56,11 @@ namespace boost::bstream
         typedef typename traits::edges_size_type edge_size_t;
         typedef typename traits::adjacency_iterator adjacency_iterator;
 
-        GraphBase() {};
+        GraphBase():is_biparti(false) {};
 
-        GraphBase(int num_vertex);
+        GraphBase(bool is_biparti):is_biparti(is_biparti) {};
+
+        GraphBase(int num_vertex, bool is_biparti=false);
 
         ~GraphBase() = default;
 
@@ -68,7 +74,10 @@ namespace boost::bstream
          * @brief Add a single node and update node attributes.
          * @return vertex_descriptor
          */
+        //virtual vertex_t add_vertex(int group) { return this->add_vertex("", group); };
         virtual vertex_t add_vertex(const std::string name="");
+
+        virtual vertex_t add_vertex_with_group(int group, const std::string name="");
 
         /**
          * @brief The number of edges in the graph.
@@ -157,6 +166,7 @@ namespace boost::bstream
          * Adjacency list of the graph
          */
         Adjacency G;
+        bool is_biparti;
     };
 
 } // end namespace boost::src

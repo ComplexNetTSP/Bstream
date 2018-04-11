@@ -249,3 +249,14 @@ BOOST_AUTO_TEST_CASE(GraphBase_density)
 
     BOOST_CHECK(ug.density() == 0.5);
 }
+
+BOOST_AUTO_TEST_CASE(GraphBase_biparti)
+{
+    Graph g(true);
+    auto a = g.add_vertex_with_group(0);
+    auto b = g.add_vertex_with_group(1);
+    auto c = g.add_vertex_with_group(0);
+
+    g.add_edge(a,b);
+    BOOST_CHECK_THROW(g.add_edge(a,c), GraphBaseException);
+}

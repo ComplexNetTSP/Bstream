@@ -148,6 +148,15 @@ BOOST_AUTO_TEST_CASE(LinkStream_handshaking_lemma)
     BOOST_CHECK(sum_degree == 2 * L.num_edges());
 }
 
+///*********************************************************************************************************************
+///
+/// Example taken from eq 2.6 in [1]
+///
+/// [1] Noe GAUMONT
+///     GROUPES ET COMMUNAUTES DANS LES FLOTS DE LIENS: DES DONNEES AUX ALGORITHMES
+///     http://www.complexnetworks.fr/wp-content/uploads/2016/11/These_Noe.pdf
+///
+///*********************************************************************************************************************
 BOOST_AUTO_TEST_CASE(LinkStream_density)
 {
     LinkStream L(0, 10);
@@ -157,7 +166,8 @@ BOOST_AUTO_TEST_CASE(LinkStream_density)
     L.add_edge(a, b, 0, 10);
     L.add_edge(b, c, 0, 10);
     L.add_edge(c, a, 0, 10);
-    BOOST_CHECK(L.density() == 1);
+    auto d = 2 * L.num_edges() / (L.num_vertices() * (L.num_vertices() - 1));
+    BOOST_CHECK(L.density() == d); // 1
 
     LinkStream LL(0, 10);
     auto aa = LL.add_vertex("A");
@@ -166,5 +176,6 @@ BOOST_AUTO_TEST_CASE(LinkStream_density)
     LL.add_edge(aa, bb, 0, 5);
     LL.add_edge(bb, cc, 0, 5);
     LL.add_edge(cc, aa, 0, 5);
-    BOOST_CHECK(LL.density() == 0.5);
+    auto density = 2 * LL.num_edges() / (LL.num_vertices() * (LL.num_vertices() - 1));
+    BOOST_CHECK(LL.density() == density); // 0.5
 }

@@ -47,7 +47,7 @@ void graph_interface(py::module &m)
     graph.def(py::init<>());
     graph.def(py::init<int>());
     graph.def("is_directed", &bs::Graph::is_directed);
-    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("name") = "");
+    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("name")="");
     graph.def("add_edge", &bs::Graph::add_edge);
     graph.def("num_vertices", &bs::Graph::num_vertices);
     graph.def("num_edges", &bs::Graph::num_edges);
@@ -70,7 +70,7 @@ void graph_interface(py::module &m)
     digraph.def(py::init<>());
     digraph.def(py::init<int>());
     digraph.def("is_directed", &bs::DiGraph::is_directed);
-    digraph.def("add_vertex", &bs::DiGraph::add_vertex, py::arg("name") = "");
+    digraph.def("add_vertex", &bs::DiGraph::add_vertex, py::arg("name")="");
     digraph.def("add_edge", &bs::DiGraph::add_edge);
     digraph.def("num_vertices", &bs::DiGraph::num_vertices);
     digraph.def("num_edges", &bs::DiGraph::num_edges);
