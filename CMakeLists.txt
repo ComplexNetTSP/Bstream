@@ -43,6 +43,7 @@ endif()
 # The file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES
         "src/graph/*.cpp"
+        "src/algorithms/*.cpp"
         "src/tinterval/*.cpp")
 file(GLOB SOURCES_INTERFACE "src/interface/*.cpp")
 
@@ -50,6 +51,7 @@ SET(SRC_INCLUDE_DIR
         "src/graph"
         "src/interface"
         "src/tinterval"
+        "src/algorithms"
         "src/utils")
 INCLUDE_DIRECTORIES(
         ${Boost_INCLUDE_DIRS}

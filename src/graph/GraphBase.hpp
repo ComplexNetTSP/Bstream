@@ -58,6 +58,8 @@ namespace boost::bstream
 
         GraphBase():is_biparti(false) {};
 
+        GraphBase(GraphBase<DirectedS> &g);
+
         GraphBase(bool is_biparti):is_biparti(is_biparti) {};
 
         GraphBase(int num_vertex, bool is_biparti=false);
@@ -85,7 +87,7 @@ namespace boost::bstream
          */
         virtual edge_t add_edge(vertex_t& s, vertex_t& t);
 
-        virtual std::string vertex_name(vertex_t& v);
+        virtual std::string vertex_name(const vertex_t& v);
 
         /**
          * @brief The number of vertices in the graph.

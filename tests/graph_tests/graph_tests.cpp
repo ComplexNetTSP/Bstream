@@ -38,6 +38,23 @@ BOOST_AUTO_TEST_CASE(GraphBase_undirected_constructor)
         BOOST_CHECK(*it == i++);
 }
 
+BOOST_AUTO_TEST_CASE(GraphBase_copy_constructor)
+{
+    Graph g;
+    auto a = g.add_vertex("a");
+    auto b = g.add_vertex("b");
+    auto c = g.add_vertex("c");
+    g.add_edge(a, b);
+    g.add_edge(b, c);
+    g.add_edge(c, a);
+
+    Graph gprime(g);
+    BOOST_CHECK(gprime.num_vertices() == g.num_vertices());
+    BOOST_CHECK(gprime.num_edges() == g.num_edges());
+    for(auto it = g.vertices().first; it != g.vertices().second; ++it)
+        BOOST_CHECK(g.vertex_name(*it) == gprime.vertex_name(*it));
+}
+
 
 BOOST_AUTO_TEST_CASE(GraphBase_directed_constructor)
 {

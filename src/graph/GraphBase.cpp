@@ -10,12 +10,20 @@
 ///-------------------------------------------------------------------------------------------------
 
 #include <tuple>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/copy.hpp>
 #include "GraphBase.hpp"
 
 using namespace std;
 
 namespace boost::bstream
 {
+    template<typename DirectedS>
+    GraphBase<DirectedS>::GraphBase(GraphBase<DirectedS> &g)
+    {
+        boost::copy_graph(g.G, this->G);
+    }
+
     template<typename DirectedS>
     GraphBase<DirectedS>::GraphBase(int num_vertex, bool is_biparti): is_biparti(is_biparti)
     {
@@ -147,7 +155,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    std::string GraphBase<DirectedS>::vertex_name(GraphBase::vertex_t &v)
+    std::string GraphBase<DirectedS>::vertex_name(const GraphBase::vertex_t &v)
     {
         return G[v].name;
     }
@@ -167,6 +175,7 @@ namespace boost::bstream
         else
             return static_cast<double>(2 * this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
     }
+
 
     template class GraphBase<boost::undirectedS>;
     template class GraphBase<boost::bidirectionalS>;
