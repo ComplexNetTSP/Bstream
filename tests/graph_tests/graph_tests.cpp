@@ -1,7 +1,7 @@
 ///-------------------------------------------------------------------------------------------------
 ///
 /// @file       graph_tests.cpp
-/// @brief      Tests for the Graph clas
+/// @brief      Tests for the Graph class
 /// @author     Vincent Gauthier <vgauthier@luxbulb.org>
 /// @date       05/04/2018
 /// @version    0.1
@@ -11,258 +11,161 @@
 
 
 #include "GraphType.hpp"
-#include "bipartite.hpp"
-#include <boost/graph/detail/edge.hpp>
 
-#define BOOST_TEST_MODULE BGraph_tests
+#define BOOST_TEST_MODULE GraphBase_tests
 
 #include <boost/test/included/unit_test.hpp>
-#include <memory>
 
 using namespace std;
 using namespace boost;
 using namespace boost::bstream;
 
-BOOST_AUTO_TEST_CASE(GraphBase_undirected_constructor)
+BOOST_AUTO_TEST_CASE(GraphBase_constructor)
 {
     // build undirected graph
     Graph g;
     BOOST_CHECK(g.is_directed() == false);
     BOOST_CHECK(g.num_vertices() == 0);
     BOOST_CHECK(g.num_edges() == 0);
-
-    Graph g1(100);
-    BOOST_CHECK(g1.num_vertices() == 100);
-
-    auto v_iterator = g1.vertices();
-    unsigned i = 0;
-    for(auto it = v_iterator.first; it != v_iterator.second; ++it)
-        BOOST_CHECK(*it == i++);
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_copy_constructor)
+BOOST_AUTO_TEST_CASE(GraphBase_constructor_bulk)
+{
+    Graph g(10);
+    BOOST_CHECK(g.num_vertices() == 10);
+    BOOST_CHECK(g.num_edges() == 0);
+
+    int i = 0;
+    for(auto it=g.vertices().first; it!=g.vertices().second; ++it) {
+        BOOST_CHECK(g.vertex_label(*it) == to_string(i));
+        i++;
+    }
+}
+
+
+BOOST_AUTO_TEST_CASE(GraphBase_add_vertex)
 {
     Graph g;
-    auto a = g.add_vertex("a");
-    auto b = g.add_vertex("b");
-    auto c = g.add_vertex("c");
-
-    BOOST_CHECK(g.has_vertex(a) == true);
-    BOOST_CHECK(g.has_vertex(b) == true);
-    BOOST_CHECK(g.has_vertex(c) == true);
-    BOOST_CHECK(g.has_vertex(10) == false);
-
-    g.add_edge(a, b);
-    g.add_edge(b, c);
-    g.add_edge(c, a);
-
-    Graph gprime(g);
-    BOOST_CHECK(gprime.num_vertices() == g.num_vertices());
-    BOOST_CHECK(gprime.num_edges() == g.num_edges());
-    for(auto it = g.vertices().first; it != g.vertices().second; ++it)
-        BOOST_CHECK(g.vertex_name(*it) == gprime.vertex_name(*it));
-}
-
-
-BOOST_AUTO_TEST_CASE(GraphBase_directed_constructor)
-{
-    // build directed graph
-    DiGraph g;
-    BOOST_CHECK(g.is_directed());
     BOOST_CHECK(g.num_vertices() == 0);
     BOOST_CHECK(g.num_edges() == 0);
 
-    DiGraph g1(100);
-    BOOST_CHECK(g1.num_vertices() == 100);
+    auto v1 = g.add_vertex();
+    BOOST_CHECK(g.num_vertices() == 1);
+    BOOST_CHECK(g.vertex_label(v1) == "0");
+    BOOST_CHECK(g.vertex("0") == v1);
+    BOOST_CHECK(g.has_vertex(v1));
+    BOOST_CHECK(g.has_vertex("0"));
 
-    auto v_iterator = g1.vertices();
-    unsigned i = 0;
-    for(auto it = v_iterator.first; it != v_iterator.second; ++it)
-        BOOST_CHECK(*it == i++);
+    auto v2 = g.add_vertex();
+    BOOST_CHECK(g.num_vertices() == 2);
+    BOOST_CHECK(g.vertex_label(v2) == "1");
+    BOOST_CHECK(g.vertex("1") == v2);
+    BOOST_CHECK(g.has_vertex(v2));
+    BOOST_CHECK(g.has_vertex("1"));
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_add_edges)
+
+BOOST_AUTO_TEST_CASE(GraphBase_remove_vertex)
 {
-    // build undirected graph
     Graph g;
-    BOOST_CHECK(g.is_directed() == false);
+    g.add_vertex("A");
+    g.add_vertex("B");
+    BOOST_CHECK(g.num_vertices() == 2);
+
+    g.remove_vertex("A");
+    BOOST_CHECK(g.num_vertices() == 1);
+
+    g.remove_vertex("B");
     BOOST_CHECK(g.num_vertices() == 0);
-    BOOST_CHECK(g.num_edges() == 0);
-
-    g.add_edge(2, 3);
-    g.add_edge(10, 5);
-    BOOST_CHECK(g.num_vertices() == 2);
-    BOOST_CHECK(g.num_edges() == 2);
 }
 
 
-BOOST_AUTO_TEST_CASE(GraphBase_directed_add_vertex){
-    // build undirected graph
-    DiGraph g;
-    g.add_vertex();
-    BOOST_CHECK(g.num_vertices() == 1);
-    g.add_vertex();
-    BOOST_CHECK(g.num_vertices() == 2);
-}
 
-BOOST_AUTO_TEST_CASE(GraphBase_undirected_add_vertex){
-    // build undirected graph
-    Graph g;
-    g.add_vertex();
-    BOOST_CHECK(g.num_vertices() == 1);
-    g.add_vertex();
-    BOOST_CHECK(g.num_vertices() == 2);
-}
-
-BOOST_AUTO_TEST_CASE(GraphBase_undirected_add_edge){
-    // build undirected graph
+BOOST_AUTO_TEST_CASE(GraphBase_add_edge){
     Graph g;
     auto v1 = g.add_vertex();
     auto v2 = g.add_vertex();
-    g.add_vertex();
     g.add_edge(v1, v2);
+
     BOOST_CHECK(g.has_edge(v1, v2));
     BOOST_CHECK(g.has_edge(v2, v1));
-    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_vertices() == 2);
     BOOST_CHECK(g.num_edges() == 1);
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_directed_add_edge){
-    // build directed graph
-    DiGraph g;
-    auto v1 = g.add_vertex();
-    auto v2 = g.add_vertex();
-    g.add_vertex();
-    g.add_edge(v1, v2);
-    BOOST_CHECK(g.has_edge(v1, v2));
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 1);
-}
 
-BOOST_AUTO_TEST_CASE(GraphBase_undirected_remove_vertex){
-    // build undirected graph
+BOOST_AUTO_TEST_CASE(GraphBase_add_edge_bis){
     Graph g;
-    auto v1 = g.add_vertex();
-    auto v2 = g.add_vertex();
-    auto v3 = g.add_vertex();
-    g.add_edge(v1, v2);
-    g.add_edge(v2, v3);
-    g.add_edge(v3, v1);
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 3);
 
-    g.remove_vertex(v1);
-    BOOST_CHECK(g.has_vertex(v1) == false);
+    g.add_edge("A", "B");
     BOOST_CHECK(g.num_vertices() == 2);
     BOOST_CHECK(g.num_edges() == 1);
 
+    g.add_edge("A", "C");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 2);
+
+    g.add_edge("B", "C");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 3);
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_directed_remove_vertex){
-    // build directed graph
-    DiGraph g;
+BOOST_AUTO_TEST_CASE(GraphBase_remove_edge)
+{
+    Graph g;
     auto v1 = g.add_vertex();
     auto v2 = g.add_vertex();
     auto v3 = g.add_vertex();
+
     g.add_edge(v1, v2);
     g.add_edge(v2, v3);
     g.add_edge(v3, v1);
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 3);
 
-    g.remove_vertex(v1);
-    BOOST_CHECK(g.num_vertices() == 2);
-    BOOST_CHECK(g.num_edges() == 1);
-
-}
-
-BOOST_AUTO_TEST_CASE(GraphBase_directed_degree)
-{
-    // build directed graph
-    DiGraph g;
-    auto v1 = g.add_vertex();
-    auto v2 = g.add_vertex();
-    auto v3 = g.add_vertex();
-    g.add_edge(v1, v2);
-    g.add_edge(v2, v3);
-    g.add_edge(v3, v1);
-    BOOST_CHECK(g.out_degree(v1) == 1);
-    BOOST_CHECK(g.in_degree(v1) == 1);
-    BOOST_CHECK(g.degree(v1) == 2);
-
-    // check the handshaking lemma
-    double sum_degree = 0;
-    for(auto it = g.vertices().first; it!= g.vertices().second; ++it)
-        sum_degree += g.degree(*it);
-    BOOST_CHECK(sum_degree == 2 * g.num_edges());
-}
-
-BOOST_AUTO_TEST_CASE(GraphBase_undirected_degree)
-{
-    // build undirected graph
-    Graph g;
-    auto v1 = g.add_vertex();
-    auto v2 = g.add_vertex();
-    auto v3 = g.add_vertex();
-    g.add_edge(v1, v2);
-    g.add_edge(v2, v3);
-    g.add_edge(v3, v1);
-    BOOST_CHECK(g.out_degree(v1) == 2);
-    BOOST_CHECK(g.in_degree(v1) == 2);
-    BOOST_CHECK(g.degree(v1) == 2);
-
-    // check the handshaking lemma
-    double sum_degree = 0;
-    for(auto it = g.vertices().first; it!= g.vertices().second; ++it)
-        sum_degree += g.degree(*it);
-    BOOST_CHECK(sum_degree == 2 * g.num_edges());
-}
-
-BOOST_AUTO_TEST_CASE(GraphBase_undirected_remove_edge)
-{
-    // build undirected graph
-    Graph g;
-    auto v1 = g.add_vertex();
-    auto v2 = g.add_vertex();
-    auto v3 = g.add_vertex();
-    g.add_edge(v1, v2);
-    g.add_edge(v2, v3);
-    g.add_edge(v3, v1);
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 3);
     g.remove_edge(v1, v2);
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 2);
+
+    Graph g1;
+
+    g1.add_edge("A", "B");
+    g1.add_edge("B", "C");
+    g1.add_edge("C", "A");
+
+    for(auto it=g1.edges().first; it!=g1.edges().second; ++it)
+        g1.remove_edge(*it);
+
+    BOOST_CHECK(g1.num_edges() == 0);
+
+    Graph g2;
+
+    g2.add_edge("A", "B");
+    g2.add_edge("B", "C");
+    g2.add_edge("C", "A");
+
+    g2.remove_edge("A", "B");
+    BOOST_CHECK(g2.num_edges() == 2);
+
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_directed_remove_edge)
-{
-    // build directed graph
-    DiGraph g;
-    auto v1 = g.add_vertex();
-    auto v2 = g.add_vertex();
-    auto v3 = g.add_vertex();
-    g.add_edge(v1, v2);
-    g.add_edge(v2, v3);
-    g.add_edge(v3, v1);
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 3);
-    g.remove_edge(v1, v2);
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 2);
-}
-
-BOOST_AUTO_TEST_CASE(GraphBase_add_vertex_with_name)
+BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_name)
 {
     Graph g;
-    auto v1 = g.add_vertex("A");
-    auto v2 = g.add_vertex("B");
-    auto v3 = g.add_vertex("C");
-    auto v4 = g.add_vertex();
-    BOOST_CHECK(g.vertex_name(v1) == "A");
-    BOOST_CHECK(g.vertex_name(v2) == "B");
-    BOOST_CHECK(g.vertex_name(v3) == "C");
-    BOOST_CHECK(g.vertex_name(v4) == "3");
+
+    g.add_vertex("A");
+    g.add_vertex("B");
+    g.add_vertex("C");
+
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "A");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 3);
+
+    g.remove_edge("A", "B");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 2);
 }
 
 BOOST_AUTO_TEST_CASE(GraphBase_density)
@@ -288,33 +191,134 @@ BOOST_AUTO_TEST_CASE(GraphBase_density)
     BOOST_CHECK(ug.density() == 0.5);
 }
 
-/*
-BOOST_AUTO_TEST_CASE(GraphBase_biparti)
+BOOST_AUTO_TEST_CASE(GraphBase_degree)
 {
-    Graph g(true);
+    DiGraph g;
 
-    auto a = g.add_vertex_with_group(Graph::bipartite::top);
-    auto b = g.add_vertex_with_group(Graph::bipartite::bottom);
-    auto c = g.add_vertex_with_group(Graph::bipartite::top);
+    auto v1 = g.add_vertex();
+    auto v2 = g.add_vertex();
+    auto v3 = g.add_vertex();
 
-    g.add_edge(a,b);
-    BOOST_CHECK_THROW(g.add_edge(a,c), GraphBaseException);
+    g.add_edge(v1, v2);
+    g.add_edge(v2, v3);
+    g.add_edge(v3, v1);
+
+    BOOST_CHECK(g.out_degree(v1) == 1);
+    BOOST_CHECK(g.in_degree(v1) == 1);
+    BOOST_CHECK(g.degree(v1) == 2);
+
+    // check the handshaking lemma
+    double sum_degree = 0;
+    for(auto it = g.vertices().first; it!= g.vertices().second; ++it)
+        sum_degree += g.degree(*it);
+    BOOST_CHECK(sum_degree == 2 * g.num_edges());
 }
 
-*/
-/*
-BOOST_AUTO_TEST_CASE(GraphBase_biparti_projected)
+BOOST_AUTO_TEST_CASE(GraphBase_degree_by_name)
 {
-    Graph g(true);
+    DiGraph g;
 
-    auto a = g.add_vertex_with_group(Graph::bipartite::top);
-    auto b = g.add_vertex_with_group(Graph::bipartite::bottom);
-    auto c = g.add_vertex_with_group(Graph::bipartite::top);
-    g.add_edge(a,b);
-    g.add_edge(c,b);
+    g.add_vertex("A");
+    g.add_vertex("B");
+    g.add_vertex("C");
 
-    projected_graph(g, Graph::bipartite::top);
-    //BOOST_CHECK(gprime.num_vertices() == 2);
-    //BOOST_CHECK(gprime.num_edges() == 1);
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "A");
+
+    BOOST_CHECK(g.out_degree("A") == 1);
+    BOOST_CHECK(g.in_degree("A") == 1);
+    BOOST_CHECK(g.degree("A") == 2);
+
+    // check the handshaking lemma
+    double sum_degree = 0;
+    for(auto it = g.vertices().first; it!= g.vertices().second; ++it)
+        sum_degree += g.degree(*it);
+    BOOST_CHECK(sum_degree == 2 * g.num_edges());
 }
-*/
+
+BOOST_AUTO_TEST_CASE(GraphBase_has_edge)
+{
+    Graph g;
+    auto v1 = g.add_vertex("A");
+    auto v2 = g.add_vertex("B");
+    g.add_vertex("C");
+
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "A");
+
+    BOOST_CHECK(g.has_edge("A", "B"));
+    BOOST_CHECK(g.has_edge(v1, v2));
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_copy_constructor)
+{
+    Graph g;
+    auto a = g.add_vertex("a");
+    auto b = g.add_vertex("b");
+    auto c = g.add_vertex("c");
+
+    BOOST_CHECK(g.has_vertex(a) == true);
+    BOOST_CHECK(g.has_vertex(b) == true);
+    BOOST_CHECK(g.has_vertex(c) == true);
+
+    g.add_edge(a, b);
+    g.add_edge(b, c);
+    g.add_edge(c, a);
+
+    Graph gprime = g;
+    BOOST_CHECK(gprime.num_vertices() == g.num_vertices());
+    BOOST_CHECK(gprime.num_edges() == g.num_edges());
+
+    for(auto it = g.vertices().first; it != g.vertices().second; ++it)
+        BOOST_CHECK(g.vertex_label(*it) == gprime.vertex_label(*it));
+
+    auto vprime = gprime.add_vertex("d");
+    auto v = g.add_vertex("d");
+    BOOST_CHECK(vprime == v);
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_clear_vertices)
+{
+    Graph g;
+
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "A");
+
+    g.clear_vertices();
+    BOOST_CHECK(g.num_vertices() == 0);
+    BOOST_CHECK(g.num_edges() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_clear_edges)
+{
+    Graph g;
+
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "A");
+
+    g.clear_edges();
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_neighbors)
+{
+    Graph g;
+
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "A");
+
+    std::vector<std::string> res = {"B", "C"};
+    auto res_it = res.begin();
+
+    for(auto it=g.neighbors("A").first; it!=g.neighbors("A").second; ++it){
+        BOOST_CHECK(g.vertex_label(*it) == *res_it);
+        res_it++;
+    }
+
+}

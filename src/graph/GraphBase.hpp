@@ -14,6 +14,7 @@
 #define BSTREAM_BGRAPHBASE_H
 
 #include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/labeled_graph.hpp>
 #include <iostream>
 #include <stdexcept>
 #include <set>
@@ -26,10 +27,14 @@ namespace boost::bstream
         GraphBaseException(const std::string& what): std::runtime_error(what) {};
     };
 
-    struct VertexGraphBase
+    class VertexBaseProperty
     {
-        std::string name;
+    public:
+        VertexBaseProperty():group(0),label("") {};
+        VertexBaseProperty(std::string label, int group):group(group),label(label) {};
+
         int group;
+        std::string label;
     };
 
     /**
@@ -44,7 +49,7 @@ namespace boost::bstream
                 vecS,
                 vecS,
                 DirectedS,
-                VertexGraphBase
+                VertexBaseProperty
         > Adjacency;
 
         typedef graph_traits <Adjacency> traits;
@@ -59,15 +64,25 @@ namespace boost::bstream
 
         enum bipartite { null, top, bottom };
 
-        GraphBase():is_bipartite(false) {};
+        ///**************************************************************************************************
+        ///
+        ///  CONSTRUCTOR
+        ///
+        ///**************************************************************************************************
+
+        GraphBase(): m(0) {};
 
         GraphBase(GraphBase<DirectedS> &g);
 
-        GraphBase(bool is_bipartite):is_bipartite(is_bipartite) {};
-
-        GraphBase(int num_vertex, bool is_bipartite=false);
+        GraphBase(int num_vertex);
 
         ~GraphBase() = default;
+
+        ///**************************************************************************************************
+        ///
+        ///  Graph method
+        ///
+        ///**************************************************************************************************
 
         /**
          * @brief Return true if graph is directed.
@@ -75,27 +90,88 @@ namespace boost::bstream
          */
         virtual bool is_directed() const;
 
+        ///**************************************************************************************************
+        ///
+        ///  Vertex method
+        ///
+        ///**************************************************************************************************
+
         /**
          * @brief Add a single node and update node attributes.
          * @return vertex_descriptor
          */
-        virtual vertex_t add_vertex(const std::string name="");
+        vertex_t add_vertex(const std::string name="");
 
-        virtual vertex_t add_vertex_with_group(int group, const std::string name="");
+        std::string vertex_label(const vertex_t& v) const;
 
-        /**
-         * @brief The number of edges in the graph.
-         * @return edge_size_t
-         */
-        virtual edge_t add_edge(const vertex_t& s, const vertex_t& t, int s_group=0, int t_group=0);
+        virtual vertex_t vertex(const std::string label);
 
-        virtual std::string vertex_name(const vertex_t& v);
+        virtual bool has_vertex(const vertex_t& v);
+
+        virtual bool has_vertex(const std::string& label);
 
         /**
          * @brief The number of vertices in the graph.
          * @return vertex_size_t
          */
         virtual vertex_size_t num_vertices();
+
+        /**
+         * @brief a vertex iterator
+         * @return pair<begin, end>
+         */
+        std::pair<vertex_iterator, vertex_iterator> vertices();
+
+        virtual double density();
+
+        /**
+         * @brief return the degree of a vertex
+         * if the graph is directed, we return the sum of indegree and outdegree
+         * @param v vertex_t
+         * @return the number of edge adjacent to a vertex
+         */
+        virtual double degree(const vertex_t& v);
+
+        virtual double degree(const std::string& v);
+
+        /**
+         * @brief return in_degree of a vertex
+         * @param v vertex_t
+         * @return the number of in-edge adjacent to a vertex
+         */
+        virtual double in_degree(const vertex_t& v);
+
+        virtual double in_degree(const std::string& v);
+
+        virtual double out_degree(const vertex_t& v);
+
+        virtual double out_degree(const std::string& v);
+
+        virtual std::pair<adjacency_iterator, adjacency_iterator> neighbors(const vertex_t& v);
+
+        virtual std::pair<adjacency_iterator, adjacency_iterator> neighbors(const std::string& v);
+
+        /**
+         * @brief remove the a vertex and his adjacent edge
+         * @param v vertex_t
+         */
+        virtual void remove_vertex(const std::string& label);
+
+        virtual void clear_vertices();
+
+        ///**************************************************************************************************
+        ///
+        ///  Edge method
+        ///
+        ///**************************************************************************************************
+
+        /**
+         * @brief The number of edges in the graph.
+         * @return edge_size_t
+         */
+        virtual edge_t add_edge(const vertex_t& s, const vertex_t& t);
+
+        virtual edge_t add_edge(const std::string& s, const std::string& t);
 
         /**
          * @brief The number of edges in the graph.
@@ -111,56 +187,22 @@ namespace boost::bstream
          */
         virtual bool has_edge(const vertex_t& s, const vertex_t& t);
 
-        virtual bool has_vertex(const vertex_t& v);
-
-        virtual bool is_group(const vertex_t& v, int group);
+        virtual bool has_edge(const std::string& s, const std::string& t);
 
         /**
          * @brief remove an edge between two vertex
          * @param s
          * @param t
          */
-        virtual void remove_edge(vertex_t& s, vertex_t& t);
+        virtual void remove_edge(const vertex_t& s, const vertex_t& t);
 
-        virtual void remove_edge(edge_t e);
+        virtual void remove_edge(const std::string &s, const std::string &t);
 
-        virtual void remove_all_edges();
+        virtual void remove_edge(const edge_t &e);
 
-        /**
-        * @brief remove the a vertex and his adjacent edge
-        * @param v vertex_t
-        */
-        virtual void remove_vertex(const vertex_t& v);
-
-        /**
-         * @brief a vertex iterator
-         * @return pair<begin, end>
-         */
-        std::pair<vertex_iterator, vertex_iterator> vertices();
+        virtual void clear_edges();
 
         std::pair<edge_iterator, edge_iterator> edges();
-
-
-        /**
-         * @brief return the degree of a vertex
-         * if the graph is directed, we return the sum of indegree and outdegree
-         * @param v vertex_t
-         * @return the number of edge adjacent to a vertex
-         */
-        virtual double degree(const vertex_t& v);
-
-        /**
-         * @brief return in_degree of a vertex
-         * @param v vertex_t
-         * @return the number of in-edge adjacent to a vertex
-         */
-        virtual double in_degree(const vertex_t& v);
-
-        virtual double out_degree(const vertex_t& v);
-
-        virtual double density();
-
-        virtual std::pair<adjacency_iterator, adjacency_iterator> neighbors(const vertex_t& v);
 
         friend std::ostream & operator<<(std::ostream &out, GraphBase &g)
         {
@@ -176,8 +218,9 @@ namespace boost::bstream
          * Adjacency list of the graph
          */
         Adjacency G;
+        std::map<std::string, vertex_t> label_map;
         std::set<vertex_t, std::less<vertex_t>> vertex_set;
-        bool is_bipartite;
+        int m; //!< next vertex_id
     };
 
 } // end namespace boost::src

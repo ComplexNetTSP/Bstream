@@ -1,1 +1,3 @@
 # Bstream
+
+## Internal structure
