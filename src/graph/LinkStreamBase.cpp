@@ -67,7 +67,8 @@ namespace boost::bstream
     template<typename DirectedS>
     typename GraphBase<DirectedS>::edge_t
     LinkStreamBase<DirectedS>::add_edge(typename GraphBase<DirectedS>::vertex_t& s,
-                                        typename GraphBase<DirectedS>::vertex_t& t)
+                                        typename GraphBase<DirectedS>::vertex_t& t,
+                                        int s_group, int t_group)
     {
         typename GraphBase<DirectedS>::edge_t e_exist;
         bool ok;

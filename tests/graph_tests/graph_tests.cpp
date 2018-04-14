@@ -11,6 +11,8 @@
 
 
 #include "GraphType.hpp"
+#include "bipartite.hpp"
+#include <boost/graph/detail/edge.hpp>
 
 #define BOOST_TEST_MODULE BGraph_tests
 
@@ -44,6 +46,12 @@ BOOST_AUTO_TEST_CASE(GraphBase_copy_constructor)
     auto a = g.add_vertex("a");
     auto b = g.add_vertex("b");
     auto c = g.add_vertex("c");
+
+    BOOST_CHECK(g.has_vertex(a) == true);
+    BOOST_CHECK(g.has_vertex(b) == true);
+    BOOST_CHECK(g.has_vertex(c) == true);
+    BOOST_CHECK(g.has_vertex(10) == false);
+
     g.add_edge(a, b);
     g.add_edge(b, c);
     g.add_edge(c, a);
@@ -71,6 +79,20 @@ BOOST_AUTO_TEST_CASE(GraphBase_directed_constructor)
     unsigned i = 0;
     for(auto it = v_iterator.first; it != v_iterator.second; ++it)
         BOOST_CHECK(*it == i++);
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_add_edges)
+{
+    // build undirected graph
+    Graph g;
+    BOOST_CHECK(g.is_directed() == false);
+    BOOST_CHECK(g.num_vertices() == 0);
+    BOOST_CHECK(g.num_edges() == 0);
+
+    g.add_edge(2, 3);
+    g.add_edge(10, 5);
+    BOOST_CHECK(g.num_vertices() == 2);
+    BOOST_CHECK(g.num_edges() == 2);
 }
 
 
@@ -130,6 +152,7 @@ BOOST_AUTO_TEST_CASE(GraphBase_undirected_remove_vertex){
     BOOST_CHECK(g.num_edges() == 3);
 
     g.remove_vertex(v1);
+    BOOST_CHECK(g.has_vertex(v1) == false);
     BOOST_CHECK(g.num_vertices() == 2);
     BOOST_CHECK(g.num_edges() == 1);
 
@@ -152,7 +175,6 @@ BOOST_AUTO_TEST_CASE(GraphBase_directed_remove_vertex){
     BOOST_CHECK(g.num_edges() == 1);
 
 }
-
 
 BOOST_AUTO_TEST_CASE(GraphBase_directed_degree)
 {
@@ -195,7 +217,6 @@ BOOST_AUTO_TEST_CASE(GraphBase_undirected_degree)
         sum_degree += g.degree(*it);
     BOOST_CHECK(sum_degree == 2 * g.num_edges());
 }
-
 
 BOOST_AUTO_TEST_CASE(GraphBase_undirected_remove_edge)
 {
@@ -241,7 +262,7 @@ BOOST_AUTO_TEST_CASE(GraphBase_add_vertex_with_name)
     BOOST_CHECK(g.vertex_name(v1) == "A");
     BOOST_CHECK(g.vertex_name(v2) == "B");
     BOOST_CHECK(g.vertex_name(v3) == "C");
-    BOOST_CHECK(g.vertex_name(v4).empty());
+    BOOST_CHECK(g.vertex_name(v4) == "3");
 }
 
 BOOST_AUTO_TEST_CASE(GraphBase_density)
@@ -267,13 +288,33 @@ BOOST_AUTO_TEST_CASE(GraphBase_density)
     BOOST_CHECK(ug.density() == 0.5);
 }
 
+/*
 BOOST_AUTO_TEST_CASE(GraphBase_biparti)
 {
     Graph g(true);
-    auto a = g.add_vertex_with_group(0);
-    auto b = g.add_vertex_with_group(1);
-    auto c = g.add_vertex_with_group(0);
+
+    auto a = g.add_vertex_with_group(Graph::bipartite::top);
+    auto b = g.add_vertex_with_group(Graph::bipartite::bottom);
+    auto c = g.add_vertex_with_group(Graph::bipartite::top);
 
     g.add_edge(a,b);
     BOOST_CHECK_THROW(g.add_edge(a,c), GraphBaseException);
 }
+
+*/
+/*
+BOOST_AUTO_TEST_CASE(GraphBase_biparti_projected)
+{
+    Graph g(true);
+
+    auto a = g.add_vertex_with_group(Graph::bipartite::top);
+    auto b = g.add_vertex_with_group(Graph::bipartite::bottom);
+    auto c = g.add_vertex_with_group(Graph::bipartite::top);
+    g.add_edge(a,b);
+    g.add_edge(c,b);
+
+    projected_graph(g, Graph::bipartite::top);
+    //BOOST_CHECK(gprime.num_vertices() == 2);
+    //BOOST_CHECK(gprime.num_edges() == 1);
+}
+*/

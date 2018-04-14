@@ -16,6 +16,8 @@
 #include "tintervalset_interface.hpp"
 #include "csvreader_interface.hpp"
 
+#include "bipartite.hpp"
+
 PYBIND11_MODULE(pybstream, m) {
     graph_interface(m);
     tinterval_interface(m);

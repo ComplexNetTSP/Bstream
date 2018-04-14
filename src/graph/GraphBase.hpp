@@ -16,6 +16,7 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <iostream>
 #include <stdexcept>
+#include <set>
 
 namespace boost::bstream
 {
@@ -56,13 +57,15 @@ namespace boost::bstream
         typedef typename traits::edges_size_type edge_size_t;
         typedef typename traits::adjacency_iterator adjacency_iterator;
 
-        GraphBase():is_biparti(false) {};
+        enum bipartite { null, top, bottom };
+
+        GraphBase():is_bipartite(false) {};
 
         GraphBase(GraphBase<DirectedS> &g);
 
-        GraphBase(bool is_biparti):is_biparti(is_biparti) {};
+        GraphBase(bool is_bipartite):is_bipartite(is_bipartite) {};
 
-        GraphBase(int num_vertex, bool is_biparti=false);
+        GraphBase(int num_vertex, bool is_bipartite=false);
 
         ~GraphBase() = default;
 
@@ -76,7 +79,6 @@ namespace boost::bstream
          * @brief Add a single node and update node attributes.
          * @return vertex_descriptor
          */
-        //virtual vertex_t add_vertex(int group) { return this->add_vertex("", group); };
         virtual vertex_t add_vertex(const std::string name="");
 
         virtual vertex_t add_vertex_with_group(int group, const std::string name="");
@@ -85,7 +87,7 @@ namespace boost::bstream
          * @brief The number of edges in the graph.
          * @return edge_size_t
          */
-        virtual edge_t add_edge(vertex_t& s, vertex_t& t);
+        virtual edge_t add_edge(const vertex_t& s, const vertex_t& t, int s_group=0, int t_group=0);
 
         virtual std::string vertex_name(const vertex_t& v);
 
@@ -107,13 +109,11 @@ namespace boost::bstream
          * @param t
          * @return boolean
          */
-        virtual bool has_edge(vertex_t& s, vertex_t& t);
+        virtual bool has_edge(const vertex_t& s, const vertex_t& t);
 
-        /**
-         * @brief remove the a vertex and his adjacent edge
-         * @param v vertex_t
-         */
-        void remove_vertex(vertex_t& v);
+        virtual bool has_vertex(const vertex_t& v);
+
+        virtual bool is_group(const vertex_t& v, int group);
 
         /**
          * @brief remove an edge between two vertex
@@ -122,7 +122,15 @@ namespace boost::bstream
          */
         virtual void remove_edge(vertex_t& s, vertex_t& t);
 
-        virtual void remove_edge(edge_t& e);
+        virtual void remove_edge(edge_t e);
+
+        virtual void remove_all_edges();
+
+        /**
+        * @brief remove the a vertex and his adjacent edge
+        * @param v vertex_t
+        */
+        virtual void remove_vertex(const vertex_t& v);
 
         /**
          * @brief a vertex iterator
@@ -146,9 +154,9 @@ namespace boost::bstream
          * @param v vertex_t
          * @return the number of in-edge adjacent to a vertex
          */
-        virtual double in_degree(vertex_t& v);
+        virtual double in_degree(const vertex_t& v);
 
-        virtual double out_degree(vertex_t& v);
+        virtual double out_degree(const vertex_t& v);
 
         virtual double density();
 
@@ -168,7 +176,8 @@ namespace boost::bstream
          * Adjacency list of the graph
          */
         Adjacency G;
-        bool is_biparti;
+        std::set<vertex_t, std::less<vertex_t>> vertex_set;
+        bool is_bipartite;
     };
 
 } // end namespace boost::src

@@ -53,7 +53,8 @@ namespace boost::bstream
 
         typename GraphBase<DirectedS>::edge_t
         add_edge(typename GraphBase<DirectedS>::vertex_t& s,
-                 typename GraphBase<DirectedS>::vertex_t& t);
+                 typename GraphBase<DirectedS>::vertex_t& t,
+                 int s_group=0, int t_group=0);
 
         typename GraphBase<DirectedS>::edge_t
         add_edge(typename GraphBase<DirectedS>::vertex_t& s,

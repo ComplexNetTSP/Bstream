@@ -10,6 +10,7 @@
 ///-------------------------------------------------------------------------------------------------
 
 #include <tuple>
+#include <string>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/copy.hpp>
 #include "GraphBase.hpp"
@@ -25,7 +26,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    GraphBase<DirectedS>::GraphBase(int num_vertex, bool is_biparti): is_biparti(is_biparti)
+    GraphBase<DirectedS>::GraphBase(int num_vertex, bool is_bipartite): is_bipartite(is_bipartite)
     {
         for(auto i=0; i < num_vertex; ++i)
             this->add_vertex();
@@ -42,8 +43,12 @@ namespace boost::bstream
     GraphBase<DirectedS>::add_vertex(const std::string name)
     {
         auto v = boost::add_vertex(G);
-        G[v].name = name;
+        if(name.empty())
+            G[v].name = to_string(v);
+        else
+            G[v].name = name;
         G[v].group = 0;
+        vertex_set.insert(v);
         return v;
     }
 
@@ -59,23 +64,52 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename GraphBase<DirectedS>::edge_t
-    GraphBase<DirectedS>::add_edge(GraphBase<DirectedS>::vertex_t& s, GraphBase<DirectedS>::vertex_t& t)
+    GraphBase<DirectedS>::add_edge(const GraphBase<DirectedS>::vertex_t& s,
+                                   const GraphBase<DirectedS>::vertex_t& t,
+                                   int s_group,
+                                   int t_group)
     {
+
         bool ok;
         edge_t e;
-        // test the case for biparti graph
-        if(is_biparti){
-            if(G[s].group == G[t].group)
-                throw GraphBaseException("Biparti graph: don't connect vertices form the same group");
-        }
 
-        // we do not allow for multiedge
-        if(!boost::edge(s, t, G).second) {
+        // for bipartite only
+        if(is_bipartite) {
+            if(this->has_vertex(s) && this->has_vertex(t)){
+                // check if vertex already exist
+
+                if (G[s].group == G[t].group)
+                    throw GraphBaseException("Biparti graph: don't connect vertices form the same group");
+                tie(e, ok) = boost::add_edge(s, t, G);
+                if (!ok)
+                    throw GraphBaseException("Unable to add the edge");
+            }else {
+                //if vertex do not exist add edge
+                if (s_group == t_group) {
+                    throw GraphBaseException("Biparti graph: don't connect vertices form the same group");
+                } else {
+                    tie(e, ok) = boost::add_edge(s, t, G);
+                    if (!ok)
+                        throw GraphBaseException("Unable to add the edge");
+                    G[s].name = to_string(s);
+                    G[t].name = to_string(t);
+                    G[s].group = s_group;
+                    G[t].group = t_group;
+                    vertex_set.insert(source(e, G));
+                    vertex_set.insert(target(e, G));
+                }
+            }
+        }else{
+            // not bipartite
             tie(e, ok) = boost::add_edge(s, t, G);
             if (!ok)
                 throw GraphBaseException("Unable to add the edge");
-        }else{
-            e = boost::edge(s, t, G).first;
+            G[s].name = to_string(s);
+            G[t].name = to_string(t);
+            G[s].group = s_group;
+            G[t].group = t_group;
+            vertex_set.insert(source(e, G));
+            vertex_set.insert(target(e, G));
         }
         return e;
     }
@@ -94,14 +128,15 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    bool GraphBase<DirectedS>::has_edge(GraphBase<DirectedS>::vertex_t& s, GraphBase<DirectedS>::vertex_t& t)
+    bool GraphBase<DirectedS>::has_edge(const GraphBase<DirectedS>::vertex_t& s, const GraphBase<DirectedS>::vertex_t& t)
     {
         return boost::edge(s, t, G).second;
     }
 
     template<typename DirectedS>
-    void GraphBase<DirectedS>::remove_vertex(GraphBase<DirectedS>::vertex_t &v)
+    void GraphBase<DirectedS>::remove_vertex(const GraphBase<DirectedS>::vertex_t &v)
     {
+        vertex_set.erase(v);
         boost::clear_vertex(v, G);
         boost::remove_vertex(v, G);
     }
@@ -117,9 +152,16 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void GraphBase<DirectedS>::remove_edge(GraphBase<DirectedS>::edge_t &e)
+    void GraphBase<DirectedS>::remove_edge(GraphBase<DirectedS>::edge_t e)
     {
         boost::remove_edge(e, G);
+    }
+
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::remove_all_edges()
+    {
+        for(auto it=this->edges().first; it!=this->edges().second; ++it)
+            this->remove_edge(*it);
     }
 
     template<typename DirectedS>
@@ -136,13 +178,13 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    double GraphBase<DirectedS>::in_degree(GraphBase<DirectedS>::vertex_t& v)
+    double GraphBase<DirectedS>::in_degree(const GraphBase<DirectedS>::vertex_t& v)
     {
         return static_cast<double>(boost::in_degree(v, G));
     }
 
     template<typename DirectedS>
-    double GraphBase<DirectedS>::out_degree(GraphBase<DirectedS>::vertex_t& v)
+    double GraphBase<DirectedS>::out_degree(const GraphBase<DirectedS>::vertex_t& v)
     {
         return static_cast<double>(boost::out_degree(v, G));
     }
@@ -174,6 +216,21 @@ namespace boost::bstream
             return static_cast<double>(this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
         else
             return static_cast<double>(2 * this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
+    }
+
+    template<typename DirectedS>
+    bool GraphBase<DirectedS>::is_group(const GraphBase::vertex_t &v, int group)
+    {
+        if(G[v].group == group)
+            return true;
+        else
+            return false;
+    }
+
+    template<typename DirectedS>
+    bool GraphBase<DirectedS>::has_vertex(const GraphBase::vertex_t &v)
+    {
+        return vertex_set.find(v) != vertex_set.end();
     }
 
 
