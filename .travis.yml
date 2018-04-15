@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 
 # Enable C++ support
-language: cpp
+language: python
 python:
   - "3.6"
 
@@ -18,6 +18,7 @@ install:
 
 # Build steps
 script:
+  - which python
   - mkdir build
   - cd build
   - cmake .. -DPYBIND11_INCLUDE_DIRS=/usr/local/anaconda/include/python3.6m

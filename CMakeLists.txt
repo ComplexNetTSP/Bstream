@@ -15,16 +15,15 @@ SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread")
 SET(CMAKE_VERBOSE_MAKEFILE off )
 
 # add libary
-set(Boost_USE_MULTITHREADED ON)
-FIND_PACKAGE(Boost COMPONENTS system graph REQUIRED)
-if (Boost_FOUND)
-    MESSAGE("-- Found Boost " ${Boost_MAJOR_VERSION} "." ${Boost_MINOR_VERSION} " include directory:\t" ${Boost_INCLUDE_DIRS})
-endif()
-
 FIND_PACKAGE(PythonLibs 3 REQUIRED)
 if (PYTHONLIBS_FOUND)
     MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
     MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
+endif()
+
+FIND_PACKAGE(PythonInterp REQUIRED)
+if (PYTHONINTERP_FOUND)
+    MESSAGE("-- Found Python 3 interpretor: " ${PYTHON_EXECUTABLE})
 endif()
 
 find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
@@ -34,10 +33,12 @@ else()
     MESSAGE("-- Error pybind11 not found")
 endif()
 
-FIND_PACKAGE(PythonInterp REQUIRED)
-if (PYTHONINTERP_FOUND)
-    MESSAGE("-- Found Python 3 interpretor: " ${PYTHON_EXECUTABLE})
+set(Boost_USE_MULTITHREADED ON)
+FIND_PACKAGE(Boost COMPONENTS system graph REQUIRED)
+if (Boost_FOUND)
+    MESSAGE("-- Found Boost " ${Boost_MAJOR_VERSION} "." ${Boost_MINOR_VERSION} " include directory:\t" ${Boost_INCLUDE_DIRS})
 endif()
+
 
 
 # The file(GLOB...) allows for wildcard additions:
