@@ -46,7 +46,7 @@ namespace boost::bstream
     {
     public:
         typedef adjacency_list <
-                vecS,
+                listS,
                 vecS,
                 DirectedS,
                 VertexBaseProperty
