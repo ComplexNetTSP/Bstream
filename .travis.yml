@@ -12,20 +12,10 @@ compiler:
   - clang
   - gcc
 
-#custom install
-before_script:
-  - pip install -e .
-  - wget https://github.com/pybind/pybind11/archive/v2.2.2.tar.gz -O pybind11.tar.gz
-  - tar zxvf pybind11.tar.gz
-  - cd pybind11-2.2.2
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make
-  - sudo make install
-
 # Build steps
 script:
+  - wget https://github.com/pybind/pybind11/archive/v2.2.2.tar.gz -O pybind11.tar.gz
+  - tar zxvf pybind11.tar.gz
   - mkdir build
   - cd build
   - cmake ..

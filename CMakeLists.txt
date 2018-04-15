@@ -27,12 +27,12 @@ if (PYTHONLIBS_FOUND)
     MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
 endif()
 
-find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
-if (PYBIND11_INCLUDE_DIRS)
-    MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
-else()
-    MESSAGE("-- Error pybind11 not found")
-endif()
+#find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
+#if (PYBIND11_INCLUDE_DIRS)
+#    MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
+#else()
+#    MESSAGE("-- Error pybind11 not found")
+#endif()
 
 FIND_PACKAGE(PythonInterp REQUIRED)
 if (PYTHONINTERP_FOUND)
@@ -81,3 +81,4 @@ endif()
 
 # add tests
 ADD_SUBDIRECTORY(tests)
+ADD_SUBDIRECTORY(pybind11-2.2.2)
