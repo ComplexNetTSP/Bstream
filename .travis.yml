@@ -30,7 +30,8 @@ install:
 script:
   - which python
   - python --version
-  - ls /home/travis/miniconda/lib/
+  - export CC=/usr/bin/clang
+  - export CXX=/usr/bin/clang++
   - mkdir build
   - cd build
   - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
