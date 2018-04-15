@@ -10,10 +10,13 @@ compiler:
   - clang
   - gcc
 
-# Build steps
-script:
+#custom install
+install:
   - pip install pybind11
   - pip install cppimport
+
+# Build steps
+script:
   - mkdir build
   - cd build
   - cmake ..
