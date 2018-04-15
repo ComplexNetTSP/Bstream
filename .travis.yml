@@ -12,17 +12,13 @@ compiler:
 
 # Build steps
 script:
+  - pip install pybind11
+  - pip install cppimport
   - mkdir build
   - cd build
   - cmake ..
   - make
   - make test
-
-before_install:
-  - pip install --user cpp-coveralls
-
-after_success:
-  - coveralls --exclude tests --gcov-options '\-lp'
 
 addons:
   apt:
@@ -36,3 +32,4 @@ addons:
     - g++-5
     - clang-3.6
     - libboost-all-dev
+    - lcov
