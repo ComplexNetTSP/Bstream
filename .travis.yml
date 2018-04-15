@@ -19,12 +19,13 @@ install:
 # Build steps
 script:
   - ls /home/travis/virtualenv/python3.6.3/lib/libpython*
-  - ls /home/travis/virtualenv/python3.6.3/*
+  - find /home/travis/virtualenv/python3.6.3/ -name libpython* -print
+  - find /home/travis/virtualenv/python3.6.3/ -name pybind* -print
   - ls /home/travis/virtualenv/python3.6.3/lib/python3.6/*
   - which python
   - mkdir build
   - cd build
-  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/virtualenv/python3.6.3/include -DPYTHON_EXECUTABLE=/home/travis/virtualenv/python3.6.3/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include -DPYTHON_LIBRARY=/home/travis/virtualenv/python3.6.3/lib
+  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/virtualenv/python3.6.3/include -DPYTHON_EXECUTABLE=/home/travis/virtualenv/python3.6.3/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/python3.6m/ -DPYTHON_LIBRARY=/home/travis/virtualenv/python3.6.3/lib
   - make
   - make test
 
