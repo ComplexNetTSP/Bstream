@@ -34,7 +34,7 @@ script:
   - ls /home/travis/miniconda/lib/
   - mkdir build
   - cd build
-  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
+  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
   - make
   - make test
 
@@ -51,3 +51,15 @@ addons:
     - clang-3.6
     - libboost-all-dev
     - lcov
+
+after_success:
+  # Creating report
+  - cd ${TRAVIS_BUILD_DIR}
+  # capture coverage info
+  - lcov --directory . --capture --output-file coverage.info
+  # filter out system
+  - lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
+  # debug info
+  - lcov --list coverage.info
+  # Uploading report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
