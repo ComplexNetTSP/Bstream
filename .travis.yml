@@ -25,7 +25,7 @@ before_install:
   - conda info -a
 
 install:
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION -c conda-forge pybind11
+  - conda install -c conda-forge --yes python=$TRAVIS_PYTHON_VERSION  pybind11
 
 # Build steps
 script:
