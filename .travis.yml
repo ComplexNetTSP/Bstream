@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 
 # Enable C++ support
-language: python
+language: cpp
 python:
   - "3.6"
 
@@ -24,13 +24,12 @@ before_install:
   - conda info -a
 
 install:
-  - conda install -c conda-forge --yes python=$TRAVIS_PYTHON_VERSION  pybind11
+  - conda install -c conda-forge --yes python=$TRAVIS_PYTHON_VERSION pybind11
   - export CXX="clang++-4.0" CC="clang-4.0"
 
 # Build steps
 script:
   - which python
-  - python --version
   - mkdir build
   - cd build
   - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
