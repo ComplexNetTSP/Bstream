@@ -22,9 +22,13 @@ before_install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
+  - sudo apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main"
+  - sudo apt-get update -qq
 
 install:
   - conda install -c conda-forge --yes python=$TRAVIS_PYTHON_VERSION pybind11
+  - sudo apt-get install libboost-all-dev
+  - sudo apt-get install --allow-unauthenticated -qq clang++-4.0
   - export CXX="clang++-4.0" CC="clang-4.0"
 
 # Build steps
@@ -44,7 +48,6 @@ addons:
     - llvm-toolchain-precise-3.6
     packages:
     # install toolchains
-    - clang-4.0
     - libboost-all-dev
     - lcov
 
