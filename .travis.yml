@@ -30,10 +30,11 @@ install:
 # Build steps
 script:
   - which python
+  - python --version
   - ls /home/travis/miniconda/lib/
   - mkdir build
   - cd build
-  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/python3.6m/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/
+  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
   - make
   - make test
 
