@@ -18,10 +18,10 @@ install:
 
 # Build steps
 script:
-  - which python
+  - ls /usr/local/anaconda/lib/libpython*
   - mkdir build
   - cd build
-  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/virtualenv/python3.6.3/include -DPYTHON_EXECUTABLE=/home/travis/virtualenv/python3.6.3/bin/python
+  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/virtualenv/python3.6.3/include -DPYTHON_EXECUTABLE=/home/travis/virtualenv/python3.6.3/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include -DPYTHON_LIBRARY=/home/travis/virtualenv/python3.6.3/lib
   - make
   - make test
 

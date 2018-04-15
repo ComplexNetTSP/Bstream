@@ -6,9 +6,17 @@ include(CTest)
 enable_testing()
 
 # option
-SET(PYTHON_LIBRARY /usr/local/anaconda/lib/libpython3.6m.dylib)
-SET(PYTHON_INCLUDE_DIR /usr/local/anaconda/include/python3.6m)
-SET(PYTHON_EXECUTABLE /usr/local/anaconda/bin/python3.6)
+if(NOT DEFINED ${PYTHON_LIBRARY})
+    SET(PYTHON_LIBRARY /usr/local/anaconda/lib/libpython3.6m.dylib)
+endif()
+
+if(NOT DEFINED ${PYTHON_INCLUDE_DIR})
+    SET(PYTHON_INCLUDE_DIR /usr/local/anaconda/include/python3.6m)
+endif()
+
+if(NOT DEFINED ${PYTHON_EXECUTABLE})
+    SET(PYTHON_EXECUTABLE /usr/local/anaconda/bin/python3.6)
+endif()
 
 SET(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread")
