@@ -33,7 +33,7 @@ script:
   - ls /home/travis/miniconda/lib/
   - mkdir build
   - cd build
-  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/virtualenv/python3.6.3/include -DPYTHON_EXECUTABLE=/home/travis/virtualenv/python3.6.3/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/python3.6m/ -DPYTHON_LIBRARY=/home/travis/virtualenv/python3.6.3/lib
+  - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/lib/include -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/python3.6m/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/
   - make
   - make test
 
