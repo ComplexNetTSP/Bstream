@@ -12,8 +12,14 @@ compiler:
 
 #custom install
 install:
-  - pip install pybind11
-  - pip install cppimport
+  - wget https://github.com/pybind/pybind11/archive/v2.2.2.tar.gz
+  - tar zxvf v2.2.2.tar.gz
+  - cd pybind11-2.2.2
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - make install
 
 # Build steps
 script:
