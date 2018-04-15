@@ -49,7 +49,7 @@ namespace boost::bstream
         if(this->group(s) != this->group(t)){
             return GraphBase<DirectedS>::add_edge(s,t);
         }else{
-            throw
+            throw BipartiteBaseException("Both vertex belong to the same group");
         }
     }
 
@@ -60,7 +60,7 @@ namespace boost::bstream
         if(this->group(s) != this->group(t)){
             return GraphBase<DirectedS>::add_edge(s,t);
         }else{
-            throw
+            throw BipartiteBaseException("Both vertex belong to the same group");
         }
     }
 

@@ -19,6 +19,12 @@
 
 namespace boost::bstream
 {
+    class BipartiteBaseException: public GraphBaseException
+    {
+    public:
+        BipartiteBaseException(const std::string& what): GraphBaseException(what) {};
+    };
+
     template<typename DirectedS>
     class BipartiteBase: public GraphBase<DirectedS>
     {
