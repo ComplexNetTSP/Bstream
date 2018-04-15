@@ -22,10 +22,10 @@
 
 namespace boost::bstream
 {
-    class LinkStreamBaseException: public std::runtime_error
+    class LinkStreamBaseException: public GraphBaseException
     {
     public:
-        LinkStreamBaseException(const std::string& what): std::runtime_error(what) {};
+        LinkStreamBaseException(const std::string& what): GraphBaseException(what) {};
     };
 
     template <typename DirectedS>
@@ -52,24 +52,24 @@ namespace boost::bstream
         double num_edges();
 
         typename GraphBase<DirectedS>::edge_t
-        add_edge(typename GraphBase<DirectedS>::vertex_t& s,
-                 typename GraphBase<DirectedS>::vertex_t& t,
-                 int s_group=0, int t_group=0);
+        add_edge(const typename GraphBase<DirectedS>::vertex_t& s,
+                 const typename GraphBase<DirectedS>::vertex_t& t);
 
         typename GraphBase<DirectedS>::edge_t
-        add_edge(typename GraphBase<DirectedS>::vertex_t& s,
-                 typename GraphBase<DirectedS>::vertex_t& t,
-                 time_t b, time_t e);
+        add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t& s,
+                        const typename GraphBase<DirectedS>::vertex_t& t,
+                        time_t b, time_t e);
+
 
         std::pair<typename GraphBase<DirectedS>::edge_t, bool>
-        is_edge_active(typename GraphBase<DirectedS>::vertex_t& s,
-                       typename GraphBase<DirectedS>::vertex_t& t,
+        is_edge_active(const typename GraphBase<DirectedS>::vertex_t& s,
+                       const typename GraphBase<DirectedS>::vertex_t& t,
                        time_t b, time_t e);
 
         double degree(const typename GraphBase<DirectedS>::vertex_t& v);
 
         //todo: add the remove vertex method, check first about the graph properties
-        void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
+        //void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
 
         double density();
 

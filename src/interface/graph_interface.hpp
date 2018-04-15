@@ -48,13 +48,13 @@ void graph_interface(py::module &m)
     graph.def(py::init<int>());
     graph.def("is_directed", &bs::Graph::is_directed);
     graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("name")="");
-    graph.def("add_edge", &bs::Graph::add_edge);
+    //graph.def("add_edge", &bs::Graph::add_edge);
     graph.def("num_vertices", &bs::Graph::num_vertices);
     graph.def("num_edges", &bs::Graph::num_edges);
-    graph.def("has_edge", &bs::Graph::has_edge);
-    graph.def("degree", &bs::Graph::degree);
-    graph.def("in_degree", &bs::Graph::in_degree);
-    graph.def("out_degree", &bs::Graph::out_degree);
+    //graph.def("has_edge", &bs::Graph::has_edge);
+    //graph.def("degree", &bs::Graph::degree);
+    //graph.def("in_degree", &bs::Graph::in_degree);
+    //graph.def("out_degree", &bs::Graph::out_degree);
 
     graph.def("vertices", [](bs::Graph &g){
         auto it = g.vertices();
@@ -71,13 +71,13 @@ void graph_interface(py::module &m)
     digraph.def(py::init<int>());
     digraph.def("is_directed", &bs::DiGraph::is_directed);
     digraph.def("add_vertex", &bs::DiGraph::add_vertex, py::arg("name")="");
-    digraph.def("add_edge", &bs::DiGraph::add_edge);
+    //digraph.def("add_edge", &bs::DiGraph::add_edge);
     digraph.def("num_vertices", &bs::DiGraph::num_vertices);
     digraph.def("num_edges", &bs::DiGraph::num_edges);
-    digraph.def("has_edge", &bs::DiGraph::has_edge);
-    digraph.def("degree", &bs::DiGraph::degree);
-    digraph.def("in_degree", &bs::DiGraph::in_degree);
-    digraph.def("out_degree", &bs::DiGraph::out_degree);
+    //digraph.def("has_edge", &bs::DiGraph::has_edge);
+    //digraph.def("degree", &bs::DiGraph::degree);
+    //digraph.def("in_degree", &bs::DiGraph::in_degree);
+    //digraph.def("out_degree", &bs::DiGraph::out_degree);
     digraph.def("vertices", [](bs::DiGraph &g){
         auto it = g.vertices();
         return py::make_iterator(it.first, it.second);

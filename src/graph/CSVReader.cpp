@@ -63,7 +63,7 @@ namespace boost::bstream
                         auto v = mapNodeIds[tokens[1]];
                         auto b = std::stoi(tokens[2]);
                         auto e = std::stoi(tokens[3]);
-                        G.add_edge(u, v, b, e);
+                        G.add_edge_w_time(u, v, b, e);
                     }
                 }
             }
@@ -122,7 +122,7 @@ namespace boost::bstream
                         auto v = mapNodeIds[tokens[1]];
                         auto b = std::stoi(tokens[2]);
                         auto e = std::stoi(tokens[3]);
-                        G.add_edge(u, v, b, e);
+                        G.add_edge_w_time(u, v, b, e);
                     }
                 }
             }

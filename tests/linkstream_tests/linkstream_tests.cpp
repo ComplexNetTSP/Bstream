@@ -48,19 +48,19 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge)
 {
     LinkStream::vertex_t a=0, b=1, c=2, d=3;
     LinkStream g(4, 0, 10);
-    g.add_edge(a, b, 0, 4);
-    g.add_edge(a, b, 6, 9);
-    g.add_edge(a, c, 2, 5);
-    g.add_edge(b, c, 1, 8);
-    g.add_edge(b, d, 7, 10);
-    g.add_edge(c, d, 6, 9);
+    g.add_edge_w_time(a, b, 0, 4);
+    g.add_edge_w_time(a, b, 6, 9);
+    g.add_edge_w_time(a, c, 2, 5);
+    g.add_edge_w_time(b, c, 1, 8);
+    g.add_edge_w_time(b, d, 7, 10);
+    g.add_edge_w_time(c, d, 6, 9);
 }
 
 BOOST_AUTO_TEST_CASE(LinkStream_exception)
 {
     LinkStream::vertex_t a=0, b=1;
     LinkStream g(4, 0, 10);
-    BOOST_CHECK_THROW( g.add_edge(a, b, 0, 13), LinkStreamException);
+    BOOST_CHECK_THROW( g.add_edge_w_time(a, b, 0, 13), LinkStreamException);
 }
 
 
@@ -80,12 +80,12 @@ BOOST_AUTO_TEST_CASE(LinkStream_is_active)
     auto b = g.add_vertex("B");
     auto c = g.add_vertex("C");
     auto d = g.add_vertex("D");
-    g.add_edge(a, b, 0, 4);
-    g.add_edge(a, b, 6, 9);
-    g.add_edge(a, c, 2, 5);
-    g.add_edge(b, c, 1, 8);
-    g.add_edge(b, d, 7, 10);
-    g.add_edge(c, d, 6, 9);
+    g.add_edge_w_time(a, b, 0, 4);
+    g.add_edge_w_time(a, b, 6, 9);
+    g.add_edge_w_time(a, c, 2, 5);
+    g.add_edge_w_time(b, c, 1, 8);
+    g.add_edge_w_time(b, d, 7, 10);
+    g.add_edge_w_time(c, d, 6, 9);
 
     BOOST_CHECK(g.is_edge_active(a, b, 7, 8).second);
     BOOST_CHECK(g.is_edge_active(a, b, 1, 2).second);
@@ -108,13 +108,13 @@ BOOST_AUTO_TEST_CASE(LinkStream_degree)
     auto b = L.add_vertex("B");
     auto c = L.add_vertex("C");
     auto d = L.add_vertex("D");
-    L.add_edge(a, b, 0, 4);
-    L.add_edge(a, b, 6, 9);
-    L.add_edge(b, d, 7, 10);
+    L.add_edge_w_time(a, b, 0, 4);
+    L.add_edge_w_time(a, b, 6, 9);
+    L.add_edge_w_time(b, d, 7, 10);
 
-    L.add_edge(b, c, 1, 8);
-    L.add_edge(a, c, 2, 5);
-    L.add_edge(d, c, 6, 9);
+    L.add_edge_w_time(b, c, 1, 8);
+    L.add_edge_w_time(a, c, 2, 5);
+    L.add_edge_w_time(d, c, 6, 9);
 
     //L.print_edges();
 
@@ -133,13 +133,13 @@ BOOST_AUTO_TEST_CASE(LinkStream_handshaking_lemma)
     auto b = L.add_vertex("B");
     auto c = L.add_vertex("C");
     auto d = L.add_vertex("D");
-    L.add_edge(a, b, 0, 10);
-    L.add_edge(a, b, 0, 10);
-    L.add_edge(b, d, 0, 10);
+    L.add_edge_w_time(a, b, 0, 10);
+    L.add_edge_w_time(a, b, 0, 10);
+    L.add_edge_w_time(b, d, 0, 10);
 
-    L.add_edge(b, c, 0, 10);
-    L.add_edge(a, c, 0, 10);
-    L.add_edge(d, c, 0, 10);
+    L.add_edge_w_time(b, c, 0, 10);
+    L.add_edge_w_time(a, c, 0, 10);
+    L.add_edge_w_time(d, c, 0, 10);
 
     // check the handshaking lemma
     double sum_degree = 0;
@@ -163,9 +163,9 @@ BOOST_AUTO_TEST_CASE(LinkStream_density)
     auto a = L.add_vertex("A");
     auto b = L.add_vertex("B");
     auto c = L.add_vertex("C");
-    L.add_edge(a, b, 0, 10);
-    L.add_edge(b, c, 0, 10);
-    L.add_edge(c, a, 0, 10);
+    L.add_edge_w_time(a, b, 0, 10);
+    L.add_edge_w_time(b, c, 0, 10);
+    L.add_edge_w_time(c, a, 0, 10);
     auto d = 2 * L.num_edges() / (L.num_vertices() * (L.num_vertices() - 1));
     BOOST_CHECK(L.density() == d); // 1
 
@@ -173,9 +173,9 @@ BOOST_AUTO_TEST_CASE(LinkStream_density)
     auto aa = LL.add_vertex("A");
     auto bb = LL.add_vertex("B");
     auto cc = LL.add_vertex("C");
-    LL.add_edge(aa, bb, 0, 5);
-    LL.add_edge(bb, cc, 0, 5);
-    LL.add_edge(cc, aa, 0, 5);
+    LL.add_edge_w_time(aa, bb, 0, 5);
+    LL.add_edge_w_time(bb, cc, 0, 5);
+    LL.add_edge_w_time(cc, aa, 0, 5);
     auto density = 2 * LL.num_edges() / (LL.num_vertices() * (LL.num_vertices() - 1));
     BOOST_CHECK(LL.density() == density); // 0.5
 }

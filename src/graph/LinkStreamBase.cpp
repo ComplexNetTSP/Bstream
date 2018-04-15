@@ -42,6 +42,7 @@ namespace boost::bstream
             this->add_vertex();
     }
 
+    /*
     template<typename DirectedS>
     void LinkStreamBase<DirectedS>::remove_vertex(typename GraphBase<DirectedS>::vertex_t& v)
     {
@@ -57,6 +58,7 @@ namespace boost::bstream
         }
         GraphBase<DirectedS>::remove_vertex(v);
     }
+    */
 
     template<typename DirectedS>
     time_t LinkStreamBase<DirectedS>::definition_length()
@@ -66,9 +68,8 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename GraphBase<DirectedS>::edge_t
-    LinkStreamBase<DirectedS>::add_edge(typename GraphBase<DirectedS>::vertex_t& s,
-                                        typename GraphBase<DirectedS>::vertex_t& t,
-                                        int s_group, int t_group)
+    LinkStreamBase<DirectedS>::add_edge(const typename GraphBase<DirectedS>::vertex_t& s,
+                                        const typename GraphBase<DirectedS>::vertex_t& t)
     {
         typename GraphBase<DirectedS>::edge_t e_exist;
         bool ok;
@@ -85,10 +86,9 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename GraphBase<DirectedS>::edge_t
-    LinkStreamBase<DirectedS>::add_edge(typename GraphBase<DirectedS>::vertex_t& s,
-                                        typename GraphBase<DirectedS>::vertex_t& t,
-                                        time_t b,
-                                        time_t e)
+    LinkStreamBase<DirectedS>::add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t& s,
+                                               const typename GraphBase<DirectedS>::vertex_t& t,
+                                               time_t b, time_t e)
     {
 
         typename GraphBase<DirectedS>::edge_t edge_exist;
@@ -127,8 +127,8 @@ namespace boost::bstream
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
             auto s = boost::source(*it, this->G);
             auto t = boost::target(*it, this->G);
-            auto s_name = this->vertex_name(s);
-            auto t_name = this->vertex_name(t);
+            auto s_name = this->vertex_label(s);
+            auto t_name = this->vertex_label(t);
             cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
                  << "(" << s << "," << t << ")" ;
             if(!s_name.empty() && !t_name.empty())
@@ -140,8 +140,8 @@ namespace boost::bstream
     template<typename DirectedS>
     pair<typename GraphBase<DirectedS>::edge_t, bool>
     LinkStreamBase<DirectedS>::is_edge_active(
-            typename GraphBase<DirectedS>::vertex_t &s,
-            typename GraphBase<DirectedS>::vertex_t &t,
+            const typename GraphBase<DirectedS>::vertex_t &s,
+            const typename GraphBase<DirectedS>::vertex_t &t,
             time_t b, time_t e)
     {
         auto res = boost::edge(s, t, this->G);
