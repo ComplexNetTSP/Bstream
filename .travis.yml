@@ -20,6 +20,7 @@ install:
 script:
   - ls /home/travis/virtualenv/python3.6.3/lib/libpython*
   - ls /home/travis/virtualenv/python3.6.3/*
+  - ls /home/travis/virtualenv/python3.6.3/lib/python3.6/*
   - which python
   - mkdir build
   - cd build
