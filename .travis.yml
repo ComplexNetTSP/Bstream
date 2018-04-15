@@ -23,11 +23,7 @@ before_install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  # Replace dep1 dep2 ... with your dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pybind11
-  - source activate test-environment
-  - python setup.py install
-
+  
 install:
   - conda install --yes python=$TRAVIS_PYTHON_VERSION pybind11
 
