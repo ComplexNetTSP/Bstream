@@ -5,6 +5,7 @@ dist: trusty
 # Enable C++ support
 language: python
 python:
+  - "3.4"
   - "3.6"
 
 # Compiler selection
@@ -12,17 +13,24 @@ compiler:
   - clang
   - gcc
 
+# Setup anaconda
+before_install:
+  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - chmod +x miniconda.sh
+  - ./miniconda.sh -b
+  - export PATH=/home/travis/miniconda/bin:$PATH
+  - conda update --yes conda
+  # The next couple lines fix a crash with multiprocessing on Travis and are not specific to using Miniconda
+  - sudo rm -rf /dev/shm
+  - sudo ln -s /run/shm /dev/shm
+
 install:
-  - sudo pip install --upgrade pip
-  - sudo pip install pybind11
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION pybind11
 
 # Build steps
 script:
-  - ls /home/travis/virtualenv/python3.6.3/lib/libpython*
-  - find /home/travis/virtualenv/python3.6.3/ -name libpython* -print
-  - find /home/travis/virtualenv/python3.6.3/ -name pybind* -print
-  - ls /home/travis/virtualenv/python3.6.3/lib/python3.6/*
   - which python
+  - ls /home/travis/miniconda/lib/
   - mkdir build
   - cd build
   - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/virtualenv/python3.6.3/include -DPYTHON_EXECUTABLE=/home/travis/virtualenv/python3.6.3/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/virtualenv/python3.6.3/include/python3.6m/ -DPYTHON_LIBRARY=/home/travis/virtualenv/python3.6.3/lib
