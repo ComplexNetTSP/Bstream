@@ -320,5 +320,4 @@ BOOST_AUTO_TEST_CASE(GraphBase_neighbors)
         BOOST_CHECK(g.vertex_label(*it) == *res_it);
         res_it++;
     }
-
 }

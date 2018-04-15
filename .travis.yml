@@ -35,6 +35,7 @@ script:
   - cd build
   - cmake .. -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/include/python3.6m -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
   - make
+  - ./tests/graph_tests/test_graph
   - make test
 
 addons:
