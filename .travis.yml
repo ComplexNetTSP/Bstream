@@ -11,9 +11,11 @@ python:
 compiler:
   - clang
   - gcc
+
 install:
-  - sudo conda install pybind11
-  
+  - pip install --upgrade pip
+  - pip install pybind11
+
 # Build steps
 script:
   - mkdir build
