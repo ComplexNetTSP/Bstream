@@ -54,6 +54,15 @@ namespace boost::bstream
         return detail::is_directed(directed_category());
     }
 
+    template<typename DirectedS>
+    double GraphBase<DirectedS>::density()
+    {
+        if(this->is_directed())
+            return static_cast<double>(this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
+        else
+            return static_cast<double>(2 * this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
+    }
+
     ///**************************************************************************************************
     ///
     ///  Vertex medthods
@@ -69,6 +78,9 @@ namespace boost::bstream
             name = to_string(m);
         else
             name = label;
+
+        if(label_map.find(name) != label_map.end())
+            throw GraphBaseException("Vertex label is not unique");
         auto vp = VertexBaseProperty(name, bipartite::null);
         auto v = boost::add_vertex(vp, G);
         label_map.insert(make_pair(name, v));
@@ -300,15 +312,6 @@ namespace boost::bstream
     GraphBase<DirectedS>::neighbors(const std::string &v)
     {
         return boost::adjacent_vertices(vertex(v), G);
-    }
-
-    template<typename DirectedS>
-    double GraphBase<DirectedS>::density()
-    {
-        if(this->is_directed())
-            return static_cast<double>(this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
-        else
-            return static_cast<double>(2 * this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
     }
 
     template class GraphBase<boost::undirectedS>;

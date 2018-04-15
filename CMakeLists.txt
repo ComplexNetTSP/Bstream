@@ -11,7 +11,7 @@ SET(PYTHON_INCLUDE_DIR /usr/local/anaconda/include/python3.6m)
 SET(PYTHON_EXECUTABLE /usr/local/anaconda/bin/python3.6)
 
 SET(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic")
+SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread")
 SET(CMAKE_VERBOSE_MAKEFILE off )
 
 # add libary

@@ -90,6 +90,8 @@ namespace boost::bstream
          */
         virtual bool is_directed() const;
 
+        virtual double density();
+
         ///**************************************************************************************************
         ///
         ///  Vertex method
@@ -100,9 +102,9 @@ namespace boost::bstream
          * @brief Add a single node and update node attributes.
          * @return vertex_descriptor
          */
-        vertex_t add_vertex(const std::string name="");
+        virtual vertex_t add_vertex(const std::string name="");
 
-        std::string vertex_label(const vertex_t& v) const;
+        virtual std::string vertex_label(const vertex_t& v) const;
 
         virtual vertex_t vertex(const std::string label);
 
@@ -121,8 +123,6 @@ namespace boost::bstream
          * @return pair<begin, end>
          */
         std::pair<vertex_iterator, vertex_iterator> vertices();
-
-        virtual double density();
 
         /**
          * @brief return the degree of a vertex

@@ -39,8 +39,25 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-        typename GraphBase<DirectedS>::vertex_t
-        add_vertex(int group, const std::string label="");
+        virtual typename GraphBase<DirectedS>::vertex_t
+        add_vertex_with_group(int group, const std::string& label="");
+
+        virtual int group(const typename GraphBase<DirectedS>::vertex_t& v);
+        virtual int group(const std::string& v);
+
+        ///**************************************************************************************************
+        ///
+        ///  Edge method
+        ///
+        ///**************************************************************************************************
+
+        typename GraphBase<DirectedS>::edge_t
+        add_edge(const typename GraphBase<DirectedS>::vertex_t& s, const typename GraphBase<DirectedS>::vertex_t& t);
+
+        typename GraphBase<DirectedS>::edge_t
+        add_edge(const std::string& s, const std::string& t);
+
+
     };
 } // end namespace boost::bstream
 

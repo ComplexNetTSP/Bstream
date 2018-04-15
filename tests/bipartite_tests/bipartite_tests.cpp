@@ -20,14 +20,28 @@ using namespace boost::bstream;
 BOOST_AUTO_TEST_CASE(BipartiteBase_constructor)
 {
     Bipartite g;
+    BOOST_CHECK(g.num_vertices() == 0);
+    BOOST_CHECK(g.num_edges() == 0);
+    BOOST_CHECK(g.is_directed() == false);
 }
 
 BOOST_AUTO_TEST_CASE(BipartiteBase_add_vertex)
 {
     Bipartite g;
 
-    g.add_vertex(Bipartite::bipartite::top);
-    g.add_vertex(Bipartite::bipartite::top);
+    auto v1 = g.add_vertex_with_group(Bipartite::bipartite::top, "A");
+    g.add_vertex_with_group(Bipartite::bipartite::bottom, "B");
+    g.add_vertex_with_group(Bipartite::bipartite::top, "C");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 0);
+    BOOST_CHECK(g.is_directed() == false);
+    BOOST_CHECK(g.group(v1) == Bipartite::bipartite::top);
+    BOOST_CHECK(g.group("A") == Bipartite::bipartite::top);
+}
+
+BOOST_AUTO_TEST_CASE(BipartiteBase_add_edge)
+{
+
 }
 
 /*
