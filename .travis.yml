@@ -19,6 +19,7 @@ install:
 # Build steps
 script:
   - ls /home/travis/virtualenv/python3.6.3/lib/libpython*
+  - ls /home/travis/virtualenv/python3.6.3/*
   - which python
   - mkdir build
   - cd build
