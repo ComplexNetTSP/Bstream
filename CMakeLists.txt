@@ -70,24 +70,24 @@ INCLUDE_DIRECTORIES(
         ${SRC_INCLUDE_DIR})
 
 # Build target
-LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+#LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
-ADD_LIBRARY(pybstream SHARED
-        ${SOURCES}
-        ${SOURCES_INTERFACE})
+#ADD_LIBRARY(pybstream SHARED
+#        ${SOURCES}
+#        ${SOURCES_INTERFACE})
 
-SET_TARGET_PROPERTIES(pybstream
-        PROPERTIES
-        PREFIX ""
-        )
+#SET_TARGET_PROPERTIES(pybstream
+#        PROPERTIES
+#        PREFIX ""
+#        )
 
-if (WIN32)
+#if (WIN32)
     # .PYD file extension on Windows
-    SET_TARGET_PROPERTIES(pybstream PROPERTIES SUFFIX ".pyd")
-elseif (UNIX)
+#    SET_TARGET_PROPERTIES(pybstream PROPERTIES SUFFIX ".pyd")
+#elseif (UNIX)
     # .SO file extension on Linux/Mac OS
-    SET_TARGET_PROPERTIES(pybstream PROPERTIES SUFFIX ".so")
-endif()
+#    SET_TARGET_PROPERTIES(pybstream PROPERTIES SUFFIX ".so")
+#endif()
 
 # add tests
 ADD_SUBDIRECTORY(tests)
