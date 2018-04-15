@@ -10,7 +10,6 @@ python:
 # Compiler selection
 compiler:
   - clang
-  - gcc
 
 # Setup anaconda
 before_install:
@@ -46,8 +45,6 @@ addons:
     - llvm-toolchain-precise-3.6
     packages:
     # install toolchains
-    - gcc-5
-    - g++-5
     - clang-3.6
     - libboost-all-dev
     - lcov
