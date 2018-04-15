@@ -14,13 +14,15 @@ compiler:
 
 install:
   - sudo pip install --upgrade pip
+  - sudo pip3 install --upgrade pip
   - sudo pip install pybind11
+  - sudo pip3 install pybind11
 
 # Build steps
 script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake .. -DPYBIND11_INCLUDE_DIRS=/usr/local/anaconda/include/python3.6m
   - make
   - make test
 
