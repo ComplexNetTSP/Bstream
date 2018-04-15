@@ -11,11 +11,11 @@ python:
 compiler:
   - clang
   - gcc
-
+install:
+  - sudo conda install pybind11
+  
 # Build steps
 script:
-  - wget https://github.com/pybind/pybind11/archive/v2.2.2.tar.gz -O pybind11.tar.gz
-  - tar zxvf pybind11.tar.gz
   - mkdir build
   - cd build
   - cmake ..
@@ -35,4 +35,3 @@ addons:
     - clang-3.6
     - libboost-all-dev
     - lcov
-    - wget
