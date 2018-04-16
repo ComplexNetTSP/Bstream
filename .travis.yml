@@ -4,6 +4,8 @@ dist: trusty
 
 # Enable C++ support
 language: cpp
+
+# python version
 python:
   - "3.6"
 
@@ -25,8 +27,8 @@ before_install:
 
 install:
   - conda install -c conda-forge --yes python=$TRAVIS_PYTHON_VERSION pybind11
-  - export CXX="clang++-5.0" CC="clang-5.0"
-
+  - export CXX="clang++-5.0" CC="clang-5.0" CLANG_VERSION="5.0" LIBCXX="On"
+  
 # Build steps
 script:
   - which python
@@ -46,3 +48,4 @@ addons:
     # install toolchains
     - libboost-all-dev
     - clang-5.0
+    - g++-6
