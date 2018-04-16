@@ -6,17 +6,6 @@ include(CTest)
 enable_testing()
 
 # option
-if(NOT DEFINED ${PYTHON_LIBRARY})
-    SET(PYTHON_LIBRARY /usr/local/anaconda/lib/libpython3.6m.dylib)
-endif()
-
-if(NOT DEFINED ${PYTHON_INCLUDE_DIR})
-    SET(PYTHON_INCLUDE_DIR /usr/local/anaconda/include/python3.6m)
-endif()
-
-if(NOT DEFINED ${PYTHON_EXECUTABLE})
-    SET(PYTHON_EXECUTABLE /usr/local/anaconda/bin/python3.6)
-endif()
 
 SET(PYBIND11_CPP_STANDARD -std=c++1z)
 SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread -std=c++1z")
@@ -29,7 +18,7 @@ if (PYTHONLIBS_FOUND)
     MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
 endif()
 
-FIND_PACKAGE(PythonInterp REQUIRED)
+FIND_PACKAGE(PythonInterp 3 REQUIRED)
 if (PYTHONINTERP_FOUND)
     MESSAGE("-- Found Python 3 interpretor: " ${PYTHON_EXECUTABLE})
 endif()
