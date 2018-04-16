@@ -34,7 +34,6 @@ script:
   - cd build
   - cmake .. -DENABLE_CODECOVERAGE=ON -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/include/python3.6m -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
   - make
-  - ./tests/graph_tests/test_graph
   - make test
 
 addons:
@@ -53,7 +52,10 @@ after_success:
   # Creating report
   - cd ${TRAVIS_BUILD_DIR}
   # capture coverage info
-  - lcov --directory . --capture --output-file coverage.info
+  - echo "#!/bin/bash" >> llvm-gcov.sh
+  - echo 'exec llvm-cov gcov "$@"' >> llvm-gcov.sh
+  - chmod +x llvm-gcov.sh
+  - lcov --directory . --capture --gcov-tool llvm-gcov.sh --output-file coverage.info
   # filter out system
   - lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
   # debug info
