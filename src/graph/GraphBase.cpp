@@ -63,6 +63,12 @@ namespace boost::bstream
             return static_cast<double>(2 * this->num_edges())/(this->num_vertices() * (this->num_vertices()-1));
     }
 
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::clear()
+    {
+        this->G.clear();
+    }
+
     ///**************************************************************************************************
     ///
     ///  Vertex medthods
@@ -293,6 +299,8 @@ namespace boost::bstream
         for(boost::tie(ei, ei_end) = this->edges(); ei != ei_end; ++ei)
             this->remove_edge(*ei);
     }
+
+
 
     template<typename DirectedS>
     pair<typename GraphBase<DirectedS>::edge_iterator, typename GraphBase<DirectedS>::edge_iterator>

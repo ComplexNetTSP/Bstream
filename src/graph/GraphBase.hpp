@@ -92,6 +92,8 @@ namespace boost::bstream
 
         virtual double density();
 
+        virtual void clear();
+
         ///**************************************************************************************************
         ///
         ///  Vertex method
@@ -198,8 +200,6 @@ namespace boost::bstream
 
         virtual void remove_edge(const std::string &s, const std::string &t);
 
-        virtual void remove_edge(const edge_t &e);
-
         virtual void clear_edges();
 
         std::pair<edge_iterator, edge_iterator> edges();
@@ -221,6 +221,8 @@ namespace boost::bstream
         std::map<std::string, vertex_t> label_map;
         std::set<vertex_t, std::less<vertex_t>> vertex_set;
         int m; //!< next vertex_id
+
+        virtual void remove_edge(const edge_t &e);
     };
 
 } // end namespace boost::src

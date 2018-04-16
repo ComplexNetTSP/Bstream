@@ -137,43 +137,6 @@ BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_vertex_desc)
 
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_edges_decr)
-{
-    Graph g;
-
-    auto e1 = g.add_edge("A", "B");
-    auto e2 = g.add_edge("B", "C");
-    auto e3 = g.add_edge("C", "A");
-
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 3);
-
-    g.remove_edge(e1);
-    g.remove_edge(e2);
-    g.remove_edge(e3);
-
-    BOOST_CHECK(g.num_edges() == 0);
-}
-
-BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_forloop)
-{
-    Graph g;
-    Graph::edge_iterator ei, ei_end;
-
-    g.add_edge("A", "B");
-    g.add_edge("B", "C");
-    g.add_edge("C", "A");
-
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 3);
-
-
-    for(std::tie(ei, ei_end) = g.edges(); ei != ei_end; ++ei)
-        g.remove_edge(*ei);
-
-    BOOST_CHECK(g.num_edges() == 0);
-}
-
 BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_name)
 {
     Graph g;
