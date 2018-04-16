@@ -127,8 +127,8 @@ namespace boost::bstream
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
             auto s = boost::source(*it, this->G);
             auto t = boost::target(*it, this->G);
-            auto s_name = this->vertex_label(s);
-            auto t_name = this->vertex_label(t);
+            auto s_name = this->label(s);
+            auto t_name = this->label(t);
             cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
                  << "(" << s << "," << t << ")" ;
             if(!s_name.empty() && !t_name.empty())

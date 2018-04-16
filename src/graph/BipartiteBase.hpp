@@ -1,7 +1,7 @@
 ///-------------------------------------------------------------------------------------------------
 ///
 /// @file       BipartiteBase.hpp
-/// @brief      Description
+/// @brief      Bipartite Graph definitions
 /// @author     Vincent Gauthier <vgauthier@luxbulb.org>
 /// @date       14/04/2018
 /// @version    0.1

@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(GraphBase_constructor_bulk)
 
     int i = 0;
     for(auto it=g.vertices().first; it!=g.vertices().second; ++it) {
-        BOOST_CHECK(g.vertex_label(*it) == to_string(i));
+        BOOST_CHECK(g.label(*it) == to_string(i));
         i++;
     }
 }
@@ -51,14 +51,14 @@ BOOST_AUTO_TEST_CASE(GraphBase_add_vertex)
 
     auto v1 = g.add_vertex();
     BOOST_CHECK(g.num_vertices() == 1);
-    BOOST_CHECK(g.vertex_label(v1) == "0");
+    BOOST_CHECK(g.label(v1) == "0");
     BOOST_CHECK(g.vertex("0") == v1);
     BOOST_CHECK(g.has_vertex(v1));
     BOOST_CHECK(g.has_vertex("0"));
 
     auto v2 = g.add_vertex();
     BOOST_CHECK(g.num_vertices() == 2);
-    BOOST_CHECK(g.vertex_label(v2) == "1");
+    BOOST_CHECK(g.label(v2) == "1");
     BOOST_CHECK(g.vertex("1") == v2);
     BOOST_CHECK(g.has_vertex(v2));
     BOOST_CHECK(g.has_vertex("1"));
@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_CASE(GraphBase_copy_constructor)
     BOOST_CHECK(gprime.num_edges() == g.num_edges());
 
     for(auto it = g.vertices().first; it != g.vertices().second; ++it)
-        BOOST_CHECK(g.vertex_label(*it) == gprime.vertex_label(*it));
+        BOOST_CHECK(g.label(*it) == gprime.label(*it));
 
     auto vprime = gprime.add_vertex("d");
     auto v = g.add_vertex("d");
@@ -300,7 +300,21 @@ BOOST_AUTO_TEST_CASE(GraphBase_neighbors)
     auto res_it = res.begin();
 
     for(auto it=g.neighbors("A").first; it!=g.neighbors("A").second; ++it){
-        BOOST_CHECK(g.vertex_label(*it) == *res_it);
+        BOOST_CHECK(g.label(*it) == *res_it);
         res_it++;
     }
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_clear_edges)
+{
+    Graph g;
+    auto a = g.add_vertex("a");
+    auto b = g.add_vertex("b");
+    auto c = g.add_vertex("c");
+    g.add_edge(a, b);
+    g.add_edge(b, c);
+    g.add_edge(c, a);
+    BOOST_CHECK(g.num_edges() == 3);
+    g.clear_edges();
+    BOOST_CHECK(g.num_edges() == 0);
 }

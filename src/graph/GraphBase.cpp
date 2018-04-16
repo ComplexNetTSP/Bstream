@@ -109,7 +109,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    std::string GraphBase<DirectedS>::vertex_label(const GraphBase::vertex_t &v) const
+    std::string GraphBase<DirectedS>::label(const GraphBase::vertex_t &v) const
     {
         return G[v].label;
     }
@@ -132,8 +132,6 @@ namespace boost::bstream
     {
         auto v = this->vertex(label);
         if(this->has_vertex(v)) {
-            label_map.erase(label);
-            vertex_set.erase(v);
             boost::clear_vertex(v, G);
             boost::remove_vertex(v, G);
         }
@@ -145,6 +143,22 @@ namespace boost::bstream
             label_map.insert(make_pair(G[*it].label, *it));
         }
 
+    }
+
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::remove_vertex(const GraphBase<DirectedS>::vertex_t &v)
+    {
+        if(this->has_vertex(v)) {
+            boost::clear_vertex(v, G);
+            boost::remove_vertex(v, G);
+        }
+
+        label_map.clear();
+        vertex_set.clear();
+        for(auto it=this->vertices().first; it!=this->vertices().second; ++it){
+            vertex_set.insert(*it);
+            label_map.insert(make_pair(G[*it].label, *it));
+        }
     }
 
     template<typename DirectedS>
@@ -292,6 +306,15 @@ namespace boost::bstream
     void GraphBase<DirectedS>::remove_edge(const GraphBase<DirectedS>::edge_t &e)
     {
         boost::remove_edge(e, G);
+    }
+
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::clear_edges()
+    {
+        vertex_iterator vit, vit_end;
+        for(boost::tie(vit, vit_end) = this->vertices(); vit != vit_end; ++vit){
+            boost::clear_vertex(*vit, G);
+        }
     }
 
     template<typename DirectedS>

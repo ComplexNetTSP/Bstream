@@ -106,7 +106,7 @@ namespace boost::bstream
          */
         virtual vertex_t add_vertex(const std::string name="");
 
-        virtual std::string vertex_label(const vertex_t& v) const;
+        virtual std::string label(const vertex_t &v) const;
 
         virtual vertex_t vertex(const std::string label);
 
@@ -200,6 +200,8 @@ namespace boost::bstream
 
         virtual void remove_edge(const std::string &s, const std::string &t);
 
+        virtual void clear_edges();
+
         std::pair<edge_iterator, edge_iterator> edges();
 
         friend std::ostream & operator<<(std::ostream &out, GraphBase &g)
@@ -221,6 +223,7 @@ namespace boost::bstream
         int m; //!< next vertex_id
 
         virtual void remove_edge(const edge_t &e);
+        virtual void remove_vertex(const vertex_t &v);
     };
 
 } // end namespace boost::src

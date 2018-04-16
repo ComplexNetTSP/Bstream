@@ -1,6 +1,8 @@
 #!/bin/bash
 
 cd cmake-build-debug
+find . -name *.gcda -exec rm -f {} \;
+find . -name *.gcov -exec rm -f {} \;
 cmake .. -DENABLE_CODECOVERAGE=ON
 make 
 make test
