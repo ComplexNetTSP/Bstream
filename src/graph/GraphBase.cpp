@@ -289,8 +289,9 @@ namespace boost::bstream
     template<typename DirectedS>
     void GraphBase<DirectedS>::clear_edges()
     {
-        for(auto it=this->edges().first; it!=this->edges().second; ++it)
-            this->remove_edge(*it);
+        edge_iterator ei, ei_end;
+        for(std::tie(ei, ei_end) = this->edges(); ei != ei_end; ++ei)
+            this->remove_edge(*ei);
     }
 
     template<typename DirectedS>
