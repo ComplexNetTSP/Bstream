@@ -91,33 +91,3 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_projected_graph)
     BOOST_CHECK(gproj.is_directed() == false);
     BOOST_CHECK(gproj.has_edge("A", "C"));
 }
-/*
-
-BOOST_AUTO_TEST_CASE(GraphBase_biparti)
-        {
-                Graph g(true);
-
-        auto a = g.add_vertex_with_group(Graph::bipartite::top);
-        auto b = g.add_vertex_with_group(Graph::bipartite::bottom);
-        auto c = g.add_vertex_with_group(Graph::bipartite::top);
-
-        g.add_edge(a,b);
-        BOOST_CHECK_THROW(g.add_edge(a,c), GraphBaseException);
-        }
-
-BOOST_AUTO_TEST_CASE(GraphBase_biparti_projected)
-        {
-                Graph g(true);
-
-        auto a = g.add_vertex_with_group(Graph::bipartite::top);
-        auto b = g.add_vertex_with_group(Graph::bipartite::bottom);
-        auto c = g.add_vertex_with_group(Graph::bipartite::top);
-        g.add_edge(a,b);
-        g.add_edge(c,b);
-
-        projected_graph(g, Graph::bipartite::top);
-                //BOOST_CHECK(gprime.num_vertices() == 2);
-                //BOOST_CHECK(gprime.num_edges() == 1);
-        }
-
-*/

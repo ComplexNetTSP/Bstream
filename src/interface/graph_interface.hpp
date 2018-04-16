@@ -49,7 +49,7 @@ void graph_interface(py::module &m)
     graph.def(py::init<const bs::Graph &>());
     graph.def("is_directed", &bs::Graph::is_directed);
     graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("name")="");
-    graph.def("vertex_label", &bs::Graph::vertex_label);
+    graph.def("label", &bs::Graph::label);
     graph.def("add_edge", py::overload_cast<const bs::Graph::vertex_t&, const bs::Graph::vertex_t&>(&bs::Graph::add_edge));
     graph.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::Graph::add_edge));
     graph.def("num_vertices", &bs::Graph::num_vertices);
@@ -79,6 +79,7 @@ void graph_interface(py::module &m)
     digraph.def(py::init<const bs::DiGraph &>());
     digraph.def("is_directed", &bs::DiGraph::is_directed);
     digraph.def("add_vertex", &bs::DiGraph::add_vertex, py::arg("name")="");
+    digraph.def("label", &bs::DiGraph::label);
     digraph.def("add_edge", py::overload_cast<const bs::DiGraph::vertex_t&, const bs::DiGraph::vertex_t&>(&bs::DiGraph::add_edge));
     digraph.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::DiGraph::add_edge));
     digraph.def("num_vertices", &bs::DiGraph::num_vertices);
