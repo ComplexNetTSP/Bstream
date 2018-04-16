@@ -49,6 +49,17 @@ if (Boost_FOUND)
 endif()
 
 
+if ( ENABLE_CODECOVERAGE )
+    MESSAGE("-- Enable code coverage")
+    FIND_PROGRAM( CODECOV_LCOV lcov )
+    if (CODECOV_LCOV)
+        MESSAGE("-- Found lcov " ${CODECOV_LCOV})
+    endif()
+    SET( CLANG_COVERAGE_COMPILE_FLAGS "-g -O0 --coverage")
+    SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CLANG_COVERAGE_COMPILE_FLAGS}" )
+endif( ENABLE_CODECOVERAGE )
+
+
 
 # The file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES
