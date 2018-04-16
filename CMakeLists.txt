@@ -55,7 +55,7 @@ if ( ENABLE_CODECOVERAGE )
     if (CODECOV_LCOV)
         MESSAGE("-- Found lcov " ${CODECOV_LCOV})
     endif()
-    SET( CLANG_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
+    SET( CLANG_COVERAGE_COMPILE_FLAGS "--coverage")
     SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CLANG_COVERAGE_COMPILE_FLAGS}" )
 
     SET( CLANG_COVERAGE_LINK_FLAGS "--coverage" )

@@ -47,7 +47,8 @@ addons:
     - libboost-all-dev
     - clang-5.0
     - lcov
-
+    - gcov
+    
 after_success:
   # Creating report
   - cd ${TRAVIS_BUILD_DIR}
