@@ -13,22 +13,37 @@ SET(CMAKE_VERBOSE_MAKEFILE off )
 
 # add libary
 FIND_PACKAGE(PythonLibs 3 REQUIRED)
-if (PYTHONLIBS_FOUND)
-    MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
-    MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
-endif()
+#if (PYTHONLIBS_FOUND)
+#    MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
+#endif()
 
 FIND_PACKAGE(PythonInterp 3 REQUIRED)
 if (PYTHONINTERP_FOUND)
     MESSAGE("-- Found Python 3 interpretor: " ${PYTHON_EXECUTABLE})
+    EXECUTE_PROCESS(
+            COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())"
+            OUTPUT_VARIABLE DUMMY
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    SET(PYTHON_INCLUDE_DIRS ${DUMMY})
+    MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
+    #MESSAGE("-- Found Python 3 include dir DUMMY: " ${DUMMY})
+    EXECUTE_PROCESS(
+            COMMAND ${PYTHON_EXECUTABLE} -c "import distutils.sysconfig as sysconfig; import os; print(os.path.join(sysconfig.get_config_var('LIBDIR'), sysconfig.get_config_var('LDLIBRARY')))"
+            OUTPUT_VARIABLE DUMMY
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    SET(PYTHON_LIBRARIES ${DUMMY})
+    MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
+    #MESSAGE("-- Found Python 3 library DUMMY: " ${DUMMY})
 endif()
 
-find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
-if (PYBIND11_INCLUDE_DIRS)
-    MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
-else()
-    MESSAGE("-- Error pybind11 not found")
-endif()
+#find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
+#if (PYBIND11_INCLUDE_DIRS)
+#    MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
+#else()
+#    MESSAGE("-- Error pybind11 not found")
+#endif()
 
 set(Boost_USE_MULTITHREADED ON)
 FIND_PACKAGE(Boost COMPONENTS system graph REQUIRED)
