@@ -39,7 +39,12 @@ if (PYTHONINTERP_FOUND)
 endif()
 
 FIND_PACKAGE(PythonLibs 3 REQUIRED)
-find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
+
+FIND_PATH(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h
+        ${PYTHON_INCLUDE_DIRS}
+        /usr/local/include
+        /usr/include)
+
 if (PYBIND11_INCLUDE_DIRS)
     MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
 else()
