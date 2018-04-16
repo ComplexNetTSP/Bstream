@@ -288,19 +288,6 @@ BOOST_AUTO_TEST_CASE(GraphBase_clear_vertices)
     BOOST_CHECK(g.num_edges() == 0);
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_clear_edges)
-{
-    Graph g;
-
-    g.add_edge("A", "B");
-    g.add_edge("B", "C");
-    g.add_edge("C", "A");
-
-    g.clear_edges();
-    BOOST_CHECK(g.num_vertices() == 3);
-    BOOST_CHECK(g.num_edges() == 0);
-}
-
 BOOST_AUTO_TEST_CASE(GraphBase_neighbors)
 {
     Graph g;

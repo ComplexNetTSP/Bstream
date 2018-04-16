@@ -293,16 +293,6 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void GraphBase<DirectedS>::clear_edges()
-    {
-        edge_iterator ei, ei_end;
-        for(boost::tie(ei, ei_end) = this->edges(); ei != ei_end; ++ei)
-            this->remove_edge(*ei);
-    }
-
-
-
-    template<typename DirectedS>
     pair<typename GraphBase<DirectedS>::edge_iterator, typename GraphBase<DirectedS>::edge_iterator>
     GraphBase<DirectedS>::edges()
     {

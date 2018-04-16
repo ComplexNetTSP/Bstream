@@ -200,8 +200,6 @@ namespace boost::bstream
 
         virtual void remove_edge(const std::string &s, const std::string &t);
 
-        virtual void clear_edges();
-
         std::pair<edge_iterator, edge_iterator> edges();
 
         friend std::ostream & operator<<(std::ostream &out, GraphBase &g)
