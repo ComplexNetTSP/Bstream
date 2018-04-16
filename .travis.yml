@@ -59,4 +59,5 @@ after_success:
   # debug info
   - lcov --list coverage.info
   # Uploading report to CodeCov
+  - export CODECOV_TOKEN="5dd73d4a-b623-40c8-8926-766ee0d69711"
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
