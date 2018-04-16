@@ -52,7 +52,7 @@ after_success:
   # Creating report
   - cd ${TRAVIS_BUILD_DIR}
   # capture coverage info
-  - echo "#!/bin/bash" >> llvm-gcov.sh
+  - echo '#!/bin/bash' > llvm-gcov.sh
   - echo 'exec llvm-cov gcov "$@"' >> llvm-gcov.sh
   - chmod +x llvm-gcov.sh
   - lcov --directory . --capture --gcov-tool llvm-gcov.sh --output-file coverage.info
