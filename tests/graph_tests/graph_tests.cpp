@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(GraphBase_add_edge_bis){
     BOOST_CHECK(g.num_edges() == 3);
 }
 
-BOOST_AUTO_TEST_CASE(GraphBase_remove_edge)
+BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_vertex_desc)
 {
     Graph g;
     auto v1 = g.add_vertex();
@@ -127,26 +127,32 @@ BOOST_AUTO_TEST_CASE(GraphBase_remove_edge)
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 2);
 
-    Graph g1;
+    g.remove_edge(v3, v1);
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 1);
 
-    g1.add_edge("A", "B");
-    g1.add_edge("B", "C");
-    g1.add_edge("C", "A");
+    g.remove_edge(v2, v3);
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 0);
 
-    for(auto it=g1.edges().first; it!=g1.edges().second; ++it)
-        g1.remove_edge(*it);
+}
 
-    BOOST_CHECK(g1.num_edges() == 0);
+BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_edges_decr)
+{
+    Graph g;
 
-    Graph g2;
+    auto e1 = g.add_edge("A", "B");
+    auto e2 = g.add_edge("B", "C");
+    auto e3 = g.add_edge("C", "A");
 
-    g2.add_edge("A", "B");
-    g2.add_edge("B", "C");
-    g2.add_edge("C", "A");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 3);
 
-    g2.remove_edge("A", "B");
-    BOOST_CHECK(g2.num_edges() == 2);
+    g.remove_edge(e1);
+    g.remove_edge(e2);
+    g.remove_edge(e3);
 
+    BOOST_CHECK(g.num_edges() == 0);
 }
 
 BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_name)
@@ -166,6 +172,14 @@ BOOST_AUTO_TEST_CASE(GraphBase_remove_edge_by_name)
     g.remove_edge("A", "B");
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 2);
+
+    g.remove_edge("A", "C");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 1);
+
+    g.remove_edge("B", "C");
+    BOOST_CHECK(g.num_vertices() == 3);
+    BOOST_CHECK(g.num_edges() == 0);
 }
 
 BOOST_AUTO_TEST_CASE(GraphBase_density)
