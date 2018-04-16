@@ -1,5 +1,5 @@
 ADD_SUBDIRECTORY(graph_tests)
-#ADD_SUBDIRECTORY(python_graph_tests)
+ADD_SUBDIRECTORY(python_graph_tests)
 ADD_SUBDIRECTORY(timeintervalset_tests)
 #ADD_SUBDIRECTORY(python_timeintervalset_tests)
 ADD_SUBDIRECTORY(linkstream_tests)

@@ -19,21 +19,20 @@ using namespace std;
 
 namespace boost::bstream
 {
+    ///**************************************************************************************************
+    ///
+    ///  Constructor
+    ///
+    ///**************************************************************************************************
 
     template<typename DirectedS>
-    GraphBase<DirectedS>::GraphBase(GraphBase<DirectedS> &g)
+    GraphBase<DirectedS>::GraphBase(const GraphBase<DirectedS> &g)
     {
         boost::copy_graph(g.G, this->G);
         this->m = g.m;
         this->label_map = g.label_map;
         this->vertex_set = g.vertex_set;
     }
-
-    ///**************************************************************************************************
-    ///
-    ///  Constructor
-    ///
-    ///**************************************************************************************************
 
     template<typename DirectedS>
     GraphBase<DirectedS>::GraphBase(int num_vertex): m(0)
@@ -215,12 +214,15 @@ namespace boost::bstream
     {
         bool ok;
         edge_t e;
-        // test if vertices exist
+        // test if vertices at the end of edge exist
         if (has_vertex(s) && has_vertex(t)) {
-            tie(e, ok) = boost::add_edge(s, t, G);
-            if (!ok)
-                throw GraphBaseException("Unable to add the edge");
-
+            // we check if edge already exist
+            std::tie(e, ok) = boost::edge(s, t, G);
+            if(!ok) {
+                tie(e, ok) = boost::add_edge(s, t, G);
+                if (!ok)
+                    throw GraphBaseException("Unable to add the edge");
+            }
         }else{
             throw GraphBaseException("Vertex must exist");
         }

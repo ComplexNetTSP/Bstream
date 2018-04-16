@@ -66,13 +66,13 @@ namespace boost::bstream
 
         ///**************************************************************************************************
         ///
-        ///  CONSTRUCTOR
+        ///  Constructor
         ///
         ///**************************************************************************************************
 
         GraphBase(): m(0) {};
 
-        GraphBase(GraphBase<DirectedS> &g);
+        GraphBase(const GraphBase<DirectedS> &g);
 
         GraphBase(int num_vertex);
 
