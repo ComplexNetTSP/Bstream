@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 
 # Enable C++ support
-language: cpp
+language: python
 
 # python version
 python:
