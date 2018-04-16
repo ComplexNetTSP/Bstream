@@ -290,7 +290,7 @@ namespace boost::bstream
     void GraphBase<DirectedS>::clear_edges()
     {
         edge_iterator ei, ei_end;
-        for(std::tie(ei, ei_end) = this->edges(); ei != ei_end; ++ei)
+        for(boost::tie(ei, ei_end) = this->edges(); ei != ei_end; ++ei)
             this->remove_edge(*ei);
     }
 
