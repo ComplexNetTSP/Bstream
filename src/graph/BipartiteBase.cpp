@@ -1,7 +1,7 @@
 ///-------------------------------------------------------------------------------------------------
 ///
 /// @file       BipartiteBase.cpp
-/// @brief      Description
+/// @brief      BipartiteBase definition
 /// @author     Vincent Gauthier <vgauthier@luxbulb.org>
 /// @date       14/04/2018
 /// @version    0.1
@@ -14,12 +14,6 @@
 
 namespace boost::bstream
 {
-    ///**************************************************************************************************
-    ///
-    ///  Constructor
-    ///
-    ///**************************************************************************************************
-
 
     ///**************************************************************************************************
     ///
@@ -29,7 +23,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename GraphBase<DirectedS>::vertex_t
-    BipartiteBase<DirectedS>::add_vertex_with_group(int group, const std::string& label)
+    BipartiteBase<DirectedS>::add_vertex_w_group(int group, const std::string& label)
     {
         auto v = GraphBase<DirectedS>::add_vertex(label);
         this->G[v].group = group;

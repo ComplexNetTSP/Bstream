@@ -42,13 +42,19 @@ void graph_interface(py::module &m)
                 return stream.str();
     });
 
+    ///**************************************************************************************************
+    ///
+    ///  Graph
+    ///
+    ///**************************************************************************************************
+
     py::class_<bs::Graph> graph(m, "Graph");
 
     graph.def(py::init<>());
     graph.def(py::init<int>());
     graph.def(py::init<const bs::Graph &>());
     graph.def("is_directed", &bs::Graph::is_directed);
-    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("name")="");
+    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("label")="");
     graph.def("label", &bs::Graph::label);
     graph.def("add_edge", py::overload_cast<const bs::Graph::vertex_t&, const bs::Graph::vertex_t&>(&bs::Graph::add_edge));
     graph.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::Graph::add_edge));
@@ -68,9 +74,20 @@ void graph_interface(py::module &m)
         return py::make_iterator(it.first, it.second);
     }, py::keep_alive<0, 1>());
 
+    graph.def("edges", [](bs::Graph &g){
+        auto it = g.edges();
+        return py::make_iterator(it.first, it.second);
+    }, py::keep_alive<0, 1>());
+
     graph.def("__repr__", [](bs::Graph &g) {
         return "<class Graph>";
     });
+
+    ///**************************************************************************************************
+    ///
+    ///  DiGraph
+    ///
+    ///**************************************************************************************************
 
     py::class_<bs::DiGraph> digraph(m, "DiGraph");
 
@@ -92,12 +109,18 @@ void graph_interface(py::module &m)
     digraph.def("in_degree", py::overload_cast<const bs::DiGraph::vertex_t&>(&bs::DiGraph::in_degree));
     digraph.def("out_degree", py::overload_cast<const std::string&>(&bs::DiGraph::out_degree));
     digraph.def("out_degree", py::overload_cast<const bs::DiGraph::vertex_t&>(&bs::DiGraph::out_degree));
+
     digraph.def("vertices", [](bs::DiGraph &g){
         auto it = g.vertices();
         return py::make_iterator(it.first, it.second);
     }, py::keep_alive<0, 1>());
+
+    digraph.def("edges", [](bs::DiGraph &g){
+        auto it = g.edges();
+        return py::make_iterator(it.first, it.second);
+    }, py::keep_alive<0, 1>());
+
     digraph.def("__repr__", [](bs::DiGraph &g) {
         return "<class DiGraph>";
     });
-
 }

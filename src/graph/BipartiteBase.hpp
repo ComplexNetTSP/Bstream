@@ -46,7 +46,7 @@ namespace boost::bstream
         ///**************************************************************************************************
 
         virtual typename GraphBase<DirectedS>::vertex_t
-        add_vertex_with_group(int group, const std::string& label="");
+        add_vertex_w_group(int group, const std::string& label="");
 
         virtual int group(const typename GraphBase<DirectedS>::vertex_t& v);
         virtual int group(const std::string& v);
