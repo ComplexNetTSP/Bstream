@@ -35,10 +35,11 @@ if (PYTHONINTERP_FOUND)
     )
     SET(PYTHON_LIBRARIES ${DUMMY})
     MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
-    #MESSAGE("-- Found Python 3 library DUMMY: " ${DUMMY})
+    LINK_LIBRARIES(${PYTHON_LIBRARIES})
 endif()
+
 FIND_PACKAGE(PythonLibs 3 REQUIRED)
-find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h REQUIRED)
+find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
 if (PYBIND11_INCLUDE_DIRS)
     MESSAGE("-- Found pybind11: " ${PYBIND11_INCLUDE_DIRS})
 else()
@@ -51,22 +52,6 @@ if (Boost_FOUND)
     MESSAGE("-- Found Boost " ${Boost_MAJOR_VERSION} "." ${Boost_MINOR_VERSION} " include directory:\t" ${Boost_INCLUDE_DIRS})
     INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 endif()
-
-
-if(ENABLE_CODECOVERAGE)
-    MESSAGE("-- Enable code coverage")
-    FIND_PROGRAM( CODECOV_LCOV lcov )
-    if (CODECOV_LCOV)
-        MESSAGE("-- Found lcov " ${CODECOV_LCOV})
-    endif()
-    SET(CLANG_COVERAGE_COMPILE_FLAGS "--coverage")
-    SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${CLANG_COVERAGE_COMPILE_FLAGS}")
-
-    SET(CLANG_COVERAGE_LINK_FLAGS "--coverage")
-    SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${CLANG_COVERAGE_LINK_FLAGS}")
-endif(ENABLE_CODECOVERAGE)
-
-
 
 # The file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES
@@ -85,7 +70,7 @@ INCLUDE_DIRECTORIES(${SRC_INCLUDE_DIR})
 #
 # Build target
 #
-LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+#LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 
 ADD_LIBRARY(pybstream SHARED
         ${SOURCES}
