@@ -32,7 +32,7 @@ script:
   - which python
   - mkdir build
   - cd build
-  - cmake .. -DENABLE_CODECOVERAGE=ON -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/include/python3.6m -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
+  - cmake .. -DENABLE_CODECOVERAGE=OFF -DPYBIND11_INCLUDE_DIRS=/home/travis/miniconda/include/python3.6m -DPYTHON_EXECUTABLE=/home/travis/miniconda/bin/python -DPYTHON_INCLUDE_DIR=/home/travis/miniconda/include/ -DPYTHON_LIBRARY=/home/travis/miniconda/lib/libpython3.6m.so
   - make
   - make test
 
@@ -46,24 +46,3 @@ addons:
     # install toolchains
     - libboost-all-dev
     - clang-5.0
-    - lcov
-    - gcov
-    
-after_success:
-  # Creating report
-  - cd ${TRAVIS_BUILD_DIR}
-  # capture coverage info
-  - echo '#!/bin/bash' > llvm-gcov.sh
-  - echo 'exec llvm-cov gcov "$@"' >> llvm-gcov.sh
-  - chmod +x llvm-gcov.sh
-  - ls .
-  - more ./llvm-gcov.sh
-  - lcov --directory . --capture --gcov-tool ./llvm-gcov.sh --output-file coverage.info
-  - lcov --directory . --capture --output-file coverage.info
-  # filter out system
-  - lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
-  # debug info
-  - lcov --list coverage.info
-  # Uploading report to CodeCov
-  - export CODECOV_TOKEN="5dd73d4a-b623-40c8-8926-766ee0d69711"
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
