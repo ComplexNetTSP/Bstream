@@ -18,9 +18,8 @@ if(NOT DEFINED ${PYTHON_EXECUTABLE})
     SET(PYTHON_EXECUTABLE /usr/local/anaconda/bin/python3.6)
 endif()
 
-SET(CMAKE_CXX_STANDARD 17)
 SET(PYBIND11_CPP_STANDARD -std=c++1z)
-SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread")
+SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread -std=c++1z")
 SET(CMAKE_VERBOSE_MAKEFILE off )
 
 # add libary

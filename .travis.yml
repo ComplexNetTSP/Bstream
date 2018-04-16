@@ -28,7 +28,7 @@ before_install:
 install:
   - conda install -c conda-forge --yes python=$TRAVIS_PYTHON_VERSION pybind11
   - export CXX="clang++-5.0" CC="clang-5.0" CLANG_VERSION="5.0" LIBCXX="On"
-  
+
 # Build steps
 script:
   - which python
