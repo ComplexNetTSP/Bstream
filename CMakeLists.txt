@@ -12,7 +12,7 @@ SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread -std=c++1z")
 SET(CMAKE_VERBOSE_MAKEFILE off )
 
 # add libary
-FIND_PACKAGE(PythonLibs 3 REQUIRED)
+
 #if (PYTHONLIBS_FOUND)
 #    MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
 #endif()
@@ -37,6 +37,7 @@ if (PYTHONINTERP_FOUND)
     MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
     #MESSAGE("-- Found Python 3 library DUMMY: " ${DUMMY})
 endif()
+FIND_PACKAGE(PythonLibs 3 REQUIRED)
 
 #find_path(PYBIND11_INCLUDE_DIRS pybind11/pybind11.h)
 #if (PYBIND11_INCLUDE_DIRS)
