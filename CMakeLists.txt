@@ -27,7 +27,7 @@ if (PYTHONINTERP_FOUND)
     )
     SET(PYTHON_INCLUDE_DIRS ${DUMMY})
     MESSAGE("-- Found Python 3 include dir: " ${PYTHON_INCLUDE_DIRS})
-    #MESSAGE("-- Found Python 3 include dir DUMMY: " ${DUMMY})
+    INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
     EXECUTE_PROCESS(
             COMMAND ${PYTHON_EXECUTABLE} -c "import distutils.sysconfig as sysconfig; import os; print(os.path.join(sysconfig.get_config_var('LIBDIR'), sysconfig.get_config_var('LDLIBRARY')))"
             OUTPUT_VARIABLE DUMMY
@@ -49,6 +49,7 @@ set(Boost_USE_MULTITHREADED ON)
 FIND_PACKAGE(Boost COMPONENTS system graph REQUIRED)
 if (Boost_FOUND)
     MESSAGE("-- Found Boost " ${Boost_MAJOR_VERSION} "." ${Boost_MINOR_VERSION} " include directory:\t" ${Boost_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 endif()
 
 
@@ -80,11 +81,7 @@ SET(SRC_INCLUDE_DIR
         "src/tinterval"
         "src/algorithms"
         "src/utils")
-INCLUDE_DIRECTORIES(
-        ${Boost_INCLUDE_DIRS}
-        ${PYBIND11_INCLUDE_DIRS}
-        ${PYTHON_INCLUDE_DIRS}
-        ${SRC_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(${SRC_INCLUDE_DIR})
 #
 # Build target
 #
