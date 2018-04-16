@@ -55,7 +55,8 @@ after_success:
   - echo '#!/bin/bash' > llvm-gcov.sh
   - echo 'exec llvm-cov gcov "$@"' >> llvm-gcov.sh
   - chmod +x llvm-gcov.sh
-  - lcov --directory . --capture --gcov-tool llvm-gcov.sh --output-file coverage.info
+  - ls .
+  - lcov --directory . --capture --gcov-tool ./llvm-gcov.sh --output-file coverage.info
   # filter out system
   - lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
   # debug info
