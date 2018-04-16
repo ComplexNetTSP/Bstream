@@ -37,7 +37,7 @@ script:
   - which python
   - mkdir build
   - cd build
-  - cmake .. -DENABLE_CODECOVERAGE=OFF
+  - cmake ..
   - make
   - make test
 
