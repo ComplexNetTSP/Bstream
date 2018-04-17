@@ -2,7 +2,8 @@
 
 cd cmake-build-debug
 
-cmake .. -DENABLE_CODECOVERAGE=ON
+cmake .. -DCODE_COVERAGE=ON
+make clean
 make
 make test
 lcov --directory . --capture --output-file coverage.info

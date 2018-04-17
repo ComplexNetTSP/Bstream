@@ -9,13 +9,14 @@ enable_testing()
 
 SET(PYBIND11_CPP_STANDARD -std=c++1z)
 SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread -std=c++1z")
-SET(CMAKE_VERBOSE_MAKEFILE off )
-
+SET(CMAKE_VERBOSE_MAKEFILE off)
+if(CODE_COVERAGE)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+    MESSAGE("-- Enable code coverage " ${CMAKE_CXX_FLAGS})
+endif()
+unset(CODE_COVERAGE)
 # add libary
-
-#if (PYTHONLIBS_FOUND)
-#    MESSAGE("-- Found Python 3 library: " ${PYTHON_LIBRARIES})
-#endif()
 
 FIND_PACKAGE(PythonInterp 3 REQUIRED)
 if (PYTHONINTERP_FOUND)
