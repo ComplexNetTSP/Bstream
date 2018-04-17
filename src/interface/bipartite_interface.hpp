@@ -5,10 +5,44 @@
 #ifndef BSTREAM_BIPARTITE_INTERFACE_HPP
 #define BSTREAM_BIPARTITE_INTERFACE_HPP
 
+#include <boost/graph/detail/edge.hpp>
+
 #include "GraphType.hpp"
+#include "bipartite.hpp"
+
+namespace py = pybind11;
+namespace bs = boost::bstream;
 
 void bipartite_interface(py::module &m)
 {
+    ///**************************************************************************************************
+    ///
+    ///  Functions
+    ///
+    ///**************************************************************************************************
+    m.def("projected_graph", bs::projected_graph<boost::undirectedS>);
+    m.def("projected_graph", bs::projected_graph<boost::bidirectionalS>, R"pbdoc(
+    Returns the projection of B onto one of its node sets.
+
+    Returns the graph G that is the projection of the bipartite graph B
+    onto the specified nodes. They retain their attributes and are connected
+    in G if they have a common neighbor in B.
+
+    Parameters
+    ----------
+    B : DiBipartie Graph
+      The input graph should be bipartite.
+
+    group : int
+      Group Nodes to project onto (the "bottom" nodes).
+
+    Returns
+    -------
+    DiGraph : Directed graph
+       A graph that is the projection onto the given nodes.
+
+    )pbdoc");
+
     ///**************************************************************************************************
     ///
     ///  Bipartite

@@ -62,4 +62,5 @@ Temporary Items
 
 .idea/
 cmake-build-debug/
+doc/build/*
 

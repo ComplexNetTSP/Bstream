@@ -29,13 +29,7 @@ namespace boost::bstream
         else
             group = BipartiteBase<DirectedS>::bipartite::top ;
 
-        for(boost::tie(vit, vit_end) = gprime.vertices(); vit != vit_end; ++vit){
-            if(gprime.group(*vit) == Graph::bipartite::null)
-                throw BipartiteBaseException("Malformed Bipartie Graph");
-            if(gprime.group(*vit) == group){
-                gprime.remove_vertex(gprime.label(*vit));
-            }
-        }
+        gprime.clear_vertex_w_group(group);
 
         auto gb = static_cast<GraphBase<DirectedS>>(gprime);
         for(auto i = g.vertices().first; i != g.vertices().second; ++i){
@@ -43,7 +37,6 @@ namespace boost::bstream
                 for(auto k = g.vertices().first; k != g.vertices().second; ++k){
                     if(g.has_edge(*i, *k) && g.has_edge(*j, *k) && *i != *k && *j != *k && *i != *j){
                         gb.add_edge(g.label(*i), g.label(*j));
-                        //std::cout << g.label(*i) << " " << g.label(*j) << std::endl;
                     }
                 }
             }
