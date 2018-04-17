@@ -49,7 +49,10 @@ namespace boost::bstream
         add_vertex_w_group(int group, const std::string& label="");
 
         virtual int group(const typename GraphBase<DirectedS>::vertex_t& v);
+
         virtual int group(const std::string& v);
+
+        virtual void clear_vertex_w_group(int group);
 
         ///**************************************************************************************************
         ///

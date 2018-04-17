@@ -108,6 +108,8 @@ namespace boost::bstream
 
         virtual std::string label(const vertex_t &v) const;
 
+        virtual std::vector<std::string> labels() const;
+
         virtual vertex_t vertex(const std::string label);
 
         virtual bool has_vertex(const vertex_t& v);

@@ -16,6 +16,7 @@ if(CODE_COVERAGE)
     MESSAGE("-- Enable code coverage " ${CMAKE_CXX_FLAGS})
 endif()
 unset(CODE_COVERAGE)
+
 # add libary
 
 FIND_PACKAGE(PythonInterp 3 REQUIRED)

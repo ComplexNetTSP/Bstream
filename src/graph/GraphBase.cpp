@@ -115,6 +115,16 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
+    std::vector<std::string> GraphBase<DirectedS>::labels() const
+    {
+        std::vector<std::string> labels;
+        for(auto it = label_map.begin(); it != label_map.end(); ++it)
+            labels.push_back(it->first);
+        return labels;
+    }
+
+
+    template<typename DirectedS>
     bool GraphBase<DirectedS>::has_vertex(const GraphBase::vertex_t &v)
     {
         return vertex_set.find(v) != vertex_set.end();

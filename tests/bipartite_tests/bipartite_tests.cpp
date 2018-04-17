@@ -91,3 +91,17 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_projected_graph)
     BOOST_CHECK(gproj.is_directed() == false);
     BOOST_CHECK(gproj.has_edge("A", "C"));
 }
+
+BOOST_AUTO_TEST_CASE(BipartiteBase_clear_vertex_w_group)
+{
+    Bipartite g;
+
+    g.add_vertex_w_group(Bipartite::bipartite::top, "A");
+    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
+    g.add_vertex_w_group(Bipartite::bipartite::top, "C");
+    g.add_edge("A", "B");
+    g.add_edge("C", "B");
+    g.clear_vertex_w_group(Bipartite::bipartite::top);
+    BOOST_CHECK(g.num_vertices() == 1);
+    BOOST_CHECK(g.num_edges() == 0);
+}
