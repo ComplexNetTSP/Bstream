@@ -39,6 +39,7 @@ script:
   - cd build
   - cmake ..
   - make
+  - python graph_tests.py
   - make test
 
 addons:
