@@ -18,6 +18,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <set>
+#include <Eigen/Core>
+
+using Eigen::MatrixXd;
 
 namespace boost::bstream
 {
@@ -93,6 +96,8 @@ namespace boost::bstream
         virtual double density();
 
         virtual void clear();
+
+        virtual MatrixXd adjacency();
 
         ///**************************************************************************************************
         ///

@@ -17,6 +17,56 @@ namespace boost::bstream
 
     ///**************************************************************************************************
     ///
+    ///  Graph method
+    ///
+    ///**************************************************************************************************
+
+    template<typename DirectedS>
+    int BipartiteBase<DirectedS>::num_top_vertex()
+    {
+        int num = 0;
+        for(auto it = this->vertices().first; it != this->vertices().second; ++it){
+            if(this->group(*it) == GraphBase<DirectedS>::bipartite::top)
+                num++;
+        }
+        return num;
+    }
+
+    template<typename DirectedS>
+    int BipartiteBase<DirectedS>::num_bottom_vertex()
+    {
+        int num = 0;
+        for(auto it = this->vertices().first; it != this->vertices().second; ++it){
+            if(this->group(*it) == GraphBase<DirectedS>::bipartite::bottom)
+                num++;
+        }
+        return num;
+    }
+
+    //todo: make test
+    template<typename DirectedS>
+    MatrixXd BipartiteBase<DirectedS>::adjacency()
+    {
+        MatrixXd m = Eigen::MatrixXd::Zero(this->num_top_vertex(),this->num_bottom_vertex());
+        int t=0, b=0;
+        for(auto i = this->vertices().first; i != this->vertices().second; ++i){
+            if(this->group(*i) == GraphBase<DirectedS>::bipartite::top) {
+                b = 0;
+                for (auto j = this->vertices().first; j != this->vertices().second; ++j) {
+                    if(this->group(*j) == GraphBase<DirectedS>::bipartite::bottom) {
+                        if(this->has_edge(*i, *j))
+                            m(t, b) = 1;
+                        b++;
+                    }
+                }
+                t++;
+            }
+        }
+        return m;
+    }
+
+    ///**************************************************************************************************
+    ///
     ///  Vertex method
     ///
     ///**************************************************************************************************

@@ -68,6 +68,20 @@ namespace boost::bstream
         this->G.clear();
     }
 
+    template<typename DirectedS>
+    MatrixXd GraphBase<DirectedS>::adjacency()
+    {
+        MatrixXd m = Eigen::MatrixXd::Zero(this->num_vertices(),this->num_vertices());
+
+        for(auto i = this->vertices().first; i != this->vertices().second; ++i){
+            for(auto j = this->vertices().first; j != this->vertices().second; ++j){
+                if(this->has_edge(*i,*j))
+                    m(*i,*j) = 1;
+            }
+        }
+        return m;
+    }
+
     ///**************************************************************************************************
     ///
     ///  Vertex medthods

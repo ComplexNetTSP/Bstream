@@ -14,6 +14,7 @@
 #define BSTREAM_BIPARTITEBASE_HPP
 
 #include <string>
+#include <Eigen/Core>
 
 #include "GraphBase.hpp"
 
@@ -38,6 +39,18 @@ namespace boost::bstream
 
         BipartiteBase(): GraphBase<DirectedS>::GraphBase() {};
         ~BipartiteBase() = default;
+
+        ///**************************************************************************************************
+        ///
+        ///  Graph method
+        ///
+        ///**************************************************************************************************
+
+        MatrixXd adjacency();
+
+        int num_top_vertex();
+
+        int num_bottom_vertex();
 
         ///**************************************************************************************************
         ///

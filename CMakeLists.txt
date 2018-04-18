@@ -72,6 +72,7 @@ SET(SRC_INCLUDE_DIR
         "src/interface"
         "src/tinterval"
         "src/algorithms"
+        "src/matrix"
         "src/utils")
 INCLUDE_DIRECTORIES(${SRC_INCLUDE_DIR})
 #

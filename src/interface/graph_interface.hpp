@@ -11,6 +11,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
+#include <pybind11/eigen.h>
 #include <iostream>
 
 #include "GraphType.hpp"
@@ -68,6 +69,7 @@ void graph_interface(py::module &m)
     graph.def("in_degree", py::overload_cast<const bs::Graph::vertex_t&>(&bs::Graph::in_degree));
     graph.def("out_degree", py::overload_cast<const std::string&>(&bs::Graph::out_degree));
     graph.def("out_degree", py::overload_cast<const bs::Graph::vertex_t&>(&bs::Graph::out_degree));
+    graph.def("adjacency", &bs::Graph::adjacency);
 
     graph.def("vertices", [](bs::Graph &g){
         auto it = g.vertices();
@@ -109,6 +111,7 @@ void graph_interface(py::module &m)
     digraph.def("in_degree", py::overload_cast<const bs::DiGraph::vertex_t&>(&bs::DiGraph::in_degree));
     digraph.def("out_degree", py::overload_cast<const std::string&>(&bs::DiGraph::out_degree));
     digraph.def("out_degree", py::overload_cast<const bs::DiGraph::vertex_t&>(&bs::DiGraph::out_degree));
+    digraph.def("adjacency", &bs::DiGraph::adjacency);
 
     digraph.def("vertices", [](bs::DiGraph &g){
         auto it = g.vertices();

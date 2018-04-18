@@ -1,7 +1,6 @@
 import unittest
 import pybstream
 
-
 class TestGraph(unittest.TestCase):
 
     def test_Graph(self):
@@ -87,6 +86,20 @@ class TestGraph(unittest.TestCase):
         self.assertFalse(g.is_directed())
         self.assertEqual(g.num_vertices(), 4);
         self.assertEqual(g.num_edges(), 5);
+
+    def test_Graph_adjacency(self):
+        result = [[0.0, 1.0, 1.0], [1.0, 0.0, 1.0], [1.0, 1.0, 0.0]]
+
+        g = pybstream.Graph()
+        v1 = g.add_vertex()
+        v2 = g.add_vertex()
+        v3 = g.add_vertex()
+        g.add_edge(v3, v1)
+        g.add_edge(v2, v3)
+        g.add_edge(v1, v2)
+
+        self.assertEqual(g.adjacency().tolist(), result)
+
 
 
 if __name__ == '__main__':

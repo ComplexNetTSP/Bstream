@@ -9,7 +9,7 @@
 ///
 ///-------------------------------------------------------------------------------------------------
 
-
+#include <Eigen/Core>
 #include "GraphType.hpp"
 
 #define BOOST_TEST_MODULE GraphBase_tests
@@ -19,6 +19,7 @@
 using namespace std;
 using namespace boost;
 using namespace boost::bstream;
+using Eigen::MatrixXd;
 
 BOOST_AUTO_TEST_CASE(GraphBase_constructor)
 {
@@ -317,4 +318,51 @@ BOOST_AUTO_TEST_CASE(GraphBase_clear_edges)
     BOOST_CHECK(g.num_edges() == 3);
     g.clear_edges();
     BOOST_CHECK(g.num_edges() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_adjacency)
+{
+    Graph u;
+    auto a = u.add_vertex("a");
+    auto b = u.add_vertex("b");
+    auto c = u.add_vertex("c");
+    u.add_edge(a, b);
+    u.add_edge(b, c);
+    u.add_edge(c, a);
+
+    MatrixXd m(3,3);
+    m(0,0) = 0;
+    m(0,1) = 1;
+    m(0,2) = 1;
+
+    m(1,0) = 1;
+    m(1,1) = 0;
+    m(1,2) = 1;
+
+    m(2,0) = 1;
+    m(2,1) = 1;
+    m(2,2) = 0;
+    BOOST_CHECK(u.adjacency() == m);
+
+    DiGraph d;
+    a = d.add_vertex("a");
+    b = d.add_vertex("b");
+    c = d.add_vertex("c");
+    d.add_edge(a, b);
+    d.add_edge(b, c);
+    d.add_edge(c, a);
+
+    MatrixXd m1(3,3);
+    m1(0,0) = 0;
+    m1(0,1) = 1;
+    m1(0,2) = 0;
+
+    m1(1,0) = 0;
+    m1(1,1) = 0;
+    m1(1,2) = 1;
+
+    m1(2,0) = 1;
+    m1(2,1) = 0;
+    m1(2,2) = 0;
+    BOOST_CHECK(d.adjacency() == m1);
 }
