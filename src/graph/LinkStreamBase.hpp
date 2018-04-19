@@ -48,7 +48,6 @@ namespace boost::bstream
 
         time_t definition_length();
 
-        //todo: implement the method num_edge specific for linkstream and change the definition in GraphBase
         double num_edges();
 
         typename GraphBase<DirectedS>::edge_t
@@ -58,6 +57,11 @@ namespace boost::bstream
         typename GraphBase<DirectedS>::edge_t
         add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t& s,
                         const typename GraphBase<DirectedS>::vertex_t& t,
+                        time_t b, time_t e);
+
+        typename GraphBase<DirectedS>::edge_t
+        add_edge_w_time(const std::string& s,
+                        const std::string& t,
                         time_t b, time_t e);
 
 

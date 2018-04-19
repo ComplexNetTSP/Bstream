@@ -114,6 +114,13 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
+    typename GraphBase<DirectedS>::edge_t
+    LinkStreamBase<DirectedS>::add_edge_w_time(const std::string& s, const std::string& t, time_t b, time_t e)
+    {
+        return this->add_edge_w_time(this->vertex(s), this->vertex(t), b, e);
+    }
+
+    template<typename DirectedS>
     std::pair<time_t, time_t> LinkStreamBase<DirectedS>::definition() const
     {
         return std::make_pair<time_t, time_t>(interval_def.lower(), interval_def.upper());

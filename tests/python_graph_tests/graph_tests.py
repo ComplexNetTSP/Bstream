@@ -100,7 +100,5 @@ class TestGraph(unittest.TestCase):
 
         self.assertEqual(g.adjacency().tolist(), result)
 
-
-
 if __name__ == '__main__':
     unittest.main()

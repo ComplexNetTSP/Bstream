@@ -20,8 +20,9 @@ void bipartite_interface(py::module &m)
     ///  Functions
     ///
     ///**************************************************************************************************
-    m.def("projected_graph", bs::projected_graph<boost::undirectedS>);
-    m.def("projected_graph", bs::projected_graph<boost::bidirectionalS>, R"pbdoc(
+    m.def("projected_graph", bs::projected_graph<boost::undirectedS>, py::arg("Graph"), py::arg("projection_node"));
+    m.def("projected_graph", bs::projected_graph<boost::bidirectionalS>, py::arg("DiGraph"), py::arg("projection_node"),
+          R"pbdoc(
     Returns the projection of B onto one of its node sets.
 
     Returns the graph G that is the projection of the bipartite graph B
@@ -30,15 +31,17 @@ void bipartite_interface(py::module &m)
 
     Parameters
     ----------
-    B : DiBipartie Graph
+    B : DiBipartite/Bipartie Graph
       The input graph should be bipartite.
 
     group : int
-      Group Nodes to project onto (the "bottom" nodes).
+      Group Nodes to project onto (the "bottom" nodes or the top nodes).
+         1 : top node
+         2 : bottom node
 
     Returns
     -------
-    DiGraph : Directed graph
+    DiGraph/Graph : graph
        A graph that is the projection onto the given nodes.
 
     )pbdoc");
