@@ -14,7 +14,6 @@
 
 #include "graph_interface.hpp"
 #include "tintervalset_interface.hpp"
-#include "csvreader_interface.hpp"
 #include "bipartite_interface.hpp"
 #include "linkstream_interface.hpp"
 
@@ -34,7 +33,6 @@ PYBIND11_MODULE(pybstream, m) {
     graph_interface(m);
     tinterval_interface(m);
     tintervalset_interface(m);
-    csvreader_interface(m);
     bipartite_interface(m);
     linkstream_interface(m);
 }

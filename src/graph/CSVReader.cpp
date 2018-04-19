@@ -12,6 +12,7 @@
 
 namespace boost::bstream
 {
+    /*
     LinkStream CSVReader::read_linkstream(const std::string &path)
     {
         int lineCount = 0;
@@ -128,58 +129,30 @@ namespace boost::bstream
             }
         }
         return G;
-    }
+    } */
 
-    Graph CSVReader::read_graph(const std::string &path)
+    std::vector<std::vector<std::string>>
+    CSVReader::read(const std::string &path)
     {
-        int lineCount = 0;
         std::string line;
-        int consecutiveID = 0;
         std::ifstream file(path, std::ios::in);
-        std::map<std::string, LinkStream::vertex_t> mapNodeIds;
+        std::vector<std::vector<std::string>> nodeIds;
 
         if (file.fail())
             throw CSVReaderException("Could not open file");
-
-        // first pass create the vertices
-        while(!file.eof()) {
-            getline(file, line);
-            if (!line.empty()) {
-                if (line.compare(0, this->commentPrefix.length(), this->commentPrefix) != 0) {
-                    ++lineCount;
-                    auto tokens = split(line);
-                    if (tokens.size() == 2) {
-                        if(mapNodeIds.insert(std::make_pair(tokens[0], consecutiveID)).second)
-                            consecutiveID++;
-                        if(mapNodeIds.insert(std::make_pair(tokens[1], consecutiveID)).second)
-                            consecutiveID++;
-                    } else {
-                        throw CSVReaderException("Unsupported file format");
-                    }
-                }
-            }
-        }
-
-        auto G = Graph(static_cast<int>(mapNodeIds.size()));
-
-        // second pass create the edges
-        file.clear();
-        file.seekg(0, std::ios::beg);
 
         while(!file.eof()) {
             getline(file, line);
             if (!line.empty()) {
                 if (line.compare(0, this->commentPrefix.length(), this->commentPrefix) != 0){
                     auto tokens = split(line, this->delimiter);
-                    if (tokens.size() == 2) {
-                        auto u = mapNodeIds[tokens[0]];
-                        auto v = mapNodeIds[tokens[1]];
-                        G.add_edge(u, v);
+                    if (tokens.size() >= 2) {
+                        nodeIds.push_back(tokens);
                     }
                 }
             }
         }
-        return G;
+        return nodeIds;
     }
 }
 

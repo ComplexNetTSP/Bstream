@@ -99,6 +99,8 @@ namespace boost::bstream
 
         virtual MatrixXd adjacency();
 
+        virtual void read_csv(std::string path, bool weighted, char delimiter=',');
+
         ///**************************************************************************************************
         ///
         ///  Vertex method

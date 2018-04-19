@@ -13,7 +13,9 @@
 #include <string>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/copy.hpp>
+
 #include "GraphBase.hpp"
+#include "CSVReader.hpp"
 
 using namespace std;
 
@@ -360,6 +362,17 @@ namespace boost::bstream
     GraphBase<DirectedS>::neighbors(const std::string &v)
     {
         return boost::adjacent_vertices(vertex(v), G);
+    }
+
+    //todo to finalize
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::read_csv(std::string path, bool weighted, char delimiter)
+    {
+        auto cvs = CSVReader(delimiter);
+        auto graph = cvs.read(path);
+        for(auto edge_it = graph.begin(); edge_it != graph.end(); ++edge_it){
+            this->add_edge((*edge_it)[0], (*edge_it)[1]);
+        }
     }
 
     template class GraphBase<boost::undirectedS>;
