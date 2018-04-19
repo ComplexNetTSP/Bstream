@@ -79,6 +79,15 @@ namespace boost::bstream
         typename GraphBase<DirectedS>::edge_t
         add_edge(const std::string& s, const std::string& t);
 
+        friend std::ostream & operator<<(std::ostream &out, BipartiteBase &g)
+        {
+            if(g.is_directed())
+                out << "DiBipartite(|V|=" << g.num_vertices() << ", |E|=" << g.num_edges() << ")";
+            else
+                out << "Bipartite(|V|=" << g.num_vertices() << ", |E|=" << g.num_edges() << ")";
+            return out;
+        }
+
 
     };
 } // end namespace boost::bstream

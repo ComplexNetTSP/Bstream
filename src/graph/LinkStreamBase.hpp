@@ -75,15 +75,13 @@ namespace boost::bstream
 
         void print_edges();
 
-        //todo density
-
         friend std::ostream & operator<<(std::ostream &out, LinkStreamBase &l)
         {
             if(l.is_directed())
-                out << "DiLinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges() << ")" << std::endl;
+                out << "DiLinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges() << ")";
             else
                 out << "LinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges()
-                    <<  ", T=" << l.interval_def << ")" << std::endl;
+                    <<  ", T=" << l.interval_def << ")" ;
             return out;
         }
 

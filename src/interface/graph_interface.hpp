@@ -82,7 +82,9 @@ void graph_interface(py::module &m)
     }, py::keep_alive<0, 1>());
 
     graph.def("__repr__", [](bs::Graph &g) {
-        return "<class Graph>";
+        std::ostringstream out;
+        out << "<class " << g << ">";
+        return out.str();
     });
 
     ///**************************************************************************************************
@@ -124,6 +126,8 @@ void graph_interface(py::module &m)
     }, py::keep_alive<0, 1>());
 
     digraph.def("__repr__", [](bs::DiGraph &g) {
-        return "<class DiGraph>";
+        std::ostringstream out;
+        out << "<class " << g << ">";
+        return out.str();
     });
 }

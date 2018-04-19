@@ -56,8 +56,11 @@ void bipartite_interface(py::module &m)
     bipartite.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::Bipartite::add_edge));
     bipartite.def("group", py::overload_cast<const bs::Graph::vertex_t&>(&bs::Bipartite::group));
     bipartite.def("group", py::overload_cast<const std::string&>(&bs::Bipartite::group));
-    bipartite.def("__repr__", [](bs::Graph &g) {
-        return "<class Bipartite>";
+
+    bipartite.def("__repr__", [](bs::Bipartite &g) {
+        std::ostringstream out;
+        out << "<class " << g << ">";
+        return out.str();
     });
 
     ///**************************************************************************************************
@@ -73,8 +76,10 @@ void bipartite_interface(py::module &m)
     dibipartite.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::DiBipartite::add_edge));
     dibipartite.def("group", py::overload_cast<const bs::DiGraph::vertex_t&>(&bs::DiBipartite::group));
     dibipartite.def("group", py::overload_cast<const std::string&>(&bs::DiBipartite::group));
-    dibipartite.def("__repr__", [](bs::Graph &g) {
-        return "<class DiBipartite>";
+    dibipartite.def("__repr__", [](bs::DiBipartite &g) {
+        std::ostringstream out;
+        out << "<class " << g << ">";
+        return out.str();
     });
 }
 #endif //BSTREAM_BIPARTITE_INTERFACE_HPP

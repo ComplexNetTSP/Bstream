@@ -214,9 +214,9 @@ namespace boost::bstream
         friend std::ostream & operator<<(std::ostream &out, GraphBase &g)
         {
             if(g.is_directed())
-                out << "DiGraph(|V|=" << g.num_vertices() << ", |E|" << g.num_edges() << ")" << std::endl;
+                out << "DiGraph(|V|=" << g.num_vertices() << ", |E|=" << g.num_edges() << ")";
             else
-                out << "Graph(|V|=" << g.num_vertices() << ", |E|" << g.num_edges() << ")" << std::endl;
+                out << "Graph(|V|=" << g.num_vertices() << ", |E|=" << g.num_edges() << ")";
             return out;
         }
 
