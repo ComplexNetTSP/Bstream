@@ -43,7 +43,6 @@ namespace boost::bstream
         return num;
     }
 
-    //todo: make test
     template<typename DirectedS>
     MatrixXd BipartiteBase<DirectedS>::adjacency()
     {

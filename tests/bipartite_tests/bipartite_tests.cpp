@@ -17,6 +17,7 @@
 #include <boost/test/included/unit_test.hpp>
 
 using namespace boost::bstream;
+using namespace std;
 
 BOOST_AUTO_TEST_CASE(BipartiteBase_constructor)
 {
@@ -104,4 +105,31 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_clear_vertex_w_group)
     g.clear_vertex_w_group(Bipartite::bipartite::top);
     BOOST_CHECK(g.num_vertices() == 1);
     BOOST_CHECK(g.num_edges() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(BipartiteBase_adjacency)
+{
+    Bipartite g;
+
+    g.add_vertex_w_group(Bipartite::bipartite::top, "1");
+    g.add_vertex_w_group(Bipartite::bipartite::bottom, "A");
+    g.add_vertex_w_group(Bipartite::bipartite::top, "2");
+    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
+    g.add_vertex_w_group(Bipartite::bipartite::top, "3");
+
+    g.add_edge("1", "A");
+    g.add_edge("2", "A");
+    g.add_edge("2", "B");
+    g.add_edge("3", "B");
+
+    MatrixXd m(3,2);
+    m(0,0) = 1;
+    m(0,1) = 0;
+
+    m(1,0) = 1;
+    m(1,1) = 1;
+
+    m(2,0) = 0;
+    m(2,1) = 1;
+    BOOST_CHECK(g.adjacency() == m);
 }
