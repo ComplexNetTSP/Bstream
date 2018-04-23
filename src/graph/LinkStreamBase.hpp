@@ -32,6 +32,13 @@ namespace boost::bstream
     class LinkStreamBase: public GraphBase<DirectedS>
     {
     public:
+
+        ///**************************************************************************************************
+        ///
+        ///  Constructor
+        ///
+        ///**************************************************************************************************
+
         LinkStreamBase();
 
         LinkStreamBase(int num_vertex);
@@ -42,6 +49,12 @@ namespace boost::bstream
 
         ~LinkStreamBase() = default;
 
+        ///**************************************************************************************************
+        ///
+        ///  Graph methods
+        ///
+        ///**************************************************************************************************
+
         void set_definition(const time_t t1, time_t t2);
 
         std::pair<time_t, time_t> definition() const;
@@ -49,6 +62,29 @@ namespace boost::bstream
         time_t definition_length();
 
         double num_edges();
+
+        double density();
+
+        void print_edges();
+
+        void read_csv(std::string path, char delimiter=',');
+
+        ///**************************************************************************************************
+        ///
+        ///  Vertex method
+        ///
+        ///**************************************************************************************************
+
+        double degree(const typename GraphBase<DirectedS>::vertex_t& v);
+
+        //todo: add the remove vertex method, check first about the graph properties
+        //void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
+
+        ///**************************************************************************************************
+        ///
+        ///  Edge method
+        ///
+        ///**************************************************************************************************
 
         typename GraphBase<DirectedS>::edge_t
         add_edge(const typename GraphBase<DirectedS>::vertex_t& s,
@@ -69,15 +105,6 @@ namespace boost::bstream
         is_edge_active(const typename GraphBase<DirectedS>::vertex_t& s,
                        const typename GraphBase<DirectedS>::vertex_t& t,
                        time_t b, time_t e);
-
-        double degree(const typename GraphBase<DirectedS>::vertex_t& v);
-
-        //todo: add the remove vertex method, check first about the graph properties
-        //void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
-
-        double density();
-
-        void print_edges();
 
         friend std::ostream & operator<<(std::ostream &out, LinkStreamBase &l)
         {

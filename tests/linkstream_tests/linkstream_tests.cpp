@@ -63,13 +63,9 @@ BOOST_AUTO_TEST_CASE(LinkStream_exception)
     BOOST_CHECK_THROW( g.add_edge_w_time(a, b, 0, 13), LinkStreamException);
 }
 
-
+//todo: add test for reading a cvs file
 BOOST_AUTO_TEST_CASE(LinkStream_read_edgefile)
 {
-    auto cvs = CSVReader(',', "#");
-    auto L = cvs.read_linkstream("./edges.csv");
-
-    BOOST_CHECK_THROW(cvs.read_linkstream("./xxxx.csv"), CSVReaderException);
 }
 
 
