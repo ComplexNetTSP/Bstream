@@ -51,10 +51,6 @@ namespace boost::bstream
          * @param   path File path of the edge file to be read.
          * @return  Graph
          */
-        //LinkStream read_linkstream(const std::string &path);
-
-        //DiLinkStream read_dilinkstream(const std::string &path);
-
         std::vector<std::vector<std::string>> read(const std::string &path);
     };
 

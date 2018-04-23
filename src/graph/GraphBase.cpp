@@ -364,9 +364,10 @@ namespace boost::bstream
         return boost::adjacent_vertices(vertex(v), G);
     }
 
-    //todo to finalize
+    //todo add test
+
     template<typename DirectedS>
-    void GraphBase<DirectedS>::read_csv(std::string path, bool weighted, char delimiter)
+    void GraphBase<DirectedS>::read_csv(std::string path, char delimiter)
     {
         auto cvs = CSVReader(delimiter);
         auto graph = cvs.read(path);

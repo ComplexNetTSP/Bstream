@@ -366,3 +366,11 @@ BOOST_AUTO_TEST_CASE(GraphBase_adjacency)
     m1(2,2) = 0;
     BOOST_CHECK(d.adjacency() == m1);
 }
+
+BOOST_AUTO_TEST_CASE(GraphBase_read_csv)
+{
+    Graph g;
+    g.read_csv("edges.csv");
+    BOOST_CHECK(g.num_vertices() == 4);
+    BOOST_CHECK(g.num_edges() == 6);
+}

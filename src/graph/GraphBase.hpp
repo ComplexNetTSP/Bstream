@@ -99,7 +99,7 @@ namespace boost::bstream
 
         virtual MatrixXd adjacency();
 
-        virtual void read_csv(std::string path, bool weighted, char delimiter=',');
+        virtual void read_csv(std::string path, char delimiter=',');
 
         ///**************************************************************************************************
         ///
