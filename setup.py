@@ -24,7 +24,14 @@ class get_pybind_include(object):
 ext_modules = [
     Extension(
         'pybstream',
-        ['src/interface/interface.cpp'],
+        [
+            'src/interface/interface.cpp',
+            'src/graph/BipartiteBase.cpp',
+            'src/graph/CSVReader.cpp',
+            'src/graph/GraphBase.cpp',
+            'src/graph/LinkStreamBase.cpp',
+            'src/tinterval/TimeIntervalSet.cpp'
+         ],
         include_dirs=[
             "src/matrix",
             "src/graph",
@@ -94,12 +101,12 @@ setup(
     author='Vincent Gauthier',
     author_email='vgauthier@luxbulb.org',
     packages=find_packages(),
-    url='https://github.com/pybind/python_example',
-    description='A test project using pybind11',
+    url='https://github.com/ComplexNetTSP/Bstream',
+    description='pybstream',
     long_description='',
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},
-    test_suite="tests.python_graph_tests.graph_tests",
+    test_suite="tests",
     zip_safe=False,
 )
