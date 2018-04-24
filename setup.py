@@ -31,7 +31,7 @@ ext_modules = [
             'src/graph/GraphBase.cpp',
             'src/graph/LinkStreamBase.cpp',
             'src/tinterval/TimeIntervalSet.cpp'
-         ],
+        ],
         include_dirs=[
             "src/matrix",
             "src/graph",
@@ -43,7 +43,7 @@ ext_modules = [
             get_pybind_include(),
             get_pybind_include(user=True)
         ],
-        language='c++'
+        language='c++17',
     ),
 ]
 
@@ -83,6 +83,7 @@ class BuildExt(build_ext):
     def build_extensions(self):
         ct = self.compiler.compiler_type
         opts = self.c_opts.get(ct, [])
+        opts.append('-Wno-unused-local-typedef')
         if ct == 'unix':
             opts.append('-DVERSION_INFO="%s"' % self.distribution.get_version())
             opts.append(cpp_flag(self.compiler))
