@@ -6,7 +6,7 @@ include(CTest)
 enable_testing()
 
 # option
-
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 SET(PYBIND11_CPP_STANDARD -std=c++1z)
 SET(CMAKE_CXX_FLAGS "-O0 -Wall -pedantic -pthread -std=c++1z")
 SET(CMAKE_VERBOSE_MAKEFILE off)
@@ -105,6 +105,39 @@ LIST (APPEND Test_COVERAGE_DATA "${Test_GCDA}")
 FILE (GLOB_RECURSE Test_GCOV ${PROJECT_BINARY_DIR}/*.gcov)
 LIST (APPEND Test_COVERAGE_DATA "${Test_GCOV}")
 SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${Test_COVERAGE_DATA}")
+
+#
+# Sphinx build
+#
+FIND_PACKAGE(Sphinx)
+
+# configured documentation tools and intermediate build results
+SET(BINARY_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/_build")
+
+# Sphinx cache with pickled ReST documents
+set(SPHINX_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/_doctrees")
+
+# HTML output directory
+set(SPHINX_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/html")
+
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/conf.py"
+        "${BINARY_BUILD_DIR}/conf.py"
+        @ONLY)
+
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/index.rst"
+        "${BINARY_BUILD_DIR}/index.rst"
+        @ONLY)
+
+#add_custom_target(doc ALL
+#        ${SPHINX_EXECUTABLE}
+#        -q -b html
+#        -c "${BINARY_BUILD_DIR}"
+#        -d "${SPHINX_CACHE_DIR}"
+#        "${CMAKE_CURRENT_BINARY_DIR}"
+#        "${SPHINX_HTML_DIR}"
+#        COMMENT "Building HTML documentation with Sphinx")
 
 #
 # add tests cases
