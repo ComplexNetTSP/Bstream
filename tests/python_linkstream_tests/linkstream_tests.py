@@ -5,6 +5,7 @@ class TestLinkStream(unittest.TestCase):
     """Tests the class LinkStream."""
 
     def test_LinkStream(self):
+        """Test constructor of LinkStream"""
         g = pybstream.LinkStream()
         g.set_definition(0, 10)
         self.assertFalse(g.is_directed())
@@ -17,6 +18,7 @@ class TestLinkStream(unittest.TestCase):
         self.assertEqual(g1.num_edges(), 0)
 
     def test_LinkStream_density(self):
+        """Test density of LinkStream"""
         g = pybstream.LinkStream(0, 10)
         g.add_vertex("A")
         g.add_vertex("B")
@@ -28,7 +30,6 @@ class TestLinkStream(unittest.TestCase):
         self.assertEqual(g.density(), density) # 0.5
         self.assertEqual(g.num_vertices(), 3)
         self.assertEqual(g.num_edges(), 1.5)
-
 
 
 if __name__ == '__main__':

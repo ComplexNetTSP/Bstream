@@ -4,7 +4,7 @@ import pybstream
 class TestGraph(unittest.TestCase):
 
     def test_Graph(self):
-        """Tests the class Graph."""
+        """Tests the class Graph constructor."""
         g = pybstream.Graph()
         self.assertFalse(g.is_directed())
         self.assertEqual(g.num_vertices(), 0)
@@ -15,7 +15,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g1.num_edges(), 0)
 
     def test_DiGraph(self):
-        """Tests the class DiGraph."""
+        """Tests the class DiGraph constructor."""
         g = pybstream.DiGraph()
         self.assertTrue(g.is_directed())
         self.assertEqual(g.num_vertices(), 0)
@@ -26,14 +26,14 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g1.num_edges(), 0)
 
     def test_Graph_add_vertex(self):
-        """Tests the class Graph."""
+        """Tests the class Graph add_vertex"""
         g = pybstream.Graph()
         g.add_vertex()
         self.assertEqual(g.num_vertices(), 1)
         self.assertEqual(g.num_edges(), 0)
 
     def test_Graph_add_edge(self):
-        """Tests the class Graph."""
+        """Tests the class Graph add_edge."""
         g = pybstream.Graph()
         v1 = g.add_vertex()
         v2 = g.add_vertex()
@@ -44,7 +44,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.num_edges(), 1)
 
     def test_Graph_degree(self):
-        # Tests the Graph
+        """Tests the class Graph degree."""
         g = pybstream.Graph()
         v1 = g.add_vertex()
         v2 = g.add_vertex()
@@ -81,6 +81,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(sum, 2*g.num_edges())
 
     def test_Graph_read_csv(self):
+        """Tests the class Graph read_csv."""
         csv = pybstream.CSVReader()
         g = csv.read_graph("./tests/python_graph_tests/edges.csv")
         self.assertFalse(g.is_directed())
@@ -88,6 +89,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.num_edges(), 5);
 
     def test_Graph_adjacency(self):
+        """Tests the class Graph adjacency."""
         result = [[0.0, 1.0, 1.0], [1.0, 0.0, 1.0], [1.0, 1.0, 0.0]]
 
         g = pybstream.Graph()
@@ -101,6 +103,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(g.adjacency().tolist(), result)
 
     def test_Graph_read_csv(self):
+        """Tests the class Graph read_csv."""
         g = pybstream.Graph()
         g.read_csv("./tests/python_graph_tests/edges.csv")
 

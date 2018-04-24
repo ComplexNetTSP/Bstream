@@ -4,7 +4,7 @@ import pybstream
 
 class TestTIntervalSet(unittest.TestCase):
 
-    def test_Constructor(self):
+    def test_TIntervalSet_constructor(self):
         """Test Constructor of TimeIntervalSet"""
         ti = pybstream.TimeIntervalSet()
         (l,h) = ti.interval_def()
@@ -23,7 +23,8 @@ class TestTIntervalSet(unittest.TestCase):
         self.assertEqual(l, 0)
         self.assertEqual(h, 10)
 
-    def test_Append(self):
+    def test_TIntervalSet_append(self):
+        """Test append of TimeIntervalSet"""
         ti = pybstream.TimeIntervalSet(0, 10)
         ti.append(1, 2)
         self.assertEqual(ti.size(), 1)
@@ -31,7 +32,8 @@ class TestTIntervalSet(unittest.TestCase):
         self.assertEqual(ti.size(), 2)
         self.assertEqual(ti.length(), 3)
 
-    def test_Erase(self):
+    def test_TIntervalSet_erase(self):
+        """Test erase of TimeIntervalSet"""
         ti = pybstream.TimeIntervalSet(0, 10)
         ti.append(1, 2)
         ti.append(6, 8)
@@ -39,7 +41,8 @@ class TestTIntervalSet(unittest.TestCase):
         self.assertEqual(ti.size(), 0)
         self.assertEqual(ti.length(), 0)
 
-    def test_Iter(self):
+    def test_TIntervalSet_iter(self):
+        """Test iterator of TimeIntervalSet"""
         ti = pybstream.TimeIntervalSet(0, 10)
         ti.append(1, 2)
         ti.append(6, 8)
