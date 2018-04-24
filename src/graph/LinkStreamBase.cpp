@@ -122,8 +122,21 @@ namespace boost::bstream
     {
         auto cvs = CSVReader(delimiter);
         auto graph = cvs.read(path);
+        int min_interval=std::numeric_limits<int>::max();
+        int max_interval=0;
         for(auto edge_it = graph.begin(); edge_it != graph.end(); ++edge_it){
-            this->add_edge_w_time((*edge_it)[0], (*edge_it)[1], std::stoi((*edge_it)[2]), std::stoi((*edge_it)[3]));
+            if(min_interval > std::stoi((*edge_it)[2]))
+                min_interval = std::stoi((*edge_it)[2]);
+            if(max_interval < std::stoi((*edge_it)[3]))
+                max_interval = std::stoi((*edge_it)[3]);
+        }
+
+        this->set_definition(min_interval, max_interval);
+
+        for(auto edge_it = graph.begin(); edge_it != graph.end(); ++edge_it){
+            min_interval = std::stoi((*edge_it)[2]);
+            max_interval = std::stoi((*edge_it)[3]);
+            this->add_edge_w_time((*edge_it)[0], (*edge_it)[1], min_interval, max_interval);
         }
     }
 
@@ -185,6 +198,12 @@ namespace boost::bstream
     typename GraphBase<DirectedS>::edge_t
     LinkStreamBase<DirectedS>::add_edge_w_time(const std::string& s, const std::string& t, time_t b, time_t e)
     {
+        // add vertex if it didn't exist
+        if(!this->has_vertex(s))
+            this->add_vertex(s);
+        if(!this->has_vertex(t))
+            this->add_vertex(t);
+        // add edge
         return this->add_edge_w_time(this->vertex(s), this->vertex(t), b, e);
     }
 

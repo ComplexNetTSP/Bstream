@@ -32,14 +32,13 @@ void linkstream_interface(py::module &m)
     linkstream.def("definition", &bs::LinkStream::definition);
     linkstream.def("definition_length", &bs::LinkStream::definition_length);
     linkstream.def("add_edge", &bs::LinkStream::add_edge);
-
     linkstream.def("add_edge_w_time", py::overload_cast<const bs::LinkStream::vertex_t&, const bs::LinkStream::vertex_t&, time_t, time_t>(&bs::LinkStream::add_edge_w_time));
     linkstream.def("add_edge_w_time", py::overload_cast<const std::string&, const std::string&, time_t, time_t>(&bs::LinkStream::add_edge_w_time));
-
     linkstream.def("is_edge_active", &bs::LinkStream::is_edge_active);
     linkstream.def("degree", &bs::LinkStream::degree);
     linkstream.def("density", &bs::LinkStream::density);
     linkstream.def("print_edges", &bs::LinkStream::print_edges);
+    linkstream.def("read_csv", &bs::LinkStream::read_csv,py::arg("path"), py::arg("delimiter")=',');
 
     linkstream.def("__repr__", [](bs::LinkStream &g) {
         std::ostringstream out;

@@ -100,5 +100,9 @@ class TestGraph(unittest.TestCase):
 
         self.assertEqual(g.adjacency().tolist(), result)
 
+    def test_Graph_read_csv(self):
+        g = pybstream.Graph()
+        g.read_csv("./tests/python_graph_tests/edges.csv")
+
 if __name__ == '__main__':
     unittest.main()

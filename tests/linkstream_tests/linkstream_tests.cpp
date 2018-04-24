@@ -66,6 +66,13 @@ BOOST_AUTO_TEST_CASE(LinkStream_exception)
 //todo: add test for reading a cvs file
 BOOST_AUTO_TEST_CASE(LinkStream_read_edgefile)
 {
+    LinkStream g;
+    g.read_csv("./edges.csv");
+    BOOST_CHECK(g.num_vertices() == 4);
+    auto def = g.definition();
+    BOOST_CHECK(def.first == 0);
+    BOOST_CHECK(def.second == 10);
+    BOOST_CHECK(g.num_edges() == 2.3);
 }
 
 
