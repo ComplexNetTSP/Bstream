@@ -3,9 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Bstream's documentation!
-===================================
+Overview
+========
 
+Documentation
+-------------
+
+* Install
+* Reference
+* License
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -13,7 +19,7 @@ Welcome to Bstream's documentation!
 .. automodule:: pybstream
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

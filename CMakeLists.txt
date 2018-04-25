@@ -98,6 +98,11 @@ elseif (UNIX)
 endif()
 
 #
+# add tests cases
+#
+ADD_SUBDIRECTORY(tests)
+
+#
 # REMOVE GCOV and GCDA files in make clean
 #
 FILE (GLOB_RECURSE Test_GCDA ${PROJECT_BINARY_DIR}/*.gcda)
@@ -115,31 +120,33 @@ FIND_PACKAGE(Sphinx)
 SET(BINARY_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/_build")
 
 # Sphinx cache with pickled ReST documents
-set(SPHINX_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/_doctrees")
+SET(SPHINX_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/_doctrees")
 
 # HTML output directory
-set(SPHINX_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/html")
+SET(SPHINX_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/doc")
 
-configure_file(
+CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/conf.py"
         "${BINARY_BUILD_DIR}/conf.py"
         @ONLY)
 
-configure_file(
+FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_static"
+     DESTINATION "${BINARY_BUILD_DIR}/_static")
+
+FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_templates"
+        DESTINATION "${BINARY_BUILD_DIR}/_templates")
+
+CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/index.rst"
         "${BINARY_BUILD_DIR}/index.rst"
         @ONLY)
 
-#add_custom_target(doc ALL
-#        ${SPHINX_EXECUTABLE}
-#        -q -b html
-#        -c "${BINARY_BUILD_DIR}"
-#        -d "${SPHINX_CACHE_DIR}"
-#        "${CMAKE_CURRENT_BINARY_DIR}"
-#        "${SPHINX_HTML_DIR}"
-#        COMMENT "Building HTML documentation with Sphinx")
-
-#
-# add tests cases
-#
-ADD_SUBDIRECTORY(tests)
+ADD_CUSTOM_TARGET(doc ALL
+        ${SPHINX_EXECUTABLE}
+        -q -b html
+        -c "${BINARY_BUILD_DIR}"
+        -d "${SPHINX_CACHE_DIR}"
+        "${BINARY_BUILD_DIR}"
+        "${SPHINX_HTML_DIR}"
+        COMMENT "Building HTML documentation with Sphinx")
+add_dependencies(doc pybstream)

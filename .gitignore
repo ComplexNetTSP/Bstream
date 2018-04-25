@@ -61,8 +61,7 @@ Temporary Items
 .apdisk
 
 .idea/
-cmake-build-debug/
-doc/build/*
+build/
 tests/__pycache__/
 tests/python_graph_tests/__pycache__/
 tests/python_linkstream_tests/__pycache__/

@@ -18,18 +18,15 @@
 #include "linkstream_interface.hpp"
 
 PYBIND11_MODULE(pybstream, m) {
+    /*
     m.doc() = R"pbdoc(
         pybstream Graph library
         -----------------------
         .. autoclass:: pybstream.Graph
             :members:
             :undoc-members:
-
-            .. rubric:: Methods
-
-            .. autoautosummary:: pybstream.Graph
-                :methods:
     )pbdoc";
+    */
     graph_interface(m);
     tinterval_interface(m);
     tintervalset_interface(m);
