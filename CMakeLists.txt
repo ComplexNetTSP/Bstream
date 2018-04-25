@@ -139,7 +139,15 @@ FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_templates"
 CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/index.rst"
         "${BINARY_BUILD_DIR}/index.rst"
-        @ONLY)
+        COPYONLY)
+
+FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference"
+        DESTINATION "${BINARY_BUILD_DIR}/")
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/license.rst"
+        "${BINARY_BUILD_DIR}/license.rst"
+        COPYONLY)
 
 ADD_CUSTOM_TARGET(doc ALL
         ${SPHINX_EXECUTABLE}

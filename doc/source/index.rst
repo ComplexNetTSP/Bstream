@@ -8,15 +8,14 @@ Overview
 
 Documentation
 -------------
+   :Release: |version|
+   :Date: |today|
 
-* Install
-* Reference
-* License
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-
-.. automodule:: pybstream
+   
+   reference/index
+   license
 
 Indices and tables
 ------------------

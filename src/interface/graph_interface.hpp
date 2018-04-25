@@ -51,11 +51,37 @@ void graph_interface(py::module &m)
 
     py::class_<bs::Graph> graph(m, "Graph");
 
+    graph.doc() = R"pbdoc(
+    Base class for undirected graphs.
+    )pbdoc";
+
     graph.def(py::init<>());
-    graph.def(py::init<int>());
-    graph.def(py::init<const bs::Graph &>());
+    graph.def(py::init<int>(), py::arg("num_vertex"), R"pbdoc(
+    Base class for directed graphs.
+    )pbdoc");
+    graph.def(py::init<const bs::Graph &>(), py::arg("Graph"));
     graph.def("is_directed", &bs::Graph::is_directed);
-    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("label")="");
+    graph.def("add_vertex", &bs::Graph::add_vertex, py::arg("label")="", R"pbdoc(
+    Add a single node with a name attribute.
+
+    Parameters
+    ----------
+    label : str (optional, default: None)
+        node label.
+
+    Returns
+    -------
+    int 
+        vertex id
+
+    Examples
+    --------
+    >>> G = pb.Graph()  # or DiGraph, etc
+    >>> G.add_vertex('A')
+    >>> G.add_vertex('B')
+    >>> G.num_vertices()
+    2
+    )pbdoc");
     graph.def("label", &bs::Graph::label);
     graph.def("add_edge", py::overload_cast<const bs::Graph::vertex_t&, const bs::Graph::vertex_t&>(&bs::Graph::add_edge));
     graph.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::Graph::add_edge));
@@ -95,6 +121,10 @@ void graph_interface(py::module &m)
     ///**************************************************************************************************
 
     py::class_<bs::DiGraph> digraph(m, "DiGraph");
+
+    graph.doc() = R"pbdoc(
+    Base class for directed graphs.
+    )pbdoc";
 
     digraph.def(py::init<>());
     digraph.def(py::init<int>());
