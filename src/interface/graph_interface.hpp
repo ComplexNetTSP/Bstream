@@ -66,16 +66,16 @@ void graph_interface(py::module &m)
 
     Parameters
     ----------
-    label : str (optional, default: None)
-        node label.
-
+    label : str, optional
+        node label, default: None
+    
     Returns
     -------
-    int 
+    int
         vertex id
 
-    Examples
-    --------
+    Example
+    -------
     >>> G = pb.Graph()  # or DiGraph, etc
     >>> G.add_vertex('A')
     >>> G.add_vertex('B')

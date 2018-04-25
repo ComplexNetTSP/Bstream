@@ -130,11 +130,11 @@ CONFIGURE_FILE(
         "${BINARY_BUILD_DIR}/conf.py"
         @ONLY)
 
-FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_static"
-     DESTINATION "${BINARY_BUILD_DIR}/_static")
+#FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_static"
+#     DESTINATION "${BINARY_BUILD_DIR}/_static")
 
-FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_templates"
-        DESTINATION "${BINARY_BUILD_DIR}/_templates")
+FILE(MAKE_DIRECTORY "${BINARY_BUILD_DIR}/_static")
+FILE(MAKE_DIRECTORY "${BINARY_BUILD_DIR}/_templates")
 
 CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/index.rst"
