@@ -20,7 +20,7 @@ namespace boost::bstream
     typedef GraphBase<bidirectionalS> DiGraph;
 
     typedef BipartiteBase<undirectedS> Bipartite;
-    typedef BipartiteBase<bidirectionalS> DiBipartite;
+    //typedef BipartiteBase<bidirectionalS> DiBipartite;
 
     typedef LinkStreamBase<undirectedS> LinkStream;
     typedef LinkStreamBase<bidirectionalS> DiLinkStream;

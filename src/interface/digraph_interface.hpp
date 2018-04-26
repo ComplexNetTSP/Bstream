@@ -1,3 +1,13 @@
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       digraph_interface.hpp
+/// @brief      Directed graph python interface 
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       26/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
 
 
 #include <pybind11/pybind11.h>

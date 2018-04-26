@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 16/04/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       bipartite_interface.hpp
+/// @brief      Bipartie graph python interface
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       26/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #ifndef BSTREAM_BIPARTITE_INTERFACE_HPP
 #define BSTREAM_BIPARTITE_INTERFACE_HPP
@@ -20,29 +28,22 @@ void bipartite_interface(py::module &m)
     ///  Functions
     ///
     ///**************************************************************************************************
-    m.def("projected_graph", bs::projected_graph<boost::undirectedS>, py::arg("Graph"), py::arg("projection_node"));
-    m.def("projected_graph", bs::projected_graph<boost::bidirectionalS>, py::arg("DiGraph"), py::arg("projection_node"),
-          R"pbdoc(
+
+    m.def("projected_graph", bs::projected_graph<boost::undirectedS>, py::arg("Graph"), py::arg("projection_node"), R"pbdoc(
     Returns the projection of B onto one of its node sets.
 
     Returns the graph G that is the projection of the bipartite graph B
     onto the specified nodes. They retain their attributes and are connected
     in G if they have a common neighbor in B.
 
-    Parameters
-    ----------
-    B : DiBipartite/Bipartie Graph
-      The input graph should be bipartite.
+    Args:
+        B (Bipartie): The input graph should be bipartite.
+        group (int): Group Nodes to project onto (the "bottom" nodes or the top nodes).
+            1 : top node
+            2 : bottom node
 
-    group : int
-      Group Nodes to project onto (the "bottom" nodes or the top nodes).
-         1 : top node
-         2 : bottom node
-
-    Returns
-    -------
-    DiGraph/Graph : graph
-       A graph that is the projection onto the given nodes.
+    Returns:
+        Graph: A graph that is the projection onto the given nodes.
 
     )pbdoc");
 
@@ -59,7 +60,7 @@ void bipartite_interface(py::module &m)
     bipartite.def("add_edge", py::overload_cast<const std::string&, const std::string&>(&bs::Bipartite::add_edge));
     bipartite.def("group", py::overload_cast<const bs::Graph::vertex_t&>(&bs::Bipartite::group));
     bipartite.def("group", py::overload_cast<const std::string&>(&bs::Bipartite::group));
-
+    
     bipartite.def("__repr__", [](bs::Bipartite &g) {
         std::ostringstream out;
         out << "<class " << g << ">";
@@ -71,7 +72,7 @@ void bipartite_interface(py::module &m)
     ///  DiBipartite
     ///
     ///**************************************************************************************************
-
+    /*
     py::class_<bs::DiBipartite, bs::DiGraph> dibipartite(m, "DiBipartite");
     dibipartite.def(py::init<>());
     dibipartite.def("add_vertex_w_group", &bs::DiBipartite::add_vertex_w_group, py::arg("group"), py::arg("label")="");
@@ -84,5 +85,6 @@ void bipartite_interface(py::module &m)
         out << "<class " << g << ">";
         return out.str();
     });
+    */
 }
 #endif //BSTREAM_BIPARTITE_INTERFACE_HPP

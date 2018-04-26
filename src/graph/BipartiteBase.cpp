@@ -126,6 +126,11 @@ namespace boost::bstream
     typename GraphBase<DirectedS>::edge_t
     BipartiteBase<DirectedS>::add_edge(const std::string& s, const std::string& t)
     {
+        // if the node doesn't exist we consider that s belong to the top nodes and t belong to the bottom node
+        if(!this->has_vertex(s))
+            this->add_vertex_w_group(GraphBase<DirectedS>::bipartite::top, s);
+        if(!this->has_vertex(t))
+            this->add_vertex_w_group(GraphBase<DirectedS>::bipartite::bottom, t);
         if(this->group(s) != this->group(t)){
             return GraphBase<DirectedS>::add_edge(s,t);
         }else{
@@ -134,6 +139,6 @@ namespace boost::bstream
     }
 
     template class BipartiteBase<boost::undirectedS>;
-    template class BipartiteBase<boost::bidirectionalS>;
+    //template class BipartiteBase<boost::bidirectionalS>;
 
 } // end namespace boost::bstream
