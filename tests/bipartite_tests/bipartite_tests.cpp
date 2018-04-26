@@ -133,3 +133,24 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_adjacency)
     m(2,1) = 1;
     BOOST_CHECK(g.adjacency() == m);
 }
+
+BOOST_AUTO_TEST_CASE(BipartiteBase_read_csv)
+{
+    Bipartite g;
+    g.read_csv("edges.csv");
+    BOOST_CHECK(g.num_vertices() == 7);
+    BOOST_CHECK(g.num_top_vertices() == 3);
+    BOOST_CHECK(g.num_bottom_vertices() == 4);
+    BOOST_CHECK(g.num_edges() == 6);
+    BOOST_CHECK(g.has_vertex("A"));
+    BOOST_CHECK(g.has_vertex("B"));
+    BOOST_CHECK(g.has_vertex("C"));
+
+    BOOST_CHECK(g.has_vertex("1"));
+    BOOST_CHECK(g.has_vertex("2"));
+    BOOST_CHECK(g.has_vertex("3"));
+    BOOST_CHECK(g.has_vertex("4"));
+
+    BOOST_CHECK(g.has_edge("A", "1"));
+    BOOST_CHECK(g.has_edge("A", "2"));
+}

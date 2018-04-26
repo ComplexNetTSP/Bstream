@@ -99,6 +99,10 @@ namespace boost::bstream
 
         virtual MatrixXd adjacency();
 
+        //todo make test for set_adjacency
+
+        virtual void set_adjacency(const Adjacency &g);
+
         virtual void read_csv(std::string path, char delimiter=',');
 
         ///**************************************************************************************************

@@ -22,7 +22,7 @@ namespace boost::bstream
     ///**************************************************************************************************
 
     template<typename DirectedS>
-    int BipartiteBase<DirectedS>::num_top_vertex()
+    int BipartiteBase<DirectedS>::num_top_vertices()
     {
         int num = 0;
         for(auto it = this->vertices().first; it != this->vertices().second; ++it){
@@ -33,7 +33,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    int BipartiteBase<DirectedS>::num_bottom_vertex()
+    int BipartiteBase<DirectedS>::num_bottom_vertices()
     {
         int num = 0;
         for(auto it = this->vertices().first; it != this->vertices().second; ++it){
@@ -46,7 +46,7 @@ namespace boost::bstream
     template<typename DirectedS>
     MatrixXd BipartiteBase<DirectedS>::adjacency()
     {
-        MatrixXd m = Eigen::MatrixXd::Zero(this->num_top_vertex(),this->num_bottom_vertex());
+        MatrixXd m = Eigen::MatrixXd::Zero(this->num_top_vertices(),this->num_bottom_vertices());
         int t=0, b=0;
         for(auto i = this->vertices().first; i != this->vertices().second; ++i){
             if(this->group(*i) == GraphBase<DirectedS>::bipartite::top) {

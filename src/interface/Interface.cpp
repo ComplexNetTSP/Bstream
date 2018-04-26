@@ -17,6 +17,7 @@
 #include "tintervalset_interface.hpp"
 #include "bipartite_interface.hpp"
 #include "linkstream_interface.hpp"
+#include "algorithms_interface.hpp"
 
 PYBIND11_MODULE(pybstream, m) {
     graph_interface(m);
@@ -25,4 +26,5 @@ PYBIND11_MODULE(pybstream, m) {
     tintervalset_interface(m);
     bipartite_interface(m);
     linkstream_interface(m);
+    algorithms_interface(m);
 }
