@@ -16,6 +16,11 @@ Constructors
 ------------
 .. automethod:: Graph.__init__
 
+Manupulating Graph
+------------------
+.. automethod:: Graph.num_vertices
+.. automethod:: Graph.num_edges
+
 Adding and removing nodes and edges
 -----------------------------------
 

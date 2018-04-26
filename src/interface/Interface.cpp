@@ -13,12 +13,14 @@
 #include <pybind11/operators.h>
 
 #include "graph_interface.hpp"
+#include "digraph_interface.hpp"
 #include "tintervalset_interface.hpp"
 #include "bipartite_interface.hpp"
 #include "linkstream_interface.hpp"
 
 PYBIND11_MODULE(pybstream, m) {
     graph_interface(m);
+    digraph_interface(m);
     tinterval_interface(m);
     tintervalset_interface(m);
     bipartite_interface(m);
