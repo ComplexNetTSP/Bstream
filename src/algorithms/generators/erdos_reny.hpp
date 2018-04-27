@@ -13,9 +13,12 @@
 namespace boost::bstream
 {
     template <typename DirectedS>
-    void erdos_renyi_graph(int n, float p, GraphBase<DirectedS>& graph)
+    void erdos_renyi_graph(int n, float p, GraphBase<DirectedS>& graph, int seed=0)
     {
         boost::minstd_rand gen;
+        if(seed != 0)
+            gen.seed(seed);
+
         typedef typename GraphBase<DirectedS>::Adjacency Adjacency;
         typedef boost::erdos_renyi_iterator<boost::minstd_rand, Adjacency> ERGen;
         Adjacency g(ERGen(gen, n, p), ERGen(), n);

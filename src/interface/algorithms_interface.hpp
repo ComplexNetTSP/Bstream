@@ -45,19 +45,19 @@ void algorithms_interface(py::module &m)
 
     )pbdoc");
 
-    m.def("erdos_renyi_graph", [](int n, float p, bool directed){
+    m.def("erdos_renyi_graph", [](int n, float p, bool directed, int seed){
         if(directed){
             bs::DiGraph *g = new bs::DiGraph();
-            bs::erdos_renyi_graph(n, p, *g);
+            bs::erdos_renyi_graph(n, p, *g, seed);
             bs::GraphAbstract *ga = g;
             return ga;
         }else{
             bs::Graph *g = new bs::Graph();
-            bs::erdos_renyi_graph(n, p, *g);
+            bs::erdos_renyi_graph(n, p, *g, seed);
             bs::GraphAbstract *ga = g;
             return ga;
         }
-    }, py::arg("n"), py::arg("p"), py::arg("directed")=false, R"pbdoc(
+    }, py::arg("n"), py::arg("p"), py::arg("directed")=false, py::arg("seed")=0, R"pbdoc(
     Returns a G_{n,p} random graph, also known as an Erdős-Rényi graph or a binomial graph.
 
     The G_{n,p} model chooses each of the possible edges with probability p.
@@ -66,6 +66,7 @@ void algorithms_interface(py::module &m)
         n (int): The number of nodes.
         p (float): Probability for edge creation.
         directed (bool, optional): If True, this function returns a directed graph (default=False).
+        seed (int, optional): Seed for random number generator (default=0).
 
     Returns:
         Graph: directed or undirected

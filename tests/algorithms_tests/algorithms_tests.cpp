@@ -24,10 +24,12 @@ using namespace std;
 BOOST_AUTO_TEST_CASE(Algorithms_erdos_reny)
 {
     Graph g;
-    erdos_renyi_graph(100, 0.02, g);
+    erdos_renyi_graph(100, 0.02, g, 11);
     BOOST_CHECK(g.num_vertices() == 100);
+    BOOST_CHECK(g.num_edges() == 99);
 
     DiGraph d;
-    erdos_renyi_graph(100, 0.02, d);
+    erdos_renyi_graph(100, 0.02, d, 11);
     BOOST_CHECK(d.num_vertices() == 100);
+    BOOST_CHECK(d.num_edges() == 199);
 }
