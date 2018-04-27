@@ -1,0 +1,10 @@
+SET(TEST_ALGORITHMS_FILES algorithms_tests.cpp)
+
+#SET(TEST_BIPARTITE_CONFIGURATION_FILES edges.csv)
+#CONFIGURE_FILE(${TEST_BIPARTITE_CONFIGURATION_FILES} ${PROJECT_BINARY_DIR}/tests/bipartite_tests COPYONLY)
+
+ADD_EXECUTABLE(test_algorithms ${TEST_ALGORITHMS_FILES})
+
+TARGET_LINK_LIBRARIES(test_algorithms pybstream)
+
+ADD_TEST(NAME testAlgorithms COMMAND test_algorithms)
