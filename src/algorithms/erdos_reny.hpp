@@ -14,7 +14,7 @@ namespace boost::bstream
 {
     //todo make test erdos_renyi_graph
 
-    template<typename DirectedS>
+    template <typename DirectedS>
     void erdos_renyi_graph(int n, float p, GraphBase<DirectedS>& graph)
     {
         boost::minstd_rand gen;

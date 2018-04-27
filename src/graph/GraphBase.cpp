@@ -133,8 +133,7 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::vertex_size_t
-    GraphBase<DirectedS>::num_vertices()
+    double GraphBase<DirectedS>::num_vertices()
     {
         return boost::num_vertices(G);
     }

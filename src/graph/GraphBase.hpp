@@ -20,6 +20,8 @@
 #include <set>
 #include <Eigen/Core>
 
+#include "GraphAbstract.hpp"
+
 using Eigen::MatrixXd;
 
 namespace boost::bstream
@@ -45,7 +47,7 @@ namespace boost::bstream
      * @tparam DirectedS
      */
     template<typename DirectedS>
-    class GraphBase
+    class GraphBase: public GraphAbstract
     {
     public:
         typedef adjacency_list <
@@ -95,7 +97,7 @@ namespace boost::bstream
 
         virtual double density();
 
-        virtual void clear();
+
 
         virtual MatrixXd adjacency();
 
@@ -104,6 +106,21 @@ namespace boost::bstream
         virtual void set_adjacency(const Adjacency &g);
 
         virtual void read_csv(std::string path, char delimiter=',');
+
+        /**
+         * @brief The number of vertices in the graph.
+         * @return vertex_size_t
+         */
+        virtual double num_vertices();
+        /**
+         * @brief The number of edges in the graph.
+         * @return edge_size_t
+         */
+        virtual double num_edges();
+
+        virtual void clear_vertices();
+        virtual void clear_edges();
+        virtual void clear();
 
         ///**************************************************************************************************
         ///
@@ -126,12 +143,6 @@ namespace boost::bstream
         virtual bool has_vertex(const vertex_t& v);
 
         virtual bool has_vertex(const std::string& label);
-
-        /**
-         * @brief The number of vertices in the graph.
-         * @return vertex_size_t
-         */
-        virtual vertex_size_t num_vertices();
 
         /**
          * @brief a vertex iterator
@@ -172,7 +183,7 @@ namespace boost::bstream
          */
         virtual void remove_vertex(const std::string& label);
 
-        virtual void clear_vertices();
+
 
         ///**************************************************************************************************
         ///
@@ -187,12 +198,6 @@ namespace boost::bstream
         virtual edge_t add_edge(const vertex_t& s, const vertex_t& t);
 
         virtual edge_t add_edge(const std::string& s, const std::string& t);
-
-        /**
-         * @brief The number of edges in the graph.
-         * @return edge_size_t
-         */
-        virtual double num_edges();
 
         /**
          * @brief test if the edge (u,v) exist
@@ -212,8 +217,6 @@ namespace boost::bstream
         virtual void remove_edge(const vertex_t& s, const vertex_t& t);
 
         virtual void remove_edge(const std::string &s, const std::string &t);
-
-        virtual void clear_edges();
 
         std::pair<edge_iterator, edge_iterator> edges();
 
@@ -239,6 +242,6 @@ namespace boost::bstream
         virtual void remove_vertex(const vertex_t &v);
     };
 
-} // end namespace boost::src
+} // end namespace boost::bstream
 
 #endif //BSTREAM_BGRAPHBASE_H

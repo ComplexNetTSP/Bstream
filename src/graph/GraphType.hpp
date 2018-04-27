@@ -7,6 +7,7 @@
 
 #include <boost/graph/detail/edge.hpp>
 
+#include "GraphAbstract.hpp"
 #include "GraphBase.hpp"
 #include "BipartiteBase.hpp"
 #include "LinkStreamBase.hpp"

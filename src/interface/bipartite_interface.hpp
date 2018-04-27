@@ -23,29 +23,6 @@ namespace bs = boost::bstream;
 
 void bipartite_interface(py::module &m)
 {
-    ///**************************************************************************************************
-    ///
-    ///  Functions
-    ///
-    ///**************************************************************************************************
-
-    m.def("projected_graph", bs::projected_graph<boost::undirectedS>, py::arg("Graph"), py::arg("projection_node"), R"pbdoc(
-    Returns the projection of B onto one of its node sets.
-
-    Returns the graph G that is the projection of the bipartite graph B
-    onto the specified nodes. They retain their attributes and are connected
-    in G if they have a common neighbor in B.
-
-    Args:
-        B (Bipartie): The input graph should be bipartite.
-        group (int): Group Nodes to project onto (the "bottom" nodes or the top nodes).
-            1 : top node
-            2 : bottom node
-
-    Returns:
-        Graph: A graph that is the projection onto the given nodes.
-
-    )pbdoc");
 
     ///**************************************************************************************************
     ///
