@@ -10,7 +10,7 @@
 ///-------------------------------------------------------------------------------------------------
 
 #include "GraphType.hpp"
-#include "erdos_reny.hpp"
+#include "generators/erdos_reny.hpp"
 
 #define BOOST_TEST_MODULE Algorithms_tests
 
