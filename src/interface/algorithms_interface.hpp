@@ -15,7 +15,7 @@
 namespace py = pybind11;
 namespace bs = boost::bstream;
 
-#include "erdos_reny.hpp"
+#include "generators/erdos_reny.hpp"
 #include "bipartite.hpp"
 #include "GraphType.hpp"
 
