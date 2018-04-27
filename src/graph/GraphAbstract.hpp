@@ -14,6 +14,7 @@
 #define BSTREAM_GRAPHABSTRACT_HPP
 
 #include <string>
+#include <vector>
 #include <Eigen/Core>
 
 using Eigen::MatrixXd;
