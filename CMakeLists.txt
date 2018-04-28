@@ -123,15 +123,12 @@ SET(BINARY_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/_build")
 SET(SPHINX_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/_doctrees")
 
 # HTML output directory
-SET(SPHINX_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/doc")
+SET(SPHINX_HTML_DIR "${CMAKE_SOURCE_DIR}/doc/html")
 
 CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/conf.py"
         "${BINARY_BUILD_DIR}/conf.py"
         @ONLY)
-
-#FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/_static"
-#     DESTINATION "${BINARY_BUILD_DIR}/_static")
 
 FILE(MAKE_DIRECTORY "${BINARY_BUILD_DIR}/_static")
 FILE(MAKE_DIRECTORY "${BINARY_BUILD_DIR}/_templates")
@@ -141,8 +138,40 @@ CONFIGURE_FILE(
         "${BINARY_BUILD_DIR}/index.rst"
         COPYONLY)
 
-FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference"
-        DESTINATION "${BINARY_BUILD_DIR}/")
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/index.rst"
+        "${BINARY_BUILD_DIR}/reference/index.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/index.rst"
+        "${BINARY_BUILD_DIR}/reference/classes/index.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/graph.rst"
+        "${BINARY_BUILD_DIR}/reference/classes/graph.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/digraph.rst"
+        "${BINARY_BUILD_DIR}/reference/classes/digraph.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/generators.rst"
+        "${BINARY_BUILD_DIR}/reference/algorithms/generators.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/index.rst"
+        "${BINARY_BUILD_DIR}/reference/algorithms/index.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/index.rst"
+        "${BINARY_BUILD_DIR}/reference/algorithms/index.rst"
+        COPYONLY)
 
 CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/license.rst"

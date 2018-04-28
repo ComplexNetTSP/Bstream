@@ -10,3 +10,4 @@ Reference
    :maxdepth: 2
 
    classes/index
+   algorithms/index

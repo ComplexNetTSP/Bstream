@@ -40,9 +40,9 @@ void graph_generators_interface(py::module &m)
             return ga;
         }
     }, py::arg("n"), py::arg("p"), py::arg("directed")=false, py::arg("seed")=0, R"pbdoc(
-    Returns a G_{n,p} random graph, also known as an Erdős-Rényi graph or a binomial graph.
+    Returns a :math:`G_{n,p}` random graph, also known as an Erdős-Rényi graph or a binomial graph.
 
-    The G_{n,p} model chooses each of the possible edges with probability p.
+    The :math:`G_{n,p}` model [1]_ [2]_ chooses each of the possible edges with probability p.
 
     Args:
         n (int): The number of nodes.
@@ -53,9 +53,11 @@ void graph_generators_interface(py::module &m)
     Returns:
         Graph: directed or undirected
 
+
+
     References:
-        .. Erdős and A. Rényi, On Random Graphs, Publ. Math. 6, 290 (1959).
-        .. Gilbert, Random Graphs, Ann. Math. Stat., 30, 1141 (1959).
+        .. [1] Erdős, P. and Rényi, A., On Random Graphs, Publ. Math. 6, 290 (1959).
+        .. [2] Bollobás, B., Random Graphs, Cambridge University Press, (2001). `DOI <https://doi.org/10.1017/CBO9780511814068>`_
     )pbdoc");
 
 }

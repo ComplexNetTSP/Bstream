@@ -183,8 +183,6 @@ namespace boost::bstream
          */
         virtual void remove_vertex(const std::string& label);
 
-
-
         ///**************************************************************************************************
         ///
         ///  Edge method

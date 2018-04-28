@@ -15,9 +15,10 @@ Which graph class should I use?
 ===================  ========================
 Graph Type           Pybstream Class
 ===================  ========================
-Undirected Simple    Graph
-Directed Simple      DiGraph
-Bipartite Simple     Bipartite
+Undirected           Graph
+Directed             DiGraph
+Bipartite            Bipartite
+Linkstream           LinkStream
 ===================  ========================
 
 Basic graph types
@@ -27,3 +28,4 @@ Basic graph types
    :maxdepth: 2
 
    graph
+   digraph
