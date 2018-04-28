@@ -1,0 +1,551 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Graph - Undirected graphs with self loops &#8212; pybstream 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DiGraph - Directed graphs with self loops" href="digraph.html" />
+    <link rel="prev" title="Graph types" href="index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="graph-undirected-graphs-with-self-loops">
+<span id="graph"></span><h1>Graph - Undirected graphs with self loops<a class="headerlink" href="#graph-undirected-graphs-with-self-loops" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.__init__" title="pybstream.Graph.__init__"><code class="xref py py-obj docutils literal"><span class="pre">Graph.__init__</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.Graph.num_vertices" title="pybstream.Graph.num_vertices"><code class="xref py py-obj docutils literal"><span class="pre">Graph.num_vertices</span></code></a></td>
+<td>Return the number of vertices in the graph.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.num_edges" title="pybstream.Graph.num_edges"><code class="xref py py-obj docutils literal"><span class="pre">Graph.num_edges</span></code></a></td>
+<td>Return the number of edges in the graph.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.Graph.adjacency" title="pybstream.Graph.adjacency"><code class="xref py py-obj docutils literal"><span class="pre">Graph.adjacency</span></code></a></td>
+<td>Return the adjacency matrix of the Graph</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.add_vertex" title="pybstream.Graph.add_vertex"><code class="xref py py-obj docutils literal"><span class="pre">Graph.add_vertex</span></code></a></td>
+<td>Add a single node with a name attribute.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.Graph.remove_vertex" title="pybstream.Graph.remove_vertex"><code class="xref py py-obj docutils literal"><span class="pre">Graph.remove_vertex</span></code></a></td>
+<td>Remove vertex v</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.add_edge" title="pybstream.Graph.add_edge"><code class="xref py py-obj docutils literal"><span class="pre">Graph.add_edge</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.Graph.has_edge" title="pybstream.Graph.has_edge"><code class="xref py py-obj docutils literal"><span class="pre">Graph.has_edge</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.degree" title="pybstream.Graph.degree"><code class="xref py py-obj docutils literal"><span class="pre">Graph.degree</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.Graph.label" title="pybstream.Graph.label"><code class="xref py py-obj docutils literal"><span class="pre">Graph.label</span></code></a></td>
+<td>Return the label of the vertex v.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.read_csv" title="pybstream.Graph.read_csv"><code class="xref py py-obj docutils literal"><span class="pre">Graph.read_csv</span></code></a></td>
+<td>Read the edge file</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.Graph.vertices" title="pybstream.Graph.vertices"><code class="xref py py-obj docutils literal"><span class="pre">Graph.vertices</span></code></a></td>
+<td>Vertices iterator</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.Graph.edges" title="pybstream.Graph.edges"><code class="xref py py-obj docutils literal"><span class="pre">Graph.edges</span></code></a></td>
+<td>Edges iterator</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructors">
+<h3>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.Graph.__init__">
+<code class="descclassname">Graph.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.Graph.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: pybstream.Graph) -&gt; None</li>
+</ol>
+<p>Construct an empty graph</p>
+<ol class="arabic simple" start="2">
+<li>__init__(self: pybstream.Graph, num_vertex: int) -&gt; None</li>
+</ol>
+<p>Construct a graph with <cite>num_vertex</cite> initial node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_vertices</strong> (<em>int</em>) – number of vertices</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="3">
+<li>__init__(self: pybstream.Graph, Graph: pybstream.Graph) -&gt; None</li>
+</ol>
+<p>Copy constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Graph</strong> – Graph to copy from</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="manipulating-graph">
+<h3>Manipulating Graph<a class="headerlink" href="#manipulating-graph" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.Graph.num_vertices">
+<code class="descclassname">Graph.</code><code class="descname">num_vertices</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#pybstream.Graph.num_vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of vertices in the graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>float</em> – number of vertices in the graph</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_vertices</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.num_edges">
+<code class="descclassname">Graph.</code><code class="descname">num_edges</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#pybstream.Graph.num_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of edges in the graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>float</em> – number of edges in the graph</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.adjacency">
+<code class="descclassname">Graph.</code><code class="descname">adjacency</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64[m, n]]<a class="headerlink" href="#pybstream.Graph.adjacency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the adjacency matrix of the Graph</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>ndarray</em> – adjaceny matrix of the graph</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.has_edge">
+<code class="descclassname">Graph.</code><code class="descname">has_edge</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.Graph.has_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>has_edge(self: pybstream.Graph, s: int, t: int) -&gt; bool</li>
+</ol>
+<p>Test if there is an edge (s,t)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>s</strong> (<em>vertex_t</em>) – source vertex</li>
+<li><strong>t</strong> (<em>vertex_t</em>) – target vertex</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>bool</em> – True if the edge exist else False</p>
+</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="2">
+<li>has_edge(self: pybstream.Graph, s: str, t: str) -&gt; bool</li>
+</ol>
+<p>Test if there is an edge (s,t)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>s</strong> (<em>str</em>) – source vertex</li>
+<li><strong>t</strong> (<em>str</em>) – target vertex</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>bool</em> – True if the edge exist else False</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.degree">
+<code class="descclassname">Graph.</code><code class="descname">degree</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.Graph.degree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>degree(self: pybstream.Graph, v: str) -&gt; float</li>
+</ol>
+<p>Return the degree of a vertex or nodes.</p>
+<p>The node degree is the number of edges adjacent to that node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> (<em>str</em>) – vertex</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><em>float</em> – number of edges adjacent to that vertex v</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="2">
+<li>degree(self: pybstream.Graph, v: int) -&gt; float</li>
+</ol>
+<p>Return the degree of a vertex or nodes.</p>
+<p>The node degree is the number of edges adjacent to that node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> (<em>vertex</em>) – vertex</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><em>float</em> – number of edges adjacent to that vertex v</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.label">
+<code class="descclassname">Graph.</code><code class="descname">label</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em>, <em>v: int</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#pybstream.Graph.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the label of the vertex v.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> (<em>vertex</em>) – vertex</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><em>str</em> – vertex’s label</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="adding-and-removing-nodes-and-edges">
+<h3>Adding and removing nodes and edges<a class="headerlink" href="#adding-and-removing-nodes-and-edges" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.Graph.add_vertex">
+<code class="descclassname">Graph.</code><code class="descname">add_vertex</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em>, <em>label: str=''</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#pybstream.Graph.add_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a single node with a name attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – node label, (default: None)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><em>int</em> – vertex id</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_vertices</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.remove_vertex">
+<code class="descclassname">Graph.</code><code class="descname">remove_vertex</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em>, <em>v: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pybstream.Graph.remove_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove vertex v</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> (<em>str</em>) – vertex label of teh vertex to be removed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.add_edge">
+<code class="descclassname">Graph.</code><code class="descname">add_edge</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.Graph.add_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>add_edge(self: pybstream.Graph, source: int, target: int) -&gt; pybstream.edge_t</li>
+</ol>
+<p>Add an edge between s and t.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> (<em>int</em>) – source vertex</li>
+<li><strong>target</strong> (<em>int</em>) – target vertex</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">edge_t</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li>add_edge(self: pybstream.Graph, source: str, target: str) -&gt; pybstream.edge_t</li>
+</ol>
+<p>Add an edge between s and t.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> (<em>str</em>) – source vertex</li>
+<li><strong>target</strong> (<em>str</em>) – target vertex</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">edge_u</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="graph-iterators">
+<h3>Graph iterators<a class="headerlink" href="#graph-iterators" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.Graph.vertices">
+<code class="descclassname">Graph.</code><code class="descname">vertices</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em><span class="sig-paren">)</span> &#x2192; iterator<a class="headerlink" href="#pybstream.Graph.vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vertices iterator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>iterator</em> – return a list of vertex</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
+<span class="go">    ... G.degree(v)</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.Graph.edges">
+<code class="descclassname">Graph.</code><code class="descname">edges</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em><span class="sig-paren">)</span> &#x2192; iterator<a class="headerlink" href="#pybstream.Graph.edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edges iterator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>iterator</em> – An iterator of edge_t.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="reading-and-saving-graph-object">
+<h3>Reading and saving graph object<a class="headerlink" href="#reading-and-saving-graph-object" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.Graph.read_csv">
+<code class="descclassname">Graph.</code><code class="descname">read_csv</code><span class="sig-paren">(</span><em>self: pybstream.Graph</em>, <em>path: str</em>, <em>delimiter: str='</em>, <em>'</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pybstream.Graph.read_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the edge file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<em>str</em>) – file path of the csv file</li>
+<li><strong>delimiter</strong> (<em>str</em>) – field delimiter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-example admonition">
+<p class="first admonition-title">Example</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;edges.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">pybstream</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Graph types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Reference</a><ul>
+  <li><a href="index.html">Graph types</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Graph types</a></li>
+      <li>Next: <a href="digraph.html" title="next chapter">DiGraph - Directed graphs with self loops</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vincent Gauthier.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/reference/classes/graph.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

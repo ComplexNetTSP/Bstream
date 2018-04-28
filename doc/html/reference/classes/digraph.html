@@ -1,0 +1,282 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DiGraph - Directed graphs with self loops &#8212; pybstream 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Algorithms" href="../algorithms/index.html" />
+    <link rel="prev" title="Graph - Undirected graphs with self loops" href="graph.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="digraph-directed-graphs-with-self-loops">
+<span id="digraph"></span><h1>DiGraph - Directed graphs with self loops<a class="headerlink" href="#digraph-directed-graphs-with-self-loops" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.DiGraph.__init__" title="pybstream.DiGraph.__init__"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.__init__</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.DiGraph.num_vertices" title="pybstream.DiGraph.num_vertices"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.num_vertices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.DiGraph.num_edges" title="pybstream.DiGraph.num_edges"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.num_edges</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.DiGraph.adjacency" title="pybstream.DiGraph.adjacency"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.adjacency</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.DiGraph.add_vertex" title="pybstream.DiGraph.add_vertex"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.add_vertex</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.DiGraph.add_edge" title="pybstream.DiGraph.add_edge"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.add_edge</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.DiGraph.has_edge" title="pybstream.DiGraph.has_edge"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.has_edge</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.DiGraph.degree" title="pybstream.DiGraph.degree"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.degree</span></code></a></td>
+<td>Overloaded function.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.DiGraph.label" title="pybstream.DiGraph.label"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.label</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.DiGraph.read_csv" title="pybstream.DiGraph.read_csv"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.read_csv</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pybstream.DiGraph.vertices" title="pybstream.DiGraph.vertices"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.vertices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pybstream.DiGraph.edges" title="pybstream.DiGraph.edges"><code class="xref py py-obj docutils literal"><span class="pre">DiGraph.edges</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructors">
+<h3>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.DiGraph.__init__">
+<code class="descclassname">DiGraph.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.DiGraph.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: pybstream.DiGraph) -&gt; None</li>
+<li>__init__(self: pybstream.DiGraph, arg0: int) -&gt; None</li>
+<li>__init__(self: pybstream.DiGraph, arg0: pybstream.DiGraph) -&gt; None</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="manipulating-graph">
+<h3>Manipulating Graph<a class="headerlink" href="#manipulating-graph" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.DiGraph.num_vertices">
+<code class="descclassname">DiGraph.</code><code class="descname">num_vertices</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#pybstream.DiGraph.num_vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.num_edges">
+<code class="descclassname">DiGraph.</code><code class="descname">num_edges</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#pybstream.DiGraph.num_edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.adjacency">
+<code class="descclassname">DiGraph.</code><code class="descname">adjacency</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray[float64[m, n]]<a class="headerlink" href="#pybstream.DiGraph.adjacency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.has_edge">
+<code class="descclassname">DiGraph.</code><code class="descname">has_edge</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.DiGraph.has_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>has_edge(self: pybstream.DiGraph, arg0: int, arg1: int) -&gt; bool</li>
+<li>has_edge(self: pybstream.DiGraph, arg0: str, arg1: str) -&gt; bool</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.degree">
+<code class="descclassname">DiGraph.</code><code class="descname">degree</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.DiGraph.degree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>degree(self: pybstream.DiGraph, arg0: str) -&gt; float</li>
+<li>degree(self: pybstream.DiGraph, arg0: int) -&gt; float</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.out_degree">
+<code class="descclassname">DiGraph.</code><code class="descname">out_degree</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.DiGraph.out_degree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>out_degree(self: pybstream.DiGraph, arg0: str) -&gt; float</li>
+<li>out_degree(self: pybstream.DiGraph, arg0: int) -&gt; float</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.in_degree">
+<code class="descclassname">DiGraph.</code><code class="descname">in_degree</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.DiGraph.in_degree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>in_degree(self: pybstream.DiGraph, arg0: str) -&gt; float</li>
+<li>in_degree(self: pybstream.DiGraph, arg0: int) -&gt; float</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.label">
+<code class="descclassname">DiGraph.</code><code class="descname">label</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em>, <em>arg0: int</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#pybstream.DiGraph.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="adding-and-removing-nodes-and-edges">
+<h3>Adding and removing nodes and edges<a class="headerlink" href="#adding-and-removing-nodes-and-edges" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.DiGraph.add_vertex">
+<code class="descclassname">DiGraph.</code><code class="descname">add_vertex</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em>, <em>name: str=''</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#pybstream.DiGraph.add_vertex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.add_edge">
+<code class="descclassname">DiGraph.</code><code class="descname">add_edge</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybstream.DiGraph.add_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>add_edge(self: pybstream.DiGraph, arg0: int, arg1: int) -&gt; pybstream.edge_d</li>
+<li>add_edge(self: pybstream.DiGraph, arg0: str, arg1: str) -&gt; pybstream.edge_d</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="graph-iterators">
+<h3>Graph iterators<a class="headerlink" href="#graph-iterators" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.DiGraph.vertices">
+<code class="descclassname">DiGraph.</code><code class="descname">vertices</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em><span class="sig-paren">)</span> &#x2192; iterator<a class="headerlink" href="#pybstream.DiGraph.vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pybstream.DiGraph.edges">
+<code class="descclassname">DiGraph.</code><code class="descname">edges</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em><span class="sig-paren">)</span> &#x2192; iterator<a class="headerlink" href="#pybstream.DiGraph.edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="reading-and-saving-graph-object">
+<h3>Reading and saving graph object<a class="headerlink" href="#reading-and-saving-graph-object" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pybstream.DiGraph.read_csv">
+<code class="descclassname">DiGraph.</code><code class="descname">read_csv</code><span class="sig-paren">(</span><em>self: pybstream.DiGraph</em>, <em>path: str</em>, <em>delimiter: str='</em>, <em>'</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#pybstream.DiGraph.read_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">pybstream</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Graph types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/index.html">Algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Reference</a><ul>
+  <li><a href="index.html">Graph types</a><ul>
+      <li>Previous: <a href="graph.html" title="previous chapter">Graph - Undirected graphs with self loops</a></li>
+      <li>Next: <a href="../algorithms/index.html" title="next chapter">Algorithms</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vincent Gauthier.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/reference/classes/digraph.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
