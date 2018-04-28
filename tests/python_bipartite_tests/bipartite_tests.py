@@ -16,7 +16,7 @@ class TestBipartite(unittest.TestCase):
         self.assertEqual(g.num_vertices(), 3)
         self.assertEqual(g.num_edges(), 2)
 
-        gproj = pybstream.projected_graph(g, 1)
+        gproj = pybstream.projected_graph(1, g)
         self.assertEqual(gproj.num_vertices(), 2)
         self.assertEqual(gproj.num_edges(), 1)
 

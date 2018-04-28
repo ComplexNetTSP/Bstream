@@ -36,21 +36,6 @@ namespace boost::bstream
         this->vertex_set = g.vertex_set;
     }
 
-
-    template<typename DirectedS>
-    void GraphBase<DirectedS>::set_adjacency(const GraphBase<DirectedS>::Adjacency &g)
-    {
-        boost::copy_graph(g, this->G);
-        this->m = boost::num_vertices(g);
-        this->label_map.clear();
-        this->vertex_set.clear();
-        for(auto it = boost::vertices(G).first; it != boost::vertices(G).second; ++it){
-            std::string label = std::to_string(*it);
-            this->label_map.insert(std::pair<std::string, vertex_t>(label, *it));
-            this->vertex_set.insert(*it);
-        }
-    }
-
     template<typename DirectedS>
     GraphBase<DirectedS>::GraphBase(int num_vertex): m(0)
     {
@@ -97,6 +82,29 @@ namespace boost::bstream
             }
         }
         return m;
+    }
+
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::copy_graph(const GraphBase<DirectedS> &g)
+    {
+        boost::copy_graph(g.G, this->G);
+        this->m = g.m;
+        this->label_map = g.label_map;
+        this->vertex_set = g.vertex_set;
+    }
+
+    template<typename DirectedS>
+    void GraphBase<DirectedS>::copy_adjacency(const GraphBase<DirectedS>::Adjacency &g)
+    {
+        boost::copy_graph(g, this->G);
+        this->m = boost::num_vertices(g);
+        this->label_map.clear();
+        this->vertex_set.clear();
+        for(auto it = boost::vertices(G).first; it != boost::vertices(G).second; ++it){
+            std::string label = std::to_string(*it);
+            this->label_map.insert(std::pair<std::string, vertex_t>(label, *it));
+            this->vertex_set.insert(*it);
+        }
     }
 
     ///**************************************************************************************************

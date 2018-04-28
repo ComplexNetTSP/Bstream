@@ -79,6 +79,7 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_add_edge_exception)
 BOOST_AUTO_TEST_CASE(BipartiteBase_projected_graph)
 {
     Bipartite g;
+    Graph gproj;
 
     g.add_vertex_w_group(Bipartite::bipartite::top, "A");
     g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
@@ -86,7 +87,7 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_projected_graph)
     g.add_edge("A", "B");
     g.add_edge("C", "B");
 
-    auto gproj = projected_graph(g, Bipartite::bipartite::top);
+    projected_graph(Bipartite::bipartite::top, g, gproj);
     BOOST_CHECK(gproj.num_vertices() == 2);
     BOOST_CHECK(gproj.num_edges() == 1);
     BOOST_CHECK(gproj.is_directed() == false);

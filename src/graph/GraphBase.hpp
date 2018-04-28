@@ -97,13 +97,13 @@ namespace boost::bstream
 
         virtual double density();
 
+        //todo make test for copy
 
+        virtual void copy_graph(const GraphBase<DirectedS> &g);
+
+        virtual void copy_adjacency(const Adjacency &g);
 
         virtual MatrixXd adjacency();
-
-        //todo make test for set_adjacency
-
-        virtual void set_adjacency(const Adjacency &g);
 
         virtual void read_csv(std::string path, char delimiter=',');
 

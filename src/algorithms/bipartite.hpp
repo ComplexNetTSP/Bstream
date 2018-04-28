@@ -16,32 +16,31 @@
 
 namespace boost::bstream
 {
-    template<typename DirectedS>
-    GraphBase<DirectedS> projected_graph(BipartiteBase<DirectedS> &g, int group)
+
+    void projected_graph(int group, Bipartite &g, Graph &gproj)
     {
-        typename GraphBase<DirectedS>::vertex_iterator vit, vit_end;
-        BipartiteBase<DirectedS> gprime(g);
+        Bipartite gprime(g);
         gprime.clear_edges();
+        int group_to_del;
 
         // remove nodes that don't belong to the group
         if(Graph::bipartite::top == group)
-            group = BipartiteBase<DirectedS>::bipartite::bottom ;
+            group_to_del = Bipartite::bipartite::bottom ;
         else
-            group = BipartiteBase<DirectedS>::bipartite::top ;
+            group_to_del = Bipartite::bipartite::top ;
 
-        gprime.clear_vertex_w_group(group);
+        gprime.clear_vertex_w_group(group_to_del);
 
-        auto gb = static_cast<GraphBase<DirectedS>>(gprime);
+        gproj.copy_graph(gprime);
         for(auto i = g.vertices().first; i != g.vertices().second; ++i){
             for(auto j = g.vertices().first; j != g.vertices().second; ++j){
                 for(auto k = g.vertices().first; k != g.vertices().second; ++k){
                     if(g.has_edge(*i, *k) && g.has_edge(*j, *k) && *i != *k && *j != *k && *i != *j){
-                        gb.add_edge(g.label(*i), g.label(*j));
+                        gproj.add_edge(g.label(*i), g.label(*j));
                     }
                 }
             }
         }
-        return gb;
     }
 }
 

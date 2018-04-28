@@ -27,7 +27,11 @@ void algorithms_interface(py::module &m)
     ///
     ///**************************************************************************************************
 
-    m.def("projected_graph", bs::projected_graph<boost::undirectedS>, py::arg("Bipartite"), py::arg("projection_node"), R"pbdoc(
+    m.def("projected_graph", [](int projection_node, bs::Bipartite& b){
+        bs::Graph *g = new bs::Graph();
+        bs::projected_graph(projection_node, b, *g);
+        return g;
+    }, py::arg("projection_node"), py::arg("Bipartite"), R"pbdoc(
     Returns the projection of B onto one of its node sets.
 
     Returns the graph G that is the projection of the bipartite graph B
@@ -75,7 +79,6 @@ void algorithms_interface(py::module &m)
         .. Erdős and A. Rényi, On Random Graphs, Publ. Math. 6, 290 (1959).
         .. Gilbert, Random Graphs, Ann. Math. Stat., 30, 1141 (1959).
     )pbdoc");
-
 }
 
 #endif //BSTREAM_ALGORITHMS_HPP

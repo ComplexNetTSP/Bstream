@@ -1,6 +1,14 @@
-//
-// Created by Vincent Gauthier on 26/04/2018.
-//
+///-------------------------------------------------------------------------------------------------
+///
+/// @file       erdos_reny.hpp
+/// @brief      Erdos Reny graph generator
+/// @author     Vincent Gauthier <vgauthier@luxbulb.org>
+/// @date       27/04/2018
+/// @version    0.1
+/// @copyright  MIT
+///
+///-------------------------------------------------------------------------------------------------
+
 
 #ifndef BSTREAM_ERDOS_RENY_HPP
 #define BSTREAM_ERDOS_RENY_HPP
@@ -22,7 +30,7 @@ namespace boost::bstream
         typedef typename GraphBase<DirectedS>::Adjacency Adjacency;
         typedef boost::erdos_renyi_iterator<boost::minstd_rand, Adjacency> ERGen;
         Adjacency g(ERGen(gen, n, p), ERGen(), n);
-        graph.set_adjacency(g);
+        graph.copy_adjacency(g);
     }
 } //end namespace boost::bstream
 
