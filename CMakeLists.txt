@@ -159,6 +159,11 @@ CONFIGURE_FILE(
         COPYONLY)
 
 CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/bipartite.rst"
+        "${BINARY_BUILD_DIR}/reference/classes/bipartite.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/generators.rst"
         "${BINARY_BUILD_DIR}/reference/algorithms/generators.rst"
         COPYONLY)

@@ -60,27 +60,15 @@ Base class for edge of graph.
 Base class for undirected graphs.
 )pbdoc";
 
-    graph.def(py::init<>(),
-              R"pbdoc(
-Construct an empty graph
-)pbdoc"
-    );
-
-    graph.def(py::init<int>(), py::arg("num_vertex"),
-              R"pbdoc(
-Construct a graph with `num_vertex` initial node
-
-Args:
-    num_vertices (int): number of vertices
-)pbdoc"
-    );
-
+    graph.def(py::init<>());
+    graph.def(py::init<int>(), py::arg("num_vertex"));
     graph.def(py::init<const bs::Graph &>(), py::arg("Graph"),
               R"pbdoc(
-Copy constructor
+Constructors of the Graph class
 
 Args:
-    Graph: Graph to copy from
+    num_vertices (int): Construct a graph with `num_vertex` initial node.
+    Graph: Graph to copy from.
 )pbdoc"
     );
 
@@ -125,6 +113,19 @@ Args:
 
 Returns:
     str: vertex's label
+)pbdoc"
+    );
+
+    graph.def("vertex", &bs::Graph::vertex,
+              py::arg("label"),
+              R"pbdoc(
+Return the vertex id of correponding the vertex label.
+
+Args:
+    label (str): vertex's label
+
+Returns:
+    vertex: vertex's id
 )pbdoc"
     );
 

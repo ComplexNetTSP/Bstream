@@ -29,3 +29,4 @@ Basic graph types
 
    graph
    digraph
+   bipartite

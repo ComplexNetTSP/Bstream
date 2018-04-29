@@ -20,9 +20,11 @@ Summary
    Graph.has_edge
    Graph.degree
    Graph.label
+   Graph.vertex
    Graph.read_csv
    Graph.vertices
    Graph.edges
+   Graph.labels
 
 Contents
 ++++++++
@@ -39,6 +41,7 @@ Manipulating Graph
 .. automethod:: Graph.has_edge
 .. automethod:: Graph.degree
 .. automethod:: Graph.label
+.. automethod:: Graph.vertex
 
 Adding and removing nodes and edges
 -----------------------------------
@@ -50,6 +53,7 @@ Graph iterators
 ---------------
 .. automethod:: Graph.vertices
 .. automethod:: Graph.edges
+.. automethod:: Graph.labels
 
 Reading and saving graph object
 -------------------------------
