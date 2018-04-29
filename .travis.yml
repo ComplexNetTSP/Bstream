@@ -9,6 +9,7 @@ language: python
 python:
   - "3.6"
   - "3.5"
+  - "3.4"
 
 # Compiler selection
 compiler:
@@ -26,7 +27,7 @@ before_install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pybind11 numpy sphinx
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pybind11 boost numpy sphinx
   - source activate test-environment
 
 install:
@@ -51,6 +52,6 @@ addons:
     - llvm-toolchain-trusty-5.0
     packages:
     # install toolchains
-    - libboost-all-dev
+    #- libboost-all-dev
     - clang-5.0
     - g++-6
