@@ -10,6 +10,7 @@
 ///-------------------------------------------------------------------------------------------------
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 #include <pybind11/operators.h>
 #include <pybind11/eigen.h>
 #include <iostream>
@@ -21,6 +22,7 @@ namespace bs = boost::bstream;
 
 void graph_interface(py::module &m)
 {
+
     ///**************************************************************************************************
     ///
     ///  Edge
@@ -100,12 +102,16 @@ Args:
 Returns: 
     int: vertex id
 
-Example:
+Examples:
     >>> G = pb.Graph()  # or DiGraph, etc
     >>> G.add_vertex('A')
     >>> G.add_vertex('B')
     >>> G.num_vertices()
     2
+    >>> v2 = G.add_vertex() # automaticaly label the vertex v2 as '2'
+    >>> v3 = G.add_vertex() # automaticaly label the vertex v3 as '3'
+    >>> G.num_vertices()
+    4
 )pbdoc"
     );
 
@@ -122,28 +128,17 @@ Returns:
 )pbdoc"
     );
 
+    graph.def("labels", &bs::Graph::labels,
+              R"pbdoc(
+Return the list of vertex labels
+
+Returns:
+    list: vertex's label
+)pbdoc");
+
     graph.def("add_edge",
               py::overload_cast<const bs::Graph::vertex_t &, const bs::Graph::vertex_t &>(&bs::Graph::add_edge),
-              py::arg("source"), py::arg("target"),
-              R"pbdoc(
-Add an edge between s and t.
-    
-Args:
-    source (int): source vertex
-    target (int): target vertex
-    
-Returns:
-    edge_t
-    
-Example:
-    >>> G = pb.Graph()  # or DiGraph, etc
-    >>> s = G.add_vertex()
-    >>> t = G.add_vertex()
-    >>> G.add_adge(s, t)
-    >>> G.num_edges()
-    1
-)pbdoc"
-    );
+              py::arg("source"), py::arg("target"));
 
     graph.def("add_edge", py::overload_cast<const std::string &, const std::string &>(&bs::Graph::add_edge),
               py::arg("source"), py::arg("target"),
@@ -151,17 +146,23 @@ Example:
 Add an edge between s and t.
 
 Args:
-    source (str): source vertex
-    target (str): target vertex
+    source (int, str): source vertex, could be a vertex id or a vertex label
+    target (int, str): target vertex, could be a vertex id or a vertex label
 
 Returns:
-    edge_u
+    edge_t: edge
 
-Example:
+Examples:
     >>> G = pb.Graph()  # or DiGraph, etc
     >>> G.add_vertex('A')
     >>> G.add_vertex('B')
     >>> G.add_adge('A', 'B')
+    >>> G.num_edges()
+    1
+    >>> G = pb.Graph()  # or DiGraph, etc
+    >>> s = G.add_vertex()
+    >>> t = G.add_vertex()
+    >>> G.add_adge(s, t)
     >>> G.num_edges()
     1
 )pbdoc"
@@ -203,18 +204,7 @@ Example:
 
     graph.def("has_edge",
               py::overload_cast<const bs::Graph::vertex_t &, const bs::Graph::vertex_t &>(&bs::Graph::has_edge),
-              py::arg("s"), py::arg("t"),
-              R"pbdoc(
-Test if there is an edge (s,t)
-
-Args:
-    s (vertex_t): source vertex
-    t (vertex_t): target vertex
-
-Returns:
-    bool: True if the edge exist else False
-)pbdoc"
-    );
+              py::arg("s"), py::arg("t"));
 
     graph.def("has_edge", py::overload_cast<const std::string &, const std::string &>(&bs::Graph::has_edge),
               py::arg("s"), py::arg("t"),
@@ -222,11 +212,21 @@ Returns:
 Test if there is an edge (s,t)
 
 Args:
-    s (str): source vertex
-    t (str): target vertex
+    s (str, vertex): source vertex, could be a vertex label or a vertex id.
+    t (str, vertex): target vertex, could be a vertex label or a vertex id.
 
 Returns:
     bool: True if the edge exist else False
+
+Examples:
+    >>> G = pb.Graph()
+    >>> G.add_edge("A", "B")
+    >>> G.has_edge("A", "B")
+    True
+    >>> v2 = G.add_vertex()
+    >>> v3 = G.add_vertex()
+    >>> G.has_edge(v2, v3)
+    True
 )pbdoc"
     );
 
@@ -313,7 +313,7 @@ Returns:
 Remove vertex v
 
 Args:
-    v (str): vertex label of teh vertex to be removed
+    v (str): vertex label of the vertex to be removed
 )pbdoc"
     );
 
@@ -322,4 +322,7 @@ Args:
         out << "<class " << g << ">";
         return out.str();
     });
+
+    graph.def("__getitem__", py::overload_cast<const std::string &>(&bs::Graph::operator[]));
+    graph.def("__getitem__", py::overload_cast<const bs::Graph::vertex_t&>(&bs::Graph::operator[]));
 }

@@ -325,24 +325,6 @@
 <dd><p>Overloaded function.</p>
 <ol class="arabic simple">
 <li>has_edge(self: pybstream.Graph, s: int, t: int) -&gt; bool</li>
-</ol>
-<p>Test if there is an edge (s,t)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>s</strong> (<em>vertex_t</em>) – source vertex</li>
-<li><strong>t</strong> (<em>vertex_t</em>) – target vertex</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>bool</em> – True if the edge exist else False</p>
-</td>
-</tr>
-</tbody>
-</table>
-<ol class="arabic simple" start="2">
 <li>has_edge(self: pybstream.Graph, s: str, t: str) -&gt; bool</li>
 </ol>
 <p>Test if there is an edge (s,t)</p>
@@ -351,8 +333,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>s</strong> (<em>str</em>) – source vertex</li>
-<li><strong>t</strong> (<em>str</em>) – target vertex</li>
+<li><strong>s</strong> (<em>str</em><em>, </em><em>vertex</em>) – source vertex, could be a vertex label or a vertex id.</li>
+<li><strong>t</strong> (<em>str</em><em>, </em><em>vertex</em>) – target vertex, could be a vertex label or a vertex id.</li>
 </ul>
 </td>
 </tr>
@@ -361,6 +343,17 @@
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v2</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v3</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -418,12 +411,16 @@
 </tr>
 </tbody>
 </table>
-<p class="rubric">Example</p>
+<p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_vertices</span><span class="p">()</span>
 <span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v2</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span> <span class="c1"># automaticaly label the vertex v2 as &#39;2&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v3</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span> <span class="c1"># automaticaly label the vertex v3 as &#39;3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_vertices</span><span class="p">()</span>
+<span class="go">4</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -436,7 +433,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> (<em>str</em>) – vertex label of teh vertex to be removed</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>v</strong> (<em>str</em>) – vertex label of the vertex to be removed</td>
 </tr>
 </tbody>
 </table>
@@ -448,33 +445,6 @@
 <dd><p>Overloaded function.</p>
 <ol class="arabic simple">
 <li>add_edge(self: pybstream.Graph, source: int, target: int) -&gt; pybstream.edge_t</li>
-</ol>
-<p>Add an edge between s and t.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>source</strong> (<em>int</em>) – source vertex</li>
-<li><strong>target</strong> (<em>int</em>) – target vertex</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">edge_t</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Example</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
-<span class="go">1</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="2">
 <li>add_edge(self: pybstream.Graph, source: str, target: str) -&gt; pybstream.edge_t</li>
 </ol>
 <p>Add an edge between s and t.</p>
@@ -483,21 +453,27 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>source</strong> (<em>str</em>) – source vertex</li>
-<li><strong>target</strong> (<em>str</em>) – target vertex</li>
+<li><strong>source</strong> (<em>int</em><em>, </em><em>str</em>) – source vertex, could be a vertex id or a vertex label</li>
+<li><strong>target</strong> (<em>int</em><em>, </em><em>str</em>) – target vertex, could be a vertex id or a vertex label</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">edge_u</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>edge_t</em> – edge</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Example</p>
+<p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_adge</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
 <span class="go">1</span>
 </pre></div>

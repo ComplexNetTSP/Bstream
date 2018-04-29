@@ -107,5 +107,27 @@ class TestGraph(unittest.TestCase):
         g = pybstream.Graph()
         g.read_csv("./tests/python_graph_tests/edges.csv")
 
+    def test_Graph_operator(self):
+        """Tests the class Graph overloaded operators."""
+        g = pybstream.Graph()
+        g.add_edge("A", "B")
+
+        self.assertListEqual(g.labels(), ["A", "B"])
+
+        cpt = 0
+        for l in g.labels():
+            self.assertEqual(g[l], cpt)
+            cpt += 1
+
+        with self.assertRaises(RuntimeError):
+            g["a"]
+
+        res = iter(["A", "B"])
+        for v in g.vertices():
+            self.assertEqual(g[v], next(res))
+
+        with self.assertRaises(RuntimeError):
+            g[100]
+
 if __name__ == '__main__':
     unittest.main()

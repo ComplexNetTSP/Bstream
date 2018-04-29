@@ -107,6 +107,31 @@ namespace boost::bstream
         }
     }
 
+    template<typename DirectedS>
+    typename GraphBase<DirectedS>::vertex_t &
+    GraphBase<DirectedS>::operator[](const std::string &label)
+    {
+        if(!has_vertex(label)){
+            std::string msg = "the vertex label: \"" + label + "\" doesn't exist";
+            throw GraphBaseException(msg);
+        }else{
+            return label_map[label];
+        }
+
+    }
+
+    template<typename DirectedS>
+    std::string &
+    GraphBase<DirectedS>::operator[](const typename GraphBase<DirectedS>::vertex_t &v)
+    {
+        if(!has_vertex(v)){
+            std::string msg = "the vertex id: \"" + std::to_string(v) + "\" doesn't exist";
+            throw GraphBaseException(msg);
+        }else{
+            return this->G[v].label;
+        }
+    }
+
     ///**************************************************************************************************
     ///
     ///  Vertex medthods
@@ -153,7 +178,8 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    std::vector<std::string> GraphBase<DirectedS>::labels() const
+    std::vector<std::string>
+    GraphBase<DirectedS>::labels() const
     {
         std::vector<std::string> labels;
         for(auto it = label_map.begin(); it != label_map.end(); ++it)
@@ -386,8 +412,6 @@ namespace boost::bstream
         return boost::adjacent_vertices(vertex(v), G);
     }
 
-    //todo add test
-
     template<typename DirectedS>
     void GraphBase<DirectedS>::read_csv(std::string path, char delimiter)
     {
@@ -397,6 +421,7 @@ namespace boost::bstream
             this->add_edge((*edge_it)[0], (*edge_it)[1]);
         }
     }
+
 
     template class GraphBase<boost::undirectedS>;
     template class GraphBase<boost::bidirectionalS>;

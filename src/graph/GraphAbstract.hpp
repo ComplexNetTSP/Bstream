@@ -56,7 +56,6 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-        virtual std::vector<std::string> labels() const = 0;
         virtual bool has_vertex(const std::string& label) = 0;
         virtual double degree(const std::string& v) = 0;
         virtual double in_degree(const std::string& v) = 0;

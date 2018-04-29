@@ -122,6 +122,9 @@ namespace boost::bstream
         virtual void clear_edges();
         virtual void clear();
 
+        virtual vertex_t& operator[](const std::string& label);
+        virtual std::string& operator[](const vertex_t &v);
+
         ///**************************************************************************************************
         ///
         ///  Vertex method
