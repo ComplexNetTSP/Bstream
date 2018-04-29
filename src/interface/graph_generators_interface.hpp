@@ -65,7 +65,7 @@ void graph_generators_interface(py::module &m)
 
     References:
         .. [1] Erdős, P. and Rényi, A., On Random Graphs, Publ. Math. 6, 290 (1959).
-        .. [2] Bollobás, B., Random Graphs, Cambridge University Press, (2001). `DOI <https://doi.org/10.1017/CBO9780511814068>`_
+        .. [2] Bollobás, B., Random Graphs, Cambridge University Press, (2001). `[DOI] <https://doi.org/10.1017/CBO9780511814068>`_
     )pbdoc");
 
 }
