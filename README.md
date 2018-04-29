@@ -2,11 +2,12 @@
 
 # Bstream
 
-## install 
+## Install 
 
-Bstream requires Python 3.4, 3.5, or 3.6. If you do not already have a Python 
+**Bstream** requires Python 3.4, 3.5, or 3.6. If you do not already have a Python 
 environment configured on your computer, please see the instructions for 
-installing the full scientific Python stack.
+installing the full scientific Python stack. For more information about **Bstream**  please refer to  the [Documentation](https://complexnettsp.github.io/Bstream/).
+
 
 ### Install the development version with conda
 
@@ -29,15 +30,12 @@ make
 make test
 ```
 
-Clone the repository from github and commpile install with setup.py
+or clone the repository from github and compile install with python setuptool
 
 ```bash
 git clone https://github.com/ComplexNetTSP/Bstream.git
 cd Bstream
 python setup.py build test
 ```
-
-## documentation 
-[Documentation](https://complexnettsp.github.io/Bstream/)
 
 ## Internal structure
