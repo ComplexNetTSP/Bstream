@@ -123,10 +123,10 @@ SET(BINARY_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/_build")
 SET(SPHINX_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/_doctrees")
 
 # HTML output directory
-SET(SPHINX_HTML_DIR "${CMAKE_SOURCE_DIR}/doc/html")
+SET(SPHINX_HTML_DIR "${CMAKE_SOURCE_DIR}/docs")
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/conf.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/conf.py"
         "${BINARY_BUILD_DIR}/conf.py"
         @ONLY)
 
@@ -134,52 +134,52 @@ FILE(MAKE_DIRECTORY "${BINARY_BUILD_DIR}/_static")
 FILE(MAKE_DIRECTORY "${BINARY_BUILD_DIR}/_templates")
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/index.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/index.rst"
         "${BINARY_BUILD_DIR}/index.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/index.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/index.rst"
         "${BINARY_BUILD_DIR}/reference/index.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/index.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/classes/index.rst"
         "${BINARY_BUILD_DIR}/reference/classes/index.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/graph.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/classes/graph.rst"
         "${BINARY_BUILD_DIR}/reference/classes/graph.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/digraph.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/classes/digraph.rst"
         "${BINARY_BUILD_DIR}/reference/classes/digraph.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/classes/bipartite.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/classes/bipartite.rst"
         "${BINARY_BUILD_DIR}/reference/classes/bipartite.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/generators.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/algorithms/generators.rst"
         "${BINARY_BUILD_DIR}/reference/algorithms/generators.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/index.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/algorithms/index.rst"
         "${BINARY_BUILD_DIR}/reference/algorithms/index.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/reference/algorithms/index.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/algorithms/index.rst"
         "${BINARY_BUILD_DIR}/reference/algorithms/index.rst"
         COPYONLY)
 
 CONFIGURE_FILE(
-        "${CMAKE_CURRENT_SOURCE_DIR}/doc/source/license.rst"
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/license.rst"
         "${BINARY_BUILD_DIR}/license.rst"
         COPYONLY)
 
