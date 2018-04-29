@@ -2,4 +2,6 @@
 
 # Bstream
 
+[Documentation](https://complexnettsp.github.io/Bstream/)
+
 ## Internal structure
