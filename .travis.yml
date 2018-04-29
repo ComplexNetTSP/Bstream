@@ -30,7 +30,7 @@ before_install:
   - source activate test-environment
 
 install:
-  - pip install sphinxcontrib-napoleon
+  - pip install sphinx_rtd_theme
   - export CXX="clang++-5.0" CC="clang-5.0" CLANG_VERSION="5.0" LIBCXX="On"
 
 # Build steps
