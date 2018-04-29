@@ -27,20 +27,25 @@ void graph_generators_interface(py::module &m)
     ///
     ///**************************************************************************************************
 
-    m.def("erdos_renyi_graph", [](int n, float p, bool directed, int seed){
-        if(directed){
-            bs::DiGraph *g = new bs::DiGraph();
-            bs::erdos_renyi_graph(n, p, *g, seed);
-            bs::GraphAbstract *ga = g;
-            return ga;
-        }else{
-            bs::Graph *g = new bs::Graph();
-            bs::erdos_renyi_graph(n, p, *g, seed);
-            bs::GraphAbstract *ga = g;
-            return ga;
-        }
-    }, py::arg("n"), py::arg("p"), py::arg("directed")=false, py::arg("seed")=0, R"pbdoc(
-    Returns a :math:`G_{n,p}` random graph, also known as an Erdős-Rényi graph or a binomial graph.
+    m.def("erdos_renyi_graph", [](int n, float p, bool directed, int seed) {
+              if (directed) {
+                  bs::DiGraph *g = new bs::DiGraph();
+                  bs::erdos_renyi_graph(n, p, *g, seed);
+                  bs::GraphAbstract *ga = g;
+                  return ga;
+              } else {
+                  bs::Graph *g = new bs::Graph();
+                  bs::erdos_renyi_graph(n, p, *g, seed);
+                  bs::GraphAbstract *ga = g;
+                  return ga;
+              }
+          },
+          py::arg("n"),
+          py::arg("p"),
+          py::arg("directed") = false,
+          py::arg("seed") = 0,
+          R"pbdoc(
+    Returns a :math:`G_{n,p}` random graph, also known as an Erdős-Rényi graph.
 
     The :math:`G_{n,p}` model [1]_ [2]_ chooses each of the possible edges with probability p.
 
@@ -53,7 +58,10 @@ void graph_generators_interface(py::module &m)
     Returns:
         Graph: directed or undirected
 
-
+    Examples:
+        >>> G = erdos_renyi_graph(100, 0.2)
+        >>> G.num_vertices()
+        100
 
     References:
         .. [1] Erdős, P. and Rényi, A., On Random Graphs, Publ. Math. 6, 290 (1959).

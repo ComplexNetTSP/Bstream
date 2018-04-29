@@ -231,19 +231,7 @@ Returns:
     );
 
     graph.def("degree", py::overload_cast<const std::string &>(&bs::Graph::degree),
-              py::arg("v"),
-              R"pbdoc(
-Return the degree of a vertex or nodes.
-
-The node degree is the number of edges adjacent to that node.
-
-Args:
-    v (str): vertex
-
-Returns:
-    float: number of edges adjacent to that vertex v
-)pbdoc"
-    );
+              py::arg("v"));
 
     graph.def("degree", py::overload_cast<const bs::Graph::vertex_t &>(&bs::Graph::degree),
               py::arg("v"),
@@ -253,7 +241,7 @@ Return the degree of a vertex or nodes.
 The node degree is the number of edges adjacent to that node.
 
 Args:
-    v (vertex): vertex
+    v (str, vertex): vertex id or a vertex label
 
 Returns:
     float: number of edges adjacent to that vertex v
