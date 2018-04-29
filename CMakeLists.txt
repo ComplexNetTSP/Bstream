@@ -139,6 +139,11 @@ CONFIGURE_FILE(
         COPYONLY)
 
 CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/install.rst"
+        "${BINARY_BUILD_DIR}/install.rst"
+        COPYONLY)
+
+CONFIGURE_FILE(
         "${CMAKE_CURRENT_SOURCE_DIR}/docs/source/reference/index.rst"
         "${BINARY_BUILD_DIR}/reference/index.rst"
         COPYONLY)
