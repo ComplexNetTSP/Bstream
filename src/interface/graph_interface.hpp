@@ -109,7 +109,7 @@ Examples:
 Return the label of the vertex v.
 
 Args:
-    v (vertex): vertex
+    v (int): vertex id
 
 Returns:
     str: vertex's label
@@ -125,7 +125,7 @@ Args:
     label (str): vertex's label
 
 Returns:
-    vertex: vertex's id
+    int: vertex's id
 )pbdoc"
     );
 
@@ -213,8 +213,8 @@ Example:
 Test if there is an edge (s,t)
 
 Args:
-    s (str, vertex): source vertex, could be a vertex label or a vertex id.
-    t (str, vertex): target vertex, could be a vertex label or a vertex id.
+    s (str, int): source vertex, could be a vertex label or a vertex id.
+    t (str, int): target vertex, could be a vertex label or a vertex id.
 
 Returns:
     bool: True if the edge exist else False
@@ -242,7 +242,7 @@ Return the degree of a vertex or nodes.
 The node degree is the number of edges adjacent to that node.
 
 Args:
-    v (str, vertex): vertex id or a vertex label
+    v (str, int): vertex id or a vertex label
 
 Returns:
     float: number of edges adjacent to that vertex v
@@ -286,7 +286,7 @@ Returns:
     iterator: return a list of vertex
 
 Example:
-    >>> pb.Graph()
+    >>> pb.Graph() # DiGraph, Bipartite ..etc
     >>> G.add_edge(
     >>> for e in G.vertices:
         ... G.degree(v)
@@ -324,6 +324,22 @@ Args:
         return out.str();
     });
 
-    graph.def("__getitem__", py::overload_cast<const std::string &>(&bs::Graph::operator[]));
-    graph.def("__getitem__", py::overload_cast<const bs::Graph::vertex_t&>(&bs::Graph::operator[]));
+    graph.def("__getitem__", py::overload_cast<const std::string &>(&bs::Graph::operator[]), py::arg("label"));
+    graph.def("__getitem__", py::overload_cast<const bs::Graph::vertex_t &>(&bs::Graph::operator[]),
+              py::arg("v"),
+              R"pbdoc(
+Return the label or the vertex id of a given vertex
+
+Args:
+    v (int): vertex id
+    label (str): vertex label
+
+Examples:
+    >>> G = pb.Graph() # DiGraph, Bipartite ..etc
+    >>> G.add_edge("A", "B")
+    >>> G[0]
+    "A"
+    >>> G["A"]
+    0
+)pbdoc");
 }

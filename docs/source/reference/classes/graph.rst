@@ -11,6 +11,7 @@ Summary
    :nosignatures:
 
    Graph.__init__
+   Graph.__getitem__
    Graph.num_vertices
    Graph.num_edges
    Graph.adjacency
@@ -29,9 +30,10 @@ Summary
 Contents
 ++++++++
 
-Constructors
-------------
+Constructors & getter
+---------------------
 .. automethod:: Graph.__init__
+.. automethod:: Graph.__getitem__
 
 Manipulating Graph
 ------------------
