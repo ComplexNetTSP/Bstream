@@ -39,7 +39,7 @@ script:
   - which python
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake .. -DBOOST_ROOT=/home/travis/miniconda/envs/test-environment/include
   - make
   - python graph_tests.py
   - make test
