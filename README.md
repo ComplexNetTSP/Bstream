@@ -27,14 +27,14 @@ cd build
 cmake ..
 make
 make test
-````
+```
 
 Clone the repository from github and commpile install with setup.py
 
 ```bash
-   git clone https://github.com/ComplexNetTSP/Bstream.git
-   cd Bstream
-   python setup.py build test
+git clone https://github.com/ComplexNetTSP/Bstream.git
+cd Bstream
+python setup.py build test
 ```
 
 ## documentation 
