@@ -3,6 +3,7 @@ ADD_SUBDIRECTORY(graph_tests)
 ADD_SUBDIRECTORY(timeintervalset_tests)
 ADD_SUBDIRECTORY(linkstream_tests)
 ADD_SUBDIRECTORY(bipartite_tests)
+ADD_SUBDIRECTORY(bilinkstream_tests)
 ADD_SUBDIRECTORY(algorithms_tests)
 
 # Python tests

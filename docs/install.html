@@ -166,7 +166,7 @@ the following package:</p>
 <div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">boost</span> <span class="n">pybind11</span>
 </pre></div>
 </div>
-<p>Clone the repository from github</p>
+<p>Clone the repository from github and install with cmake</p>
 <div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ComplexNetTSP</span><span class="o">/</span><span class="n">Bstream</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">Bstream</span>
 <span class="n">mkdir</span> <span class="n">build</span>
@@ -174,6 +174,12 @@ the following package:</p>
 <span class="n">cmake</span> <span class="o">..</span>
 <span class="n">make</span>
 <span class="n">make</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>Clone the repository from github and commpile install with setup.py</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ComplexNetTSP</span><span class="o">/</span><span class="n">Bstream</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">Bstream</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">test</span>
 </pre></div>
 </div>
 </div>

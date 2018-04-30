@@ -11,6 +11,7 @@
 #include "GraphBase.hpp"
 #include "BipartiteBase.hpp"
 #include "LinkStreamBase.hpp"
+#include "BiLinkStreamBase.hpp"
 
 namespace boost::bstream
 {
@@ -25,6 +26,8 @@ namespace boost::bstream
 
     typedef LinkStreamBase<undirectedS> LinkStream;
     typedef LinkStreamBase<bidirectionalS> DiLinkStream;
+
+    typedef BiLinkStreamBase<undirectedS> BiLinkStream;
 } // end namespace boost::bstream
 
 #endif //BSTREAM_GRAPH_TYPE_H
