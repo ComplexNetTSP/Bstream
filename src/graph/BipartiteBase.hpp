@@ -20,14 +20,15 @@
 
 namespace boost::bstream
 {
-    class BipartiteBaseException: public GraphBaseException
+    class BipartiteBaseException : public GraphBaseException
     {
     public:
-        BipartiteBaseException(const std::string& what): GraphBaseException(what) {};
+        BipartiteBaseException(const std::string &what) : GraphBaseException(what)
+        {};
     };
 
     template<typename DirectedS>
-    class BipartiteBase: public GraphBase<DirectedS>
+    class BipartiteBase : public GraphBase<DirectedS>
     {
     public:
 
@@ -37,7 +38,9 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-        BipartiteBase(): GraphBase<DirectedS>::GraphBase() {};
+        BipartiteBase() : GraphBase<DirectedS>::GraphBase()
+        {};
+
         ~BipartiteBase() = default;
 
         ///**************************************************************************************************
@@ -59,11 +62,11 @@ namespace boost::bstream
         ///**************************************************************************************************
 
         virtual typename GraphBase<DirectedS>::vertex_t
-        add_vertex_w_group(int group, const std::string& label="");
+        add_vertex_w_group(int group, const std::string &label = "");
 
-        virtual int group(const typename GraphBase<DirectedS>::vertex_t& v);
+        virtual int group(const typename GraphBase<DirectedS>::vertex_t &v);
 
-        virtual int group(const std::string& v);
+        virtual int group(const std::string &v);
 
         virtual void clear_vertex_w_group(int group);
 
@@ -74,14 +77,14 @@ namespace boost::bstream
         ///**************************************************************************************************
 
         typename GraphBase<DirectedS>::edge_t
-        add_edge(const typename GraphBase<DirectedS>::vertex_t& s, const typename GraphBase<DirectedS>::vertex_t& t);
+        add_edge(const typename GraphBase<DirectedS>::vertex_t &s, const typename GraphBase<DirectedS>::vertex_t &t);
 
         typename GraphBase<DirectedS>::edge_t
-        add_edge(const std::string& s, const std::string& t);
+        add_edge(const std::string &s, const std::string &t);
 
-        friend std::ostream & operator<<(std::ostream &out, BipartiteBase &g)
+        friend std::ostream &operator<<(std::ostream &out, BipartiteBase &g)
         {
-            if(g.is_directed())
+            if (g.is_directed())
                 out << "DiBipartite(|V|=" << g.num_vertices() << ", |E|=" << g.num_edges() << ")";
             else
                 out << "Bipartite(|V|=" << g.num_vertices() << ", |E|=" << g.num_edges() << ")";

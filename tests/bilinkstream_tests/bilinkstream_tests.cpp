@@ -12,7 +12,7 @@
 
 #include "GraphType.hpp"
 
-#define BOOST_TEST_MODULE BiLinStream_tests
+#define BOOST_TEST_MODULE BiLinkStream_tests
 
 #include <boost/test/included/unit_test.hpp>
 #include <limits>

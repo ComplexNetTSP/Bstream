@@ -155,3 +155,5 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_read_csv)
     BOOST_CHECK(g.has_edge("A", "1"));
     BOOST_CHECK(g.has_edge("A", "2"));
 }
+
+// todo: add error cases

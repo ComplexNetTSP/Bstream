@@ -18,6 +18,12 @@
 
 namespace boost::bstream
 {
+    class BiLinkStreamBaseException: public LinkStreamBaseException
+    {
+    public:
+        BiLinkStreamBaseException(const std::string& what): LinkStreamBaseException(what) {};
+    };
+
     template <typename DirectedS>
     class BiLinkStreamBase : public LinkStreamBase<DirectedS>
     {
@@ -61,10 +67,10 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-//        typename GraphBase<DirectedS>::edge_t add_edge_w_time(
-//                const typename GraphBase<DirectedS>::vertex_t &s,
-//                const typename GraphBase<DirectedS>::vertex_t &t,
-//                time_t b, time_t e);
+        typename GraphBase<DirectedS>::edge_t add_edge_w_time(
+                const typename GraphBase<DirectedS>::vertex_t &s,
+                const typename GraphBase<DirectedS>::vertex_t &t,
+                time_t b, time_t e);
 
         typename GraphBase<DirectedS>::edge_t add_edge_w_time(
                 const std::string &s,
