@@ -9,7 +9,7 @@ You can clone Bstream from [GitHub](https://github.com/ComplexNetTSP/Bstream) wi
 ### Requirements
 You will need the following software to build Bstream as a Python package from source:
 
-* A modern C++ compiler, e.g.: g++ (>= 4.8) or clang++ (>= 3.7)
+* A modern C++ compiler (C++17), e.g.: g++ (>= 4.8) or clang++ (>= 3.7)
 * Python (>= 3.5)
 * Boost (>= 1.54) library installed
 * Pybind11 library installed
