@@ -24,7 +24,7 @@ the following package:
 conda install -c conda-forge boost pybind11
 ```
 
-Clone the repository from github and install with cmake
+Clone the repository from [GitHub](https://github.com/ComplexNetTSP/Bstream) and install with cmake
 
 ```bash
 git clone https://github.com/ComplexNetTSP/Bstream.git
@@ -36,7 +36,7 @@ make
 make test
 ```
 
-or clone the repository from github and compile install with python setuptool
+or clone the repository from [GitHub](https://github.com/ComplexNetTSP/Bstream) and compile install with python setuptool
 
 ```bash
 git clone https://github.com/ComplexNetTSP/Bstream.git
