@@ -1,14 +1,19 @@
 [![Build Status](https://travis-ci.org/ComplexNetTSP/Bstream.svg?branch=master)](https://travis-ci.org/ComplexNetTSP/Bstream) [![codecov](https://codecov.io/gh/ComplexNetTSP/Bstream/branch/master/graph/badge.svg)](https://codecov.io/gh/ComplexNetTSP/Bstream)
 
 # Bstream
+For more information about **Bstream** please refer to  the [Documentation](https://complexnettsp.github.io/Bstream/).
 
-## Install 
+## Build Bstream from Source
+You can clone Bstream from [GitHub](https://github.com/ComplexNetTSP/Bstream) with git.
 
-**Bstream** requires Python 3.5, or 3.6. If you do not already have a Python
-environment configured on your computer, please see the instructions for 
-installing the full scientific Python stack. For more information about **Bstream**
-please refer to  the [Documentation](https://complexnettsp.github.io/Bstream/).
+### Requirements
+You will need the following software to build Bstream as a Python package from source:
 
+* A modern C++ compiler, e.g.: g++ (>= 4.8) or clang++ (>= 3.7)
+* Python (>= 3.5)
+* Boost (>= 1.54) library installed
+* Pybind11 library installed
+* cmake (>= 3.9) 
 
 ### Install the development version with conda
 
@@ -26,7 +31,7 @@ git clone https://github.com/ComplexNetTSP/Bstream.git
 cd Bstream
 mkdir build
 cd build
-cmake ..
+cmake .. -DBOOST_ROOT=/path/to/conda/include
 make
 make test
 ```
