@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(BiLinStream_constructors)
     BiLinkStream g;
     BOOST_CHECK(g.num_vertices() == 0);
     BOOST_CHECK(g.num_edges() == 0);
-    BOOST_CHECK(g.definition().second == std::numeric_limits<time_t>::max());
+    BOOST_CHECK(g.definition().second == BiLinkStream::default_max_interval);
     BOOST_CHECK(g.definition().first == 0);
 
     // with initial definition interval
@@ -80,5 +80,5 @@ BOOST_AUTO_TEST_CASE(BiLinStream_add_edge)
     BOOST_CHECK(g.num_top_vertices() == 1);
     BOOST_CHECK(g.num_bottom_vertices() == 2);
     BOOST_CHECK((g.num_bottom_vertices() + g.num_top_vertices()) == g.num_vertices());
-    g.print_edges();
+    //g.print_edges();
 }

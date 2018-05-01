@@ -2,7 +2,6 @@ import unittest
 import pybstream as pb
 from pybstream import vertex_group
 
-
 class TestBiLinkStream(unittest.TestCase):
 
     def test_BiLinkStream_constructor(self):
@@ -55,8 +54,6 @@ class TestBiLinkStream(unittest.TestCase):
         B = g.add_vertex_w_group(vertex_group.top)
         with self.assertRaises(RuntimeError) as ctx:
             g.add_edge_w_time(A, B, 0, 5)
-
-
 
 if __name__ == '__main__':
     unittest.main()

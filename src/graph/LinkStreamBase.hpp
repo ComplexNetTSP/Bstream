@@ -33,6 +33,7 @@ namespace boost::bstream
     class LinkStreamBase : public GraphBase<DirectedS>
     {
     public:
+        static const int default_max_interval = 1000; ///< default interaval [0, default_max_interval)
 
         ///**************************************************************************************************
         ///
@@ -123,7 +124,6 @@ namespace boost::bstream
 
 
     protected:
-        static const int default_max_interval = 1000;
         TimeInterval interval_def;
         std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalSetVertexMap;
     };
