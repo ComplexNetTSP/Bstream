@@ -77,7 +77,7 @@ namespace boost::bstream
     template<typename DirectedS>
     void LinkStreamBase<DirectedS>::print_edges()
     {
-        cout << *this;
+        cout << *this << endl;
         auto e_iterator = this->edges();
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
             auto s = boost::source(*it, this->G);
@@ -87,7 +87,7 @@ namespace boost::bstream
             cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
                  << "(" << s << "," << t << ")" ;
             if(!s_name.empty() && !t_name.empty())
-                cout << " (" << s_name << "," << t_name << ")" ;
+                cout << " with name (" << s_name << "," << t_name << ")" ;
             cout << endl;
         }
     }

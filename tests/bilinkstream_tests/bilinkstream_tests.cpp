@@ -56,4 +56,29 @@ BOOST_AUTO_TEST_CASE(BiLinStream_add_edge_by_label)
     BOOST_CHECK(g.has_edge("A", "B"));
     BOOST_CHECK(g.has_edge("C", "B"));
     BOOST_CHECK(g.has_edge("A", "C") == false);
+    BOOST_CHECK(g.num_top_vertices() == 2);
+    BOOST_CHECK(g.num_bottom_vertices() == 1);
+    BOOST_CHECK((g.num_bottom_vertices() + g.num_top_vertices()) == g.num_vertices());
+}
+
+BOOST_AUTO_TEST_CASE(BiLinStream_add_edge)
+{
+    // with initial definition interval
+    BiLinkStream g(0, 10);
+    auto A = g.add_vertex_w_group(BiLinkStream::bipartite::bottom);
+    auto B = g.add_vertex_w_group(BiLinkStream::bipartite::top);
+    auto C = g.add_vertex_w_group(BiLinkStream::bipartite::bottom);
+
+    g.add_edge_w_time(A, B, 0, 5);
+    g.add_edge_w_time(C, B, 0, 5);
+    BOOST_CHECK(g.group(A) == BiLinkStream::bipartite::bottom);
+    BOOST_CHECK(g.group(B) == BiLinkStream::bipartite::top);
+    BOOST_CHECK(g.group(C) == BiLinkStream::bipartite::bottom);
+    BOOST_CHECK(g.has_edge(A, B));
+    BOOST_CHECK(g.has_edge(C, B));
+    BOOST_CHECK(g.has_edge(A, C) == false);
+    BOOST_CHECK(g.num_top_vertices() == 1);
+    BOOST_CHECK(g.num_bottom_vertices() == 2);
+    BOOST_CHECK((g.num_bottom_vertices() + g.num_top_vertices()) == g.num_vertices());
+    g.print_edges();
 }

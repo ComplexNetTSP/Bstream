@@ -1,7 +1,7 @@
 ///-------------------------------------------------------------------------------------------------
 ///
 /// @file       DiLinkStream.hpp
-/// @brief      Description
+/// @brief      Bipartite LinkStream class definition
 /// @author     Vincent Gauthier <vgauthier@luxbulb.org>
 /// @date       30/04/2018
 /// @version    0.1
@@ -15,16 +15,18 @@
 
 #include "GraphBase.hpp"
 #include "LinkStreamBase.hpp"
+#include "TimeIntervalSet.hpp"
 
 namespace boost::bstream
 {
-    class BiLinkStreamBaseException: public LinkStreamBaseException
+    class BiLinkStreamBaseException : public LinkStreamBaseException
     {
     public:
-        BiLinkStreamBaseException(const std::string& what): LinkStreamBaseException(what) {};
+        BiLinkStreamBaseException(const std::string &what) : LinkStreamBaseException(what)
+        {};
     };
 
-    template <typename DirectedS>
+    template<typename DirectedS>
     class BiLinkStreamBase : public LinkStreamBase<DirectedS>
     {
     public:
@@ -51,15 +53,27 @@ namespace boost::bstream
 
         ///**************************************************************************************************
         ///
+        ///  Graph methods
+        ///
+        ///**************************************************************************************************
+
+        virtual int num_top_vertices();
+
+        virtual int num_bottom_vertices();
+
+        void print_edges();
+
+        ///**************************************************************************************************
+        ///
         ///  Vertex methods
         ///
         ///**************************************************************************************************
 
         virtual typename GraphBase<DirectedS>::vertex_t add_vertex_w_group(int group, const std::string &label = "");
 
-        virtual int group(const typename GraphBase<DirectedS>::vertex_t& v);
+        virtual int group(const typename GraphBase<DirectedS>::vertex_t &v);
 
-        virtual int group(const std::string& v);
+        virtual int group(const std::string &v);
 
         ///**************************************************************************************************
         ///
@@ -83,8 +97,6 @@ namespace boost::bstream
                 << ", T=" << l.interval_def << ")";
             return out;
         }
-
-
     };
 } // end namespace boost::bstream
 

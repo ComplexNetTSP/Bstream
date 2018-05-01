@@ -6,6 +6,59 @@
 
 namespace boost::bstream
 {
+    ///**************************************************************************************************
+    ///
+    ///  Graph methods
+    ///
+    ///**************************************************************************************************
+
+    template<typename DirectedS>
+    int BiLinkStreamBase<DirectedS>::num_top_vertices()
+    {
+        int num = 0;
+        for (auto it = this->vertices().first; it != this->vertices().second; ++it) {
+            if (this->group(*it) == GraphBase<DirectedS>::bipartite::top)
+                num++;
+        }
+        return num;
+    }
+
+    template<typename DirectedS>
+    int BiLinkStreamBase<DirectedS>::num_bottom_vertices()
+    {
+        int num = 0;
+        for (auto it = this->vertices().first; it != this->vertices().second; ++it) {
+            if (this->group(*it) == GraphBase<DirectedS>::bipartite::bottom)
+                num++;
+        }
+        return num;
+    }
+
+    template<typename DirectedS>
+    void BiLinkStreamBase<DirectedS>::print_edges()
+    {
+        std::cout << *this << std::endl;
+        auto e_iterator = this->edges();
+        for(auto it=e_iterator.first; it != e_iterator.second; ++it){
+            auto s = boost::source(*it, this->G);
+            auto t = boost::target(*it, this->G);
+            auto s_name = this->label(s);
+            auto t_name = this->label(t);
+            std::cout << "\t" << this->TimeIntervalSetVertexMap[*it] << " x "
+                 << "(" << s << "," << t << ")" ;
+            if(!s_name.empty() && !t_name.empty())
+                std::cout << " with name (" << s_name << "," << t_name << ")" ;
+            std::cout << " with group (" << std::to_string(this->group(s)) << "," << std::to_string(this->group(t))<< ")" ;
+            std::cout << std::endl;
+        }
+    }
+
+    ///**************************************************************************************************
+    ///
+    ///  Edge methods
+    ///
+    ///**************************************************************************************************
+
     template<typename DirectedS>
     typename GraphBase<DirectedS>::edge_t
     BiLinkStreamBase<DirectedS>::add_edge_w_time(const std::string &s, const std::string &t, time_t b, time_t e)
@@ -25,7 +78,7 @@ namespace boost::bstream
                                                  time_t b, time_t e)
     {
         // check if vertices exist
-        if (!this->has_vertex(s)){
+        if (!this->has_vertex(s)) {
             std::string msg = "Vertex " + std::to_string(s) + " doesn't exist";
             throw BiLinkStreamBaseException(msg);
         }
@@ -33,13 +86,19 @@ namespace boost::bstream
             std::string msg = "Vertex " + std::to_string(t) + " doesn't exist";
             throw BiLinkStreamBaseException(msg);
         }
-        if(this->group(s) == this->group(t) or this->group(s) == 0 or this->group(t) == 0){
+        if (this->group(s) == this->group(t) or this->group(s) == 0 or this->group(t) == 0) {
             std::string msg = "edge( " + std::to_string(s) + "," + std::to_string(t) + ") belong to the samge group";
             throw BiLinkStreamBaseException(msg);
         }
 
         return LinkStreamBase<DirectedS>::add_edge_w_time(s, t, b, e);
     }
+
+    ///**************************************************************************************************
+    ///
+    ///  Vertex methods
+    ///
+    ///**************************************************************************************************
 
     template<typename DirectedS>
     typename GraphBase<DirectedS>::vertex_t
