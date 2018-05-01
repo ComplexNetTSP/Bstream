@@ -13,6 +13,7 @@ Summary
    DiGraph.__init__
    DiGraph.num_vertices
    DiGraph.num_edges
+   DiGraph.print_edges
    DiGraph.adjacency
    DiGraph.add_vertex
    DiGraph.add_edge
@@ -34,6 +35,7 @@ Manipulating Graph
 ------------------
 .. automethod:: DiGraph.num_vertices
 .. automethod:: DiGraph.num_edges
+.. automethod:: DiGraph.print_edges
 .. automethod:: DiGraph.adjacency
 .. automethod:: DiGraph.has_edge
 .. automethod:: DiGraph.degree

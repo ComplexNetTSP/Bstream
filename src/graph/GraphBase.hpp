@@ -93,34 +93,33 @@ namespace boost::bstream
          * @brief Return true if graph is directed.
          * @return boolean
          */
-        virtual bool is_directed() const;
+        bool is_directed() const;
 
-        virtual double density();
-
-        //todo make test for copy
+        double density();
 
         virtual void copy_graph(const GraphBase<DirectedS> &g);
 
         virtual void copy_adjacency(const Adjacency &g);
 
-        virtual MatrixXd adjacency();
+        MatrixXd adjacency();
 
-        virtual void read_csv(std::string path, char delimiter=',');
+        void read_csv(std::string path, char delimiter=',');
 
         /**
          * @brief The number of vertices in the graph.
          * @return vertex_size_t
          */
-        virtual double num_vertices();
+        double num_vertices();
         /**
          * @brief The number of edges in the graph.
          * @return edge_size_t
          */
-        virtual double num_edges();
+        double num_edges();
 
-        virtual void clear_vertices();
-        virtual void clear_edges();
-        virtual void clear();
+        void print_edges();
+        void clear_vertices();
+        void clear_edges();
+        void clear();
 
         virtual vertex_t& operator[](const std::string& label);
         virtual std::string& operator[](const vertex_t &v);

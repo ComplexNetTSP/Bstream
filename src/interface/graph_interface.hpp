@@ -203,6 +203,11 @@ Example:
 )pbdoc"
     );
 
+    graph.def("print_edges", &bs::Graph::print_edges,
+              R"pbdoc(
+Print the edge list of the graph G
+)pbdoc");
+
     graph.def("has_edge",
               py::overload_cast<const bs::Graph::vertex_t &, const bs::Graph::vertex_t &>(&bs::Graph::has_edge),
               py::arg("s"), py::arg("t"));

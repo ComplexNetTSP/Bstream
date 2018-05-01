@@ -66,6 +66,11 @@ void digraph_interface(py::module &m)
     digraph.def("adjacency", &bs::DiGraph::adjacency);
     digraph.def("read_csv", &bs::DiGraph::read_csv,py::arg("path"), py::arg("delimiter")=',');
 
+    digraph.def("print_edges", &bs::DiGraph::print_edges,
+              R"pbdoc(
+Print the edge list of the graph G
+)pbdoc");
+
     digraph.def("vertices", [](bs::DiGraph &g){
         auto it = g.vertices();
         return py::make_iterator(it.first, it.second);

@@ -51,9 +51,9 @@ namespace boost::bstream
 
         MatrixXd adjacency();
 
-        int num_top_vertices();
+        virtual int num_top_vertices();
 
-        int num_bottom_vertices();
+        virtual int num_bottom_vertices();
 
         ///**************************************************************************************************
         ///

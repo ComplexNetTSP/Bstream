@@ -14,6 +14,7 @@ Summary
    Graph.__getitem__
    Graph.num_vertices
    Graph.num_edges
+   Graph.print_edges
    Graph.adjacency
    Graph.add_vertex
    Graph.remove_vertex
@@ -27,6 +28,7 @@ Summary
    Graph.edges
    Graph.labels
 
+
 Contents
 ++++++++
 
@@ -39,6 +41,7 @@ Manipulating Graph
 ------------------
 .. automethod:: Graph.num_vertices
 .. automethod:: Graph.num_edges
+.. automethod:: Graph.print_edges
 .. automethod:: Graph.adjacency
 .. automethod:: Graph.has_edge
 .. automethod:: Graph.degree

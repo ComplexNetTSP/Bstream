@@ -45,6 +45,7 @@ namespace boost::bstream
         virtual double num_vertices() = 0;
         virtual double num_edges() = 0;
         virtual double density() = 0;
+        virtual void print_edges() = 0;
 
         virtual void clear_vertices() = 0;
         virtual void clear_edges() = 0;
