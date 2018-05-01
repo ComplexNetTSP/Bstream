@@ -81,12 +81,12 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-        typename GraphBase<DirectedS>::edge_t add_edge_w_time(
-                const typename GraphBase<DirectedS>::vertex_t &s,
-                const typename GraphBase<DirectedS>::vertex_t &t,
+        typename BiLinkStreamBase<DirectedS>::edge_t add_edge_w_time(
+                const typename BiLinkStreamBase<DirectedS>::vertex_t &s,
+                const typename BiLinkStreamBase<DirectedS>::vertex_t &t,
                 time_t b, time_t e);
 
-        typename GraphBase<DirectedS>::edge_t add_edge_w_time(
+        typename BiLinkStreamBase<DirectedS>::edge_t add_edge_w_time(
                 const std::string &s,
                 const std::string &t,
                 time_t b, time_t e);

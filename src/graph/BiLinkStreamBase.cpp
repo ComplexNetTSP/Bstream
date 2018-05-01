@@ -60,7 +60,7 @@ namespace boost::bstream
     ///**************************************************************************************************
 
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::edge_t
+    typename BiLinkStreamBase<DirectedS>::edge_t
     BiLinkStreamBase<DirectedS>::add_edge_w_time(const std::string &s, const std::string &t, time_t b, time_t e)
     {
         // check if vertices exist
@@ -72,9 +72,9 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    typename GraphBase<DirectedS>::edge_t
-    BiLinkStreamBase<DirectedS>::add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t &s,
-                                                 const typename GraphBase<DirectedS>::vertex_t &t,
+    typename BiLinkStreamBase<DirectedS>::edge_t
+    BiLinkStreamBase<DirectedS>::add_edge_w_time(const typename BiLinkStreamBase<DirectedS>::vertex_t &s,
+                                                 const typename BiLinkStreamBase<DirectedS>::vertex_t &t,
                                                  time_t b, time_t e)
     {
         // check if vertices exist

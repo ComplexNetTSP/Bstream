@@ -32,7 +32,7 @@ void graph_interface(py::module &m)
     py::class_<bs::Graph::edge_t> edge(m, "edge_t");
     edge.doc() =
             R"pbdoc(
-Base class for edge of graph.
+Base class for Graph's edge.
 )pbdoc";
 
     edge.def(py::init<>());
@@ -43,7 +43,7 @@ Base class for edge of graph.
     edge.def("__repr__",
              [](bs::Graph::edge_t &e) {
                  std::ostringstream stream;
-                 stream << "<class Graph::edge_t link: " << e << ">";
+                 stream << "<class edge_t: " << e << ">";
                  return stream.str();
              });
 
