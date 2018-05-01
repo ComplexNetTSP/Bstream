@@ -62,7 +62,8 @@ Base class for undirected graphs.
     ///
     ///**************************************************************************************************
 
-    bilinkstream.def("add_vertex_w_group", &bs::BiLinkStream::add_vertex_w_group);
+    bilinkstream.def("add_vertex_w_group", &bs::BiLinkStream::add_vertex_w_group,
+                     py::arg("group"), py::arg("label") = "");
     bilinkstream.def("group", py::overload_cast<const std::string &>(&bs::BiLinkStream::group));
     bilinkstream.def("group", py::overload_cast<const bs::BiLinkStream::vertex_t &>(&bs::BiLinkStream::group));
 
@@ -72,8 +73,11 @@ Base class for undirected graphs.
     ///
     ///**************************************************************************************************
 
-    bilinkstream.def("add_edge_w_time", py::overload_cast<const bs::BiLinkStream::vertex_t &, const bs::BiLinkStream::vertex_t &,  time_t, time_t>(&bs::BiLinkStream::add_edge_w_time));
-    bilinkstream.def("add_edge_w_time", py::overload_cast<const std::string &, const std::string &, time_t, time_t>(&bs::BiLinkStream::add_edge_w_time));
+    bilinkstream.def("add_edge_w_time",
+                     py::overload_cast<const bs::BiLinkStream::vertex_t &, const bs::BiLinkStream::vertex_t &, time_t, time_t>(
+                             &bs::BiLinkStream::add_edge_w_time));
+    bilinkstream.def("add_edge_w_time", py::overload_cast<const std::string &, const std::string &, time_t, time_t>(
+            &bs::BiLinkStream::add_edge_w_time));
 
     bilinkstream.def("__repr__", [](bs::BiLinkStream &g) {
         std::ostringstream out;

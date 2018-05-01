@@ -22,14 +22,15 @@
 
 namespace boost::bstream
 {
-    class LinkStreamBaseException: public GraphBaseException
+    class LinkStreamBaseException : public GraphBaseException
     {
     public:
-        LinkStreamBaseException(const std::string& what): GraphBaseException(what) {};
+        LinkStreamBaseException(const std::string &what) : GraphBaseException(what)
+        {};
     };
 
-    template <typename DirectedS>
-    class LinkStreamBase: public GraphBase<DirectedS>
+    template<typename DirectedS>
+    class LinkStreamBase : public GraphBase<DirectedS>
     {
     public:
 
@@ -67,7 +68,7 @@ namespace boost::bstream
 
         void print_edges();
 
-        void read_csv(std::string path, char delimiter=',');
+        void read_csv(std::string path, char delimiter = ',');
 
         ///**************************************************************************************************
         ///
@@ -75,7 +76,7 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-        double degree(const typename GraphBase<DirectedS>::vertex_t& v);
+        double degree(const typename GraphBase<DirectedS>::vertex_t &v);
 
         //todo: add the remove vertex method, check first about the graph properties
         //void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
@@ -86,40 +87,43 @@ namespace boost::bstream
         ///
         ///**************************************************************************************************
 
-        typename GraphBase<DirectedS>::edge_t
-        add_edge(const typename GraphBase<DirectedS>::vertex_t& s,
-                 const typename GraphBase<DirectedS>::vertex_t& t);
+        typename LinkStreamBase<DirectedS>::edge_t
+        add_edge(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                 const typename LinkStreamBase<DirectedS>::vertex_t &t);
 
-        //todo: add the other add edge method with string
+        typename LinkStreamBase<DirectedS>::edge_t
+        add_edge(const std::string &s, const std::string &t);
 
-        virtual typename GraphBase<DirectedS>::edge_t
-        add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t& s,
-                        const typename GraphBase<DirectedS>::vertex_t& t,
+
+        virtual typename LinkStreamBase<DirectedS>::edge_t
+        add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t &s,
+                        const typename GraphBase<DirectedS>::vertex_t &t,
                         time_t b, time_t e);
 
-        virtual typename GraphBase<DirectedS>::edge_t
-        add_edge_w_time(const std::string& s,
-                        const std::string& t,
+        virtual typename LinkStreamBase<DirectedS>::edge_t
+        add_edge_w_time(const std::string &s,
+                        const std::string &t,
                         time_t b, time_t e);
 
 
         std::pair<typename GraphBase<DirectedS>::edge_t, bool>
-        is_edge_active(const typename GraphBase<DirectedS>::vertex_t& s,
-                       const typename GraphBase<DirectedS>::vertex_t& t,
+        is_edge_active(const typename GraphBase<DirectedS>::vertex_t &s,
+                       const typename GraphBase<DirectedS>::vertex_t &t,
                        time_t b, time_t e);
 
-        friend std::ostream & operator<<(std::ostream &out, LinkStreamBase &l)
+        friend std::ostream &operator<<(std::ostream &out, LinkStreamBase &l)
         {
-            if(l.is_directed())
+            if (l.is_directed())
                 out << "DiLinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges() << ")";
             else
                 out << "LinkStream(|V|=" << l.num_vertices() << ", |E|=" << l.num_edges()
-                    <<  ", T=" << l.interval_def << ")" ;
+                    << ", T=" << l.interval_def << ")";
             return out;
         }
 
 
     protected:
+        static const int default_max_interval = 1000;
         TimeInterval interval_def;
         std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalSetVertexMap;
     };

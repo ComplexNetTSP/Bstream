@@ -17,6 +17,24 @@ class TestLinkStream(unittest.TestCase):
         self.assertEqual(g1.num_vertices(), 100)
         self.assertEqual(g1.num_edges(), 0)
 
+    def test_LinkStream_add_edge_simple(self):
+        """Test LinkStream default add_edge"""
+        g = pybstream.LinkStream(0, 10)
+        g.add_vertex("A")
+        g.add_vertex("B")
+        g.add_vertex("C")
+        g.add_edge("A", "B")
+        g.add_edge("B", "C")
+        g.add_edge("C", "A")
+
+        g1 = pybstream.LinkStream(0, 10)
+        A = g1.add_vertex("A")
+        B = g1.add_vertex("B")
+        C = g1.add_vertex("C")
+        g1.add_edge(A, B)
+        g1.add_edge(B, C)
+        g1.add_edge(C, A)
+
     def test_LinkStream_density(self):
         """Test density of LinkStream"""
         g = pybstream.LinkStream(0, 10)

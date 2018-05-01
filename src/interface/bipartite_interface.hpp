@@ -44,6 +44,12 @@ void bipartite_interface(py::module &m)
         return out.str();
     });
 
+    py::enum_<bs::Bipartite::bipartite>(bipartite, "vertex_group")
+            .value("null", bs::Bipartite::bipartite::null)
+            .value("top", bs::Bipartite::bipartite::top)
+            .value("bottom", bs::Bipartite::bipartite::bottom)
+            .export_values();
+
     ///**************************************************************************************************
     ///
     ///  DiBipartite

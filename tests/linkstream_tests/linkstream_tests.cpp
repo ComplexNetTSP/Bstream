@@ -44,6 +44,20 @@ BOOST_AUTO_TEST_CASE(LinkStream_constructor)
     BOOST_CHECK(g2.definition().second == 10);
 }
 
+BOOST_AUTO_TEST_CASE(LinkStream_add_edge_simple)
+{
+    LinkStream::vertex_t a=0, b=1, c=2, d=3;
+    LinkStream g(4, 0, 10);
+
+    g.add_edge(a, b);
+    g.add_edge(a, c);
+    g.add_edge(b, c);
+    g.add_edge(b, d);
+    g.add_edge(c, d);
+
+    BOOST_CHECK(g.num_vertices() == 4);
+}
+
 BOOST_AUTO_TEST_CASE(LinkStream_add_edge)
 {
     LinkStream::vertex_t a=0, b=1, c=2, d=3;

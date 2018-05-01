@@ -323,6 +323,11 @@ Args:
 )pbdoc"
     );
 
+
+    graph.def("clear", &bs::Graph::clear, R"pbdoc(
+Remove all the vertices and edges present inside the adjacency list.
+)pbdoc");
+
     graph.def("__repr__", [](bs::Graph &g) {
         std::ostringstream out;
         out << "<class " << g << ">";

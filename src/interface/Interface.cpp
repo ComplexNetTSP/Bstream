@@ -12,6 +12,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
 
+#include "GraphType.hpp"
+
 #include "graph_interface.hpp"
 #include "digraph_interface.hpp"
 #include "tintervalset_interface.hpp"
@@ -20,7 +22,16 @@
 #include "bilinkstream_interface.hpp"
 #include "algorithms_interface.hpp"
 
+namespace py = pybind11;
+namespace bs = boost::bstream;
+
 PYBIND11_MODULE(pybstream, m) {
+    py::enum_<bs::vertex_group>(m, "vertex_group")
+            .value("null", bs::vertex_group::null)
+            .value("top", bs::vertex_group::top)
+            .value("bottom", bs::vertex_group::bottom)
+            .export_values();
+
     graph_interface(m);
     digraph_interface(m);
     tinterval_interface(m);
