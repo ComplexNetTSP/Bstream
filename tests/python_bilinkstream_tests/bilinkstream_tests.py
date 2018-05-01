@@ -50,12 +50,11 @@ class TestBiLinkStream(unittest.TestCase):
 
     def test_BiLinkStream_exception(self):
         """Tests bipartite LinkStream."""
-        pass
-        #print("exception")
-        #g = pb.BiLinkStream()
-        #A = g.add_vertex_w_group(vertex_group.top)
-        #B = g.add_vertex_w_group(vertex_group.top)
-        #g.add_edge_w_time(A, B, 0, 5)
+        g = pb.BiLinkStream()
+        A = g.add_vertex_w_group(vertex_group.top)
+        B = g.add_vertex_w_group(vertex_group.top)
+        with self.assertRaises(RuntimeError) as ctx:
+            g.add_edge_w_time(A, B, 0, 5)
 
 
 

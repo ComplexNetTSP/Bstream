@@ -87,7 +87,7 @@ namespace boost::bstream
             throw BiLinkStreamBaseException(msg);
         }
         if (this->group(s) == this->group(t) or this->group(s) == 0 or this->group(t) == 0) {
-            std::string msg = "edge( " + std::to_string(s) + "," + std::to_string(t) + ") belong to the samge group";
+            std::string msg = "Vertices (" + this->label(s) + " and " + this->label(t) + ") belong to the same group";
             throw BiLinkStreamBaseException(msg);
         }
 
