@@ -33,7 +33,8 @@ namespace boost::bstream
     class LinkStreamBase : public GraphBase<DirectedS>
     {
     public:
-        static const int default_max_interval = 1000; ///< default interaval [0, default_max_interval)
+        static const int default_min_interval = 0;
+        static const int default_max_interval = 1000; ///< default interval [default_min_interval, default_max_interval)
 
         ///**************************************************************************************************
         ///
@@ -79,8 +80,8 @@ namespace boost::bstream
 
         double degree(const typename GraphBase<DirectedS>::vertex_t &v);
 
-        //todo: add the remove vertex method, check first about the graph properties
-        //void remove_vertex(typename GraphBase<DirectedS>::vertex_t& v);
+        // todo: add the remove vertex method, check first about the graph properties
+        void remove_vertex(const std::string &v);
 
         ///**************************************************************************************************
         ///
@@ -106,6 +107,25 @@ namespace boost::bstream
                         const std::string &t,
                         time_t b, time_t e);
 
+        // todo: add test and check that edge type in all method are correct
+
+        virtual typename LinkStreamBase<DirectedS>::edge_t
+        add_edge_w_time(const std::string &s,
+                        const std::string &t,
+                        const TimeIntervalSet &tis);
+
+        virtual typename LinkStreamBase<DirectedS>::edge_t
+        add_edge_w_time(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                        const typename LinkStreamBase<DirectedS>::vertex_t &t,
+                        const TimeIntervalSet &tis);
+
+
+        virtual TimeIntervalSet get_time_interval_set(const std::string &s, const std::string &t);
+
+        virtual TimeIntervalSet get_time_interval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                                      const typename LinkStreamBase<DirectedS>::vertex_t &t);
+
+        virtual TimeIntervalSet get_time_interval_set(const typename LinkStreamBase<DirectedS>::edge_t &e);
 
         std::pair<typename GraphBase<DirectedS>::edge_t, bool>
         is_edge_active(const typename GraphBase<DirectedS>::vertex_t &s,

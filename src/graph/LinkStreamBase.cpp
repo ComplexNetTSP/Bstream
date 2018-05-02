@@ -27,14 +27,13 @@ namespace boost::bstream
     ///**************************************************************************************************
 
     template<typename DirectedS>
-    LinkStreamBase<DirectedS>::LinkStreamBase()
-    {
-        interval_def = make_time_interval(0, default_max_interval);
-    }
+    LinkStreamBase<DirectedS>::LinkStreamBase():
+            LinkStreamBase(default_min_interval, default_max_interval)
+    {}
 
     template<typename DirectedS>
     LinkStreamBase<DirectedS>::LinkStreamBase(int num_vertex)
-            : LinkStreamBase<DirectedS>(num_vertex, 0, default_max_interval)
+            : LinkStreamBase(num_vertex, default_min_interval, default_max_interval)
     {}
 
     template<typename DirectedS>
@@ -55,7 +54,6 @@ namespace boost::bstream
     ///  Graph methods
     ///
     ///**************************************************************************************************
-
 
     template<typename DirectedS>
     time_t LinkStreamBase<DirectedS>::definition_length()
@@ -152,7 +150,7 @@ namespace boost::bstream
     LinkStreamBase<DirectedS>::add_edge(const typename LinkStreamBase<DirectedS>::vertex_t &s,
                                         const typename LinkStreamBase<DirectedS>::vertex_t &t)
     {
-        if(!this->has_vertex(s) or !this->has_vertex(t)) {
+        if (!this->has_vertex(s) or !this->has_vertex(t)) {
             std::string msg = "the vertex " + std::to_string(s) + " or " + std::to_string(s) + " doesn't exist";
             throw LinkStreamBaseException(msg);
         }
@@ -173,9 +171,9 @@ namespace boost::bstream
     typename LinkStreamBase<DirectedS>::edge_t
     LinkStreamBase<DirectedS>::add_edge(const std::string &s, const std::string &t)
     {
-        if(!this->has_vertex(s))
+        if (!this->has_vertex(s))
             this->add_vertex(s);
-        if(!this->has_vertex(t))
+        if (!this->has_vertex(t))
             this->add_vertex(t);
         return this->add_edge(this->vertex(s), this->vertex(t));
     }
@@ -186,11 +184,10 @@ namespace boost::bstream
                                                const typename GraphBase<DirectedS>::vertex_t &t,
                                                time_t b, time_t e)
     {
-
         typename GraphBase<DirectedS>::edge_t edge_exist;
         bool ok;
 
-        //!< check that the edge time interval is in the linkstream definition interval
+        ///< check that the edge time interval is in the linkstream definition interval
         if (!icl::contains(interval_def, make_time_interval(b, e))) {
             std::ostringstream msg;
             msg << "Edge TimeInterval " << make_time_interval(b, e)
@@ -213,13 +210,89 @@ namespace boost::bstream
     typename LinkStreamBase<DirectedS>::edge_t
     LinkStreamBase<DirectedS>::add_edge_w_time(const std::string &s, const std::string &t, time_t b, time_t e)
     {
-        // add vertex if it didn't exist
+        ///< add vertex if it didn't exist
         if (!this->has_vertex(s))
             this->add_vertex(s);
         if (!this->has_vertex(t))
             this->add_vertex(t);
-        // add edge
+        ///< add edge
         return this->add_edge_w_time(this->vertex(s), this->vertex(t), b, e);
+    }
+
+
+    template<typename DirectedS>
+    typename LinkStreamBase<DirectedS>::edge_t
+    LinkStreamBase<DirectedS>::add_edge_w_time(const std::string &s, const std::string &t, const TimeIntervalSet &tis)
+    {
+        ///< add vertices if needed
+        if (!this->has_vertex(s))
+            this->add_vertex(s);
+        if (!this->has_vertex(t))
+            this->add_vertex(t);
+
+        ///< add edge
+        auto e = boost::edge(this->vertex(s), this->vertex(t), this->G);
+        if (!e.second) {
+            auto new_edge = GraphBase<DirectedS>::add_edge(s, t);
+            TimeIntervalSetVertexMap[new_edge] = tis;
+            return new_edge;
+        } else {
+            return e.first;
+        }
+    }
+
+    template<typename DirectedS>
+    typename LinkStreamBase<DirectedS>::edge_t
+    LinkStreamBase<DirectedS>::add_edge_w_time(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                               const typename LinkStreamBase<DirectedS>::vertex_t &t,
+                                               const TimeIntervalSet &tis)
+    {
+        ///< add vertices if needed
+        if (!this->has_vertex(s))
+            throw LinkStreamBaseException("Missing vertex");
+        if (!this->has_vertex(t))
+            throw LinkStreamBaseException("Missing vertex");
+
+        ///< add edge
+        auto e = boost::edge(s, t, this->G);
+        if (!e.second) {
+            auto new_edge = GraphBase<DirectedS>::add_edge(s, t);
+            TimeIntervalSetVertexMap[new_edge] = tis;
+            return new_edge;
+        } else {
+            return e.first;
+        }
+
+    }
+
+    template<typename DirectedS>
+    TimeIntervalSet
+    LinkStreamBase<DirectedS>::get_time_interval_set(const std::string &s, const std::string &t)
+    {
+        auto e = this->edge(s, t);
+        if (e.second)
+            return TimeIntervalSetVertexMap[e.first];
+        else
+            throw LinkStreamBaseException("edge doesn't exist");
+    }
+
+    template<typename DirectedS>
+    TimeIntervalSet
+    LinkStreamBase<DirectedS>::get_time_interval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                                     const typename LinkStreamBase<DirectedS>::vertex_t &t)
+    {
+        auto e = this->edge(s, t);
+        if (e.second)
+            return TimeIntervalSetVertexMap[e.first];
+        else
+            throw LinkStreamBaseException("edge doesn't exist");
+    }
+
+    template<typename DirectedS>
+    TimeIntervalSet
+    LinkStreamBase<DirectedS>::get_time_interval_set(const typename LinkStreamBase<DirectedS>::edge_t &e)
+    {
+        return TimeIntervalSetVertexMap[e];
     }
 
     template<typename DirectedS>
@@ -261,9 +334,24 @@ namespace boost::bstream
         return sum / (interval_def.upper() - interval_def.lower());
     }
 
+    template<typename DirectedS>
+    void LinkStreamBase<DirectedS>::remove_vertex(const std::string &v)
+    {
+        for (auto it = this->neighbors(v).first; it != this->neighbors(v).second; ++it) {
+            //std::cout << "remove edge " << v << " " << this->label(*it) << std::endl;
+            auto edge = this->edge(this->vertex(v), *it);
+            if (edge.second) {
+                TimeIntervalSetVertexMap.erase(edge.first);
+            }
+        }
+        //std::cout << "TimeIntervalSetVertexMap size is " <<  TimeIntervalSetVertexMap.size() << std::endl;
+        GraphBase<DirectedS>::remove_vertex(v);
+    }
+
     template
     class LinkStreamBase<boost::undirectedS>;
 
     template
     class LinkStreamBase<boost::bidirectionalS>;
+
 }

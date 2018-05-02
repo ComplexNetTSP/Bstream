@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_clear_vertex_w_group)
     g.add_vertex_w_group(Bipartite::bipartite::top, "C");
     g.add_edge("A", "B");
     g.add_edge("C", "B");
-    g.clear_vertex_w_group(Bipartite::bipartite::top);
+    g.clear_vertex_w_group(vertex_group::top);
     BOOST_CHECK(g.num_vertices() == 1);
     BOOST_CHECK(g.num_edges() == 0);
 }
@@ -112,11 +112,11 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_adjacency)
 {
     Bipartite g;
 
-    g.add_vertex_w_group(Bipartite::bipartite::top, "1");
-    g.add_vertex_w_group(Bipartite::bipartite::bottom, "A");
-    g.add_vertex_w_group(Bipartite::bipartite::top, "2");
-    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
-    g.add_vertex_w_group(Bipartite::bipartite::top, "3");
+    g.add_vertex_w_group(vertex_group::top, "1");
+    g.add_vertex_w_group(vertex_group::bottom, "A");
+    g.add_vertex_w_group(vertex_group::top, "2");
+    g.add_vertex_w_group(vertex_group::bottom, "B");
+    g.add_vertex_w_group(vertex_group::top, "3");
 
     g.add_edge("1", "A");
     g.add_edge("2", "A");

@@ -55,6 +55,8 @@ namespace boost::bstream
 
         virtual int num_bottom_vertices();
 
+        virtual double density();
+
         ///**************************************************************************************************
         ///
         ///  Vertex method
@@ -68,7 +70,7 @@ namespace boost::bstream
 
         virtual int group(const std::string &v);
 
-        virtual void clear_vertex_w_group(int group);
+        virtual void clear_vertex_w_group(vertex_group group);
 
         ///**************************************************************************************************
         ///

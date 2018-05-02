@@ -43,6 +43,13 @@ namespace boost::bstream
         return num;
     }
 
+    // todo: make test for the density method
+    template<typename DirectedS>
+    double BipartiteBase<DirectedS>::density()
+    {
+        return this->num_edges()/(num_bottom_vertices() * num_top_vertices());
+    }
+
     template<typename DirectedS>
     MatrixXd BipartiteBase<DirectedS>::adjacency()
     {
@@ -92,12 +99,12 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void BipartiteBase<DirectedS>::clear_vertex_w_group(int group)
+    void BipartiteBase<DirectedS>::clear_vertex_w_group(vertex_group group)
     {
         auto labels = this->labels();
         for (auto it = labels.begin(); it != labels.end(); ++it) {
             auto v = this->vertex(*it);
-            if (this->group(v) == GraphBase<DirectedS>::bipartite::null)
+            if (this->group(v) == vertex_group::null)
                 throw BipartiteBaseException("Malformed Bipartie Graph");
             if (this->group(v) == group) {
                 this->remove_vertex(v);

@@ -140,3 +140,18 @@ BOOST_AUTO_TEST_CASE(test_TimeInterval_is_in_TimeIntervalSet)
     BOOST_CHECK(tsi.contains(7,10));
     BOOST_CHECK(tsi.contains(7,19) == false);
 }
+
+BOOST_AUTO_TEST_CASE(test_TimeInterval_intersection)
+{
+    TimeIntervalSet t1(0, 10), t2(0,10);
+    t1.append(0, 2);
+    t1.append(3, 9);
+    t2.append(1, 5);
+
+    //std::cout << t1 << std::endl;
+    //std::cout << t2 << std::endl;
+    BOOST_CHECK(t1.intersects(t2));
+    auto t3 = t1.intersection(t2);
+    BOOST_CHECK(t3.length() == 3);
+    //std::cout << t3 << std::endl;
+}

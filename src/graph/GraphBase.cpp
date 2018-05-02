@@ -440,6 +440,20 @@ namespace boost::bstream
         }
     }
 
+    template<typename DirectedS>
+    std::pair<typename GraphBase<DirectedS>::edge_t, bool>
+    GraphBase<DirectedS>::edge(const GraphBase::vertex_t &s, const GraphBase::vertex_t &t)
+    {
+        return boost::edge(s, t, this->G);
+    }
+
+    template<typename DirectedS>
+    std::pair<typename GraphBase<DirectedS>::edge_t, bool>
+    GraphBase<DirectedS>::edge(const std::string &s, const std::string &t)
+    {
+        return boost::edge(this->vertex(s), this->vertex(t), this->G);
+    }
+
     template
     class GraphBase<boost::undirectedS>;
 

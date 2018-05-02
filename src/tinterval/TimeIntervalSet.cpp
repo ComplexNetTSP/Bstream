@@ -39,7 +39,7 @@ namespace boost::bstream
         if (boost::icl::contains(interval_definition, ti)) {
             interval_set.insert(ti);
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -90,12 +90,28 @@ namespace boost::bstream
     bool TimeIntervalSet::contains(const time_t &t1, const time_t &t2)
     {
         auto ti = make_time_interval(t1, t2);
-        return boost::icl::contains(interval_set, ti);
+        return icl::contains(interval_set, ti);
+    }
+
+    bool TimeIntervalSet::intersects(TimeIntervalSet &s2)
+    {
+        return icl::intersects(this->interval_set, s2.interval_set);
+    }
+
+    TimeIntervalSet TimeIntervalSet::intersection(TimeIntervalSet &s2)
+    {
+        time_interval_set s3;
+        if (this->intersects(s2)) {
+            icl::add_intersection(s3, this->interval_set, s2.interval_set);
+            return TimeIntervalSet(this->interval_definition, s3);
+        } else {
+            throw TimeIntervalSetException("The two time interval are disjoint");
+        }
     }
 
     TimeInterval make_time_interval(time_t b, time_t e)
     {
-        if(e == 0)
+        if (e == 0)
             e = std::numeric_limits<time_t>::max();
         return TimeInterval::right_open(b, e);
     }

@@ -75,6 +75,8 @@ namespace boost::bstream
 
         virtual int group(const std::string &v);
 
+        virtual void clear_vertex_w_group(vertex_group group);
+
         ///**************************************************************************************************
         ///
         ///  Edge methods

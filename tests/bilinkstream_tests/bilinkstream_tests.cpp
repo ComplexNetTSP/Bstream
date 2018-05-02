@@ -11,6 +11,7 @@
 
 
 #include "GraphType.hpp"
+#include "bipartite.hpp"
 
 #define BOOST_TEST_MODULE BiLinkStream_tests
 
@@ -81,4 +82,43 @@ BOOST_AUTO_TEST_CASE(BiLinStream_add_edge)
     BOOST_CHECK(g.num_bottom_vertices() == 2);
     BOOST_CHECK((g.num_bottom_vertices() + g.num_top_vertices()) == g.num_vertices());
     //g.print_edges();
+}
+
+
+///*********************************************************************************************************************
+///
+/// Example taken from fig. 22 in [1]
+///
+/// [1] M. Latapy, T. Viard, C. Magnien,
+///     Stream Graphs and Link Streams for the Modeling of Interactions over Time, 2018.
+///     https://arxiv.org/pdf/1710.04073.pdf
+///
+///*********************************************************************************************************************
+BOOST_AUTO_TEST_CASE(BiLinStream_test_projection)
+{
+    // with initial definition interval
+    BiLinkStream g(0, 10);
+    g.add_vertex_w_group(vertex_group::top, "a");
+    g.add_vertex_w_group(vertex_group::top, "b");
+    g.add_vertex_w_group(vertex_group::top, "c");
+    g.add_vertex_w_group(vertex_group::bottom, "u");
+    g.add_vertex_w_group(vertex_group::bottom, "v");
+
+    g.add_edge_w_time("u", "a", 0, 2);
+    g.add_edge_w_time("u", "a", 3, 9);
+
+    g.add_edge_w_time("u", "b", 4, 5);
+    g.add_edge_w_time("u", "b", 8, 10);
+
+    g.add_edge_w_time("u", "c", 1, 5);
+
+    g.add_edge_w_time("v", "b", 2, 7);
+
+    g.add_edge_w_time("v", "c", 0, 8);
+
+    //g.print_edges();
+
+    LinkStream gproj;
+    projected_graph(vertex_group::top, g, gproj);
+    std::cout << gproj ;
 }

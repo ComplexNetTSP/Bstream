@@ -21,6 +21,12 @@ using Eigen::MatrixXd;
 
 namespace boost::bstream
 {
+    enum vertex_group {
+        null = 0,
+        top,
+        bottom
+    };
+
     class GraphAbstract
     {
     public:

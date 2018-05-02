@@ -121,6 +121,20 @@ namespace boost::bstream
         return this->G[this->vertex(v)].group;
     }
 
+    template<typename DirectedS>
+    void BiLinkStreamBase<DirectedS>::clear_vertex_w_group(vertex_group group)
+    {
+        auto labels = this->labels();
+        for (auto it = labels.begin(); it != labels.end(); ++it) {
+            auto v = this->vertex(*it);
+            if (this->group(v) == vertex_group::null)
+                throw BiLinkStreamBaseException("Malformed Bipartie Graph");
+            if (this->group(v) == group) {
+                this->remove_vertex(this->label(v));
+            }
+        }
+    }
+
     template
     class BiLinkStreamBase<boost::undirectedS>;
 } // end namespace boost::bstream

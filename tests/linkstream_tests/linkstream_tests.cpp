@@ -44,6 +44,45 @@ BOOST_AUTO_TEST_CASE(LinkStream_constructor)
     BOOST_CHECK(g2.definition().second == 10);
 }
 
+BOOST_AUTO_TEST_CASE(LinkStream_neighbors)
+{
+    LinkStream g(0,10);
+    auto a = g.add_vertex("A");
+    auto b = g.add_vertex("B");
+    auto c = g.add_vertex("C");
+    g.add_edge_w_time(a, b, 0, 10);
+    g.add_edge_w_time(b, c, 0, 10);
+    g.add_edge_w_time(c, a, 0, 10);
+
+    auto cpt = 0;
+    for(auto it = g.neighbors("A").first; it != g.neighbors("A").second; ++it){
+        cpt++;
+    }
+    BOOST_CHECK(cpt == 2);
+
+    cpt = 0;
+    for(auto it = g.neighbors(a).first; it != g.neighbors(a).second; ++it){
+        cpt++;
+    }
+
+    BOOST_CHECK(cpt == 2);
+}
+
+BOOST_AUTO_TEST_CASE(LinkStream_remove_vertex)
+{
+    LinkStream g(0,10);
+    auto a = g.add_vertex("A");
+    auto b = g.add_vertex("B");
+    auto c = g.add_vertex("C");
+    g.add_edge_w_time(a, b, 0, 10);
+    g.add_edge_w_time(b, c, 0, 10);
+    g.add_edge_w_time(c, a, 0, 10);
+    g.remove_vertex("A");
+
+    BOOST_CHECK(g.num_vertices() == 2);
+    BOOST_CHECK(g.num_edges() == 1);
+}
+
 BOOST_AUTO_TEST_CASE(LinkStream_add_edge_simple)
 {
     LinkStream::vertex_t a=0, b=1, c=2, d=3;

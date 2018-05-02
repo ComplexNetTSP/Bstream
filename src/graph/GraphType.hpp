@@ -15,12 +15,6 @@
 
 namespace boost::bstream
 {
-    enum vertex_group {
-        null = 0,
-        top,
-        bottom
-    };
-
     typedef LinkStreamBaseException LinkStreamException;
     typedef LinkStreamBaseException DiLinkStreamException;
 
