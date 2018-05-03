@@ -222,7 +222,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename LinkStreamBase<DirectedS>::edge_t
-    LinkStreamBase<DirectedS>::add_edge_w_time(const std::string &s, const std::string &t, const TimeIntervalSet &tis)
+    LinkStreamBase<DirectedS>::add_edge_w_time(const std::string &s, const std::string &t, TimeIntervalSet &tis)
     {
         ///< add vertices if needed
         if (!this->has_vertex(s))
@@ -237,6 +237,9 @@ namespace boost::bstream
             TimeIntervalSetVertexMap[new_edge] = tis;
             return new_edge;
         } else {
+            for (auto tis_it = tis.begin(); tis_it != tis.end(); ++tis_it) {
+                TimeIntervalSetVertexMap[e.first].append(tis_it->lower(), tis_it->upper());
+            }
             return e.first;
         }
     }
@@ -245,7 +248,7 @@ namespace boost::bstream
     typename LinkStreamBase<DirectedS>::edge_t
     LinkStreamBase<DirectedS>::add_edge_w_time(const typename LinkStreamBase<DirectedS>::vertex_t &s,
                                                const typename LinkStreamBase<DirectedS>::vertex_t &t,
-                                               const TimeIntervalSet &tis)
+                                               TimeIntervalSet &tis)
     {
         ///< add vertices if needed
         if (!this->has_vertex(s))
@@ -260,6 +263,9 @@ namespace boost::bstream
             TimeIntervalSetVertexMap[new_edge] = tis;
             return new_edge;
         } else {
+            for (auto tis_it = tis.begin(); tis_it != tis.end(); ++tis_it) {
+                TimeIntervalSetVertexMap[e.first].append(tis_it->lower(), tis_it->upper());
+            }
             return e.first;
         }
 
@@ -338,13 +344,11 @@ namespace boost::bstream
     void LinkStreamBase<DirectedS>::remove_vertex(const std::string &v)
     {
         for (auto it = this->neighbors(v).first; it != this->neighbors(v).second; ++it) {
-            //std::cout << "remove edge " << v << " " << this->label(*it) << std::endl;
             auto edge = this->edge(this->vertex(v), *it);
             if (edge.second) {
                 TimeIntervalSetVertexMap.erase(edge.first);
             }
         }
-        //std::cout << "TimeIntervalSetVertexMap size is " <<  TimeIntervalSetVertexMap.size() << std::endl;
         GraphBase<DirectedS>::remove_vertex(v);
     }
 

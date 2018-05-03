@@ -112,12 +112,12 @@ namespace boost::bstream
         virtual typename LinkStreamBase<DirectedS>::edge_t
         add_edge_w_time(const std::string &s,
                         const std::string &t,
-                        const TimeIntervalSet &tis);
+                        TimeIntervalSet &tis);
 
         virtual typename LinkStreamBase<DirectedS>::edge_t
         add_edge_w_time(const typename LinkStreamBase<DirectedS>::vertex_t &s,
                         const typename LinkStreamBase<DirectedS>::vertex_t &t,
-                        const TimeIntervalSet &tis);
+                        TimeIntervalSet &tis);
 
 
         virtual TimeIntervalSet get_time_interval_set(const std::string &s, const std::string &t);

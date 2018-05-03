@@ -72,6 +72,7 @@ namespace boost::bstream
 
         time_t definition_length();
 
+        // todo: chaneg the name of this method
         std::pair<time_t, time_t> interval_def() const;
 
         void set_interval_def(const time_t &t1, const time_t &t2);
@@ -87,10 +88,14 @@ namespace boost::bstream
         time_t length();
 
         iterator begin()
-        { return interval_set.begin(); };
+        {
+            return interval_set.begin();
+        };
 
         iterator end()
-        { return interval_set.end(); };
+        {
+            return interval_set.end();
+        };
 
         bool contains(const time_t &t1, const time_t &t2);
 

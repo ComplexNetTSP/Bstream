@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_constructor)
 
     auto v_iterator = g1.vertices();
     unsigned i = 0;
-    for(auto it = v_iterator.first; it != v_iterator.second; ++it)
+    for (auto it = v_iterator.first; it != v_iterator.second; ++it)
         BOOST_CHECK(*it == i++);
 
     LinkStream g2(100, 0, 10);
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_constructor)
 
 BOOST_AUTO_TEST_CASE(LinkStream_neighbors)
 {
-    LinkStream g(0,10);
+    LinkStream g(0, 10);
     auto a = g.add_vertex("A");
     auto b = g.add_vertex("B");
     auto c = g.add_vertex("C");
@@ -55,13 +55,13 @@ BOOST_AUTO_TEST_CASE(LinkStream_neighbors)
     g.add_edge_w_time(c, a, 0, 10);
 
     auto cpt = 0;
-    for(auto it = g.neighbors("A").first; it != g.neighbors("A").second; ++it){
+    for (auto it = g.neighbors("A").first; it != g.neighbors("A").second; ++it) {
         cpt++;
     }
     BOOST_CHECK(cpt == 2);
 
     cpt = 0;
-    for(auto it = g.neighbors(a).first; it != g.neighbors(a).second; ++it){
+    for (auto it = g.neighbors(a).first; it != g.neighbors(a).second; ++it) {
         cpt++;
     }
 
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_neighbors)
 
 BOOST_AUTO_TEST_CASE(LinkStream_remove_vertex)
 {
-    LinkStream g(0,10);
+    LinkStream g(0, 10);
     auto a = g.add_vertex("A");
     auto b = g.add_vertex("B");
     auto c = g.add_vertex("C");
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_remove_vertex)
 
 BOOST_AUTO_TEST_CASE(LinkStream_add_edge_simple)
 {
-    LinkStream::vertex_t a=0, b=1, c=2, d=3;
+    LinkStream::vertex_t a = 0, b = 1, c = 2, d = 3;
     LinkStream g(4, 0, 10);
 
     g.add_edge(a, b);
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge_simple)
 
 BOOST_AUTO_TEST_CASE(LinkStream_add_edge)
 {
-    LinkStream::vertex_t a=0, b=1, c=2, d=3;
+    LinkStream::vertex_t a = 0, b = 1, c = 2, d = 3;
     LinkStream g(4, 0, 10);
     g.add_edge_w_time(a, b, 0, 4);
     g.add_edge_w_time(a, b, 6, 9);
@@ -111,9 +111,9 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge)
 
 BOOST_AUTO_TEST_CASE(LinkStream_exception)
 {
-    LinkStream::vertex_t a=0, b=1;
+    LinkStream::vertex_t a = 0, b = 1;
     LinkStream g(4, 0, 10);
-    BOOST_CHECK_THROW( g.add_edge_w_time(a, b, 0, 13), LinkStreamException);
+    BOOST_CHECK_THROW(g.add_edge_w_time(a, b, 0, 13), LinkStreamException);
 }
 
 //todo: add test for reading a cvs file
@@ -172,12 +172,10 @@ BOOST_AUTO_TEST_CASE(LinkStream_degree)
     L.add_edge_w_time(a, c, 2, 5);
     L.add_edge_w_time(d, c, 6, 9);
 
-    //L.print_edges();
-
-    // check the handshaking lemma
+    ///< check the handshaking lemma
     BOOST_CHECK(L.degree(c) == 1.3);
     double sum_degree = 0;
-    for(auto it = L.vertices().first; it!= L.vertices().second; ++it)
+    for (auto it = L.vertices().first; it != L.vertices().second; ++it)
         sum_degree += L.degree(*it);
     BOOST_CHECK(sum_degree == 2 * L.num_edges());
 }
@@ -199,7 +197,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_handshaking_lemma)
 
     // check the handshaking lemma
     double sum_degree = 0;
-    for(auto it = L.vertices().first; it!= L.vertices().second; ++it)
+    for (auto it = L.vertices().first; it != L.vertices().second; ++it)
         sum_degree += L.degree(*it);
     BOOST_CHECK(sum_degree == 2 * L.num_edges());
 }
@@ -234,4 +232,27 @@ BOOST_AUTO_TEST_CASE(LinkStream_density)
     LL.add_edge_w_time(cc, aa, 0, 5);
     auto density = 2 * LL.num_edges() / (LL.num_vertices() * (LL.num_vertices() - 1));
     BOOST_CHECK(LL.density() == density); // 0.5
+}
+
+
+BOOST_AUTO_TEST_CASE(LinkStream_add_edge_with_timeintervalset)
+{
+    LinkStream L(0, 10);
+    TimeIntervalSet t1(0, 10);
+    t1.append(0, 2);
+    t1.append(3, 5);
+
+    TimeIntervalSet t2(0, 10);
+    t2.append(6, 7);
+    t2.append(8, 10);
+
+    auto e1 = L.add_edge_w_time("A", "B", t1);
+    auto e1_prime = L.add_edge_w_time("A", "B", t2);
+    BOOST_CHECK(e1 == e1_prime);
+    BOOST_CHECK(L.get_time_interval_set("A", "B").length() == 7);
+    BOOST_CHECK(L.get_time_interval_set(e1).length() == 7);
+
+    auto def = L.get_time_interval_set(e1).interval_def();
+    BOOST_CHECK(def.first == 0);
+    BOOST_CHECK(def.second == 10);
 }
