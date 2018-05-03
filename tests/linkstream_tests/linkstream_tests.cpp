@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge_with_timeintervalset)
     BOOST_CHECK(L.edges_tinterval_set("A", "B").length() == 7);
     BOOST_CHECK(L.edges_tinterval_set(e1).length() == 7);
 
-    auto def = L.edges_tinterval_set(e1).interval_def();
+    auto def = L.edges_tinterval_set(e1).definition();
     BOOST_CHECK(def.first == 0);
     BOOST_CHECK(def.second == 10);
 }
