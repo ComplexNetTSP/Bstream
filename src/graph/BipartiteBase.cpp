@@ -43,7 +43,6 @@ namespace boost::bstream
         return num;
     }
 
-    // todo: make test for the density method
     template<typename DirectedS>
     double BipartiteBase<DirectedS>::density()
     {

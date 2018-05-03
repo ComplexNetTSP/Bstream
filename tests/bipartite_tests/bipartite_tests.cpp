@@ -156,4 +156,21 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_read_csv)
     BOOST_CHECK(g.has_edge("A", "2"));
 }
 
-// todo: add error cases
+BOOST_AUTO_TEST_CASE(BipartiteBase_density)
+{
+    Bipartite g;
+
+    g.add_vertex_w_group(vertex_group::top, "1");
+    g.add_vertex_w_group(vertex_group::top, "2");
+    g.add_vertex_w_group(vertex_group::top, "3");
+    g.add_vertex_w_group(vertex_group::bottom, "A");
+    g.add_vertex_w_group(vertex_group::bottom, "B");
+
+
+    g.add_edge("1", "A");
+    g.add_edge("2", "A");
+    g.add_edge("2", "B");
+    g.add_edge("3", "B");
+
+    BOOST_CHECK(g.density() == 2.0/3); ///< should be 4 /(3 * 2)
+}

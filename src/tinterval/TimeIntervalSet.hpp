@@ -23,12 +23,7 @@
 
 namespace boost::bstream
 {
-
-    typedef icl::interval_set<time_t> time_interval_set;
     typedef icl::interval_set<time_t>::interval_type TimeInterval;
-    typedef icl::interval_set<time_t>::iterator iterator;
-
-    TimeInterval make_time_interval(time_t b = 0, time_t e = 0);
 
     class TimeIntervalSetException : public std::runtime_error
     {
@@ -38,12 +33,15 @@ namespace boost::bstream
     };
 
     /**
-     * @class TIntervalSet
+     * @class TimeIntervalSet
      * @brief
      */
     class TimeIntervalSet
     {
     public:
+        typedef icl::interval_set<time_t> time_interval_set;
+        typedef icl::interval_set<time_t>::iterator iterator;
+
         static const time_t infinity = std::numeric_limits<time_t>::max();
 
         /**
@@ -72,13 +70,17 @@ namespace boost::bstream
 
         time_t definition_length();
 
-        // todo: chaneg the name of this method
-        std::pair<time_t, time_t> interval_def() const;
+        std::pair<time_t, time_t> definition() const;
 
-        void set_interval_def(const time_t &t1, const time_t &t2);
+        void set_definition(const time_t &t1, const time_t &t2);
 
         bool append(const time_t &t1, const time_t &t2);
 
+        /**
+         *
+         * @param s1
+         * @return
+         */
         bool intersects(TimeIntervalSet &s1);
 
         TimeIntervalSet intersection(TimeIntervalSet &s2);
@@ -119,6 +121,9 @@ namespace boost::bstream
         time_interval_set interval_set;
         TimeInterval interval_definition;
     };
+
+
+    TimeInterval make_time_interval(time_t b = 0, time_t e = 0);
 
 } // end namespace boost::bstream
 

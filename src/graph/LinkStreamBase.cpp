@@ -273,7 +273,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     TimeIntervalSet
-    LinkStreamBase<DirectedS>::get_time_interval_set(const std::string &s, const std::string &t)
+    LinkStreamBase<DirectedS>::edges_tinterval_set(const std::string &s, const std::string &t)
     {
         auto e = this->edge(s, t);
         if (e.second)
@@ -284,8 +284,8 @@ namespace boost::bstream
 
     template<typename DirectedS>
     TimeIntervalSet
-    LinkStreamBase<DirectedS>::get_time_interval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
-                                                     const typename LinkStreamBase<DirectedS>::vertex_t &t)
+    LinkStreamBase<DirectedS>::edges_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                                   const typename LinkStreamBase<DirectedS>::vertex_t &t)
     {
         auto e = this->edge(s, t);
         if (e.second)
@@ -296,7 +296,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     TimeIntervalSet
-    LinkStreamBase<DirectedS>::get_time_interval_set(const typename LinkStreamBase<DirectedS>::edge_t &e)
+    LinkStreamBase<DirectedS>::edges_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e)
     {
         return TimeIntervalSetVertexMap[e];
     }

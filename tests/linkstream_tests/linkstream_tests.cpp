@@ -81,6 +81,8 @@ BOOST_AUTO_TEST_CASE(LinkStream_remove_vertex)
 
     BOOST_CHECK(g.num_vertices() == 2);
     BOOST_CHECK(g.num_edges() == 1);
+
+    BOOST_CHECK_THROW(g.edges_tinterval_set("A", "B"), boost::bstream::LinkStreamBaseException);
 }
 
 BOOST_AUTO_TEST_CASE(LinkStream_add_edge_simple)
@@ -116,7 +118,6 @@ BOOST_AUTO_TEST_CASE(LinkStream_exception)
     BOOST_CHECK_THROW(g.add_edge_w_time(a, b, 0, 13), LinkStreamException);
 }
 
-//todo: add test for reading a cvs file
 BOOST_AUTO_TEST_CASE(LinkStream_read_edgefile)
 {
     LinkStream g;
@@ -249,10 +250,10 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge_with_timeintervalset)
     auto e1 = L.add_edge_w_time("A", "B", t1);
     auto e1_prime = L.add_edge_w_time("A", "B", t2);
     BOOST_CHECK(e1 == e1_prime);
-    BOOST_CHECK(L.get_time_interval_set("A", "B").length() == 7);
-    BOOST_CHECK(L.get_time_interval_set(e1).length() == 7);
+    BOOST_CHECK(L.edges_tinterval_set("A", "B").length() == 7);
+    BOOST_CHECK(L.edges_tinterval_set(e1).length() == 7);
 
-    auto def = L.get_time_interval_set(e1).interval_def();
+    auto def = L.edges_tinterval_set(e1).interval_def();
     BOOST_CHECK(def.first == 0);
     BOOST_CHECK(def.second == 10);
 }

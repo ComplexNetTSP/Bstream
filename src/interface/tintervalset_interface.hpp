@@ -17,13 +17,13 @@ namespace bs = boost::bstream;
 
 void tinterval_interface(py::module &m)
 {
-    py::class_<bs::TimeInterval> ti(m, "TimeInterval");
+    py::class_<bs::TimeInterval> ti(m, "time_interval");
     ti.def(py::init<>());
     ti.def("lower", &bs::TimeInterval::lower);
     ti.def("upper", &bs::TimeInterval::upper);
     ti.def("__repr__", [](bs::TimeInterval &ti) {
         std::ostringstream stream;
-        stream << "<class TimeInterval ["  << ti.lower() << "," << ti.upper() << ") >";
+        stream << "<class time_interval ["  << ti.lower() << "," << ti.upper() << ") >";
         return stream.str();
     });
 }
@@ -33,8 +33,8 @@ void tintervalset_interface(py::module &m)
     py::class_<bs::TimeIntervalSet> tis(m, "TimeIntervalSet");
     tis.def(py::init<>());
     tis.def(py::init<time_t, time_t>());
-    tis.def("interval_def", &bs::TimeIntervalSet::interval_def);
-    tis.def("set_interval_def", &bs::TimeIntervalSet::set_interval_def);
+    tis.def("definition", &bs::TimeIntervalSet::definition);
+    tis.def("set_definition", &bs::TimeIntervalSet::set_definition);
     tis.def("append", &bs::TimeIntervalSet::append);
     tis.def("size", &bs::TimeIntervalSet::size);
     tis.def("length", &bs::TimeIntervalSet::length);

@@ -15,6 +15,7 @@
 
 #include <boost/graph/erdos_renyi_generator.hpp>
 #include <boost/random/linear_congruential.hpp>
+#include <ctime>
 
 #include "GraphType.hpp"
 
@@ -23,13 +24,16 @@ namespace boost::bstream
     template <typename DirectedS>
     void erdos_renyi_graph(int n, float p, GraphBase<DirectedS>& graph, int seed=0)
     {
-        boost::minstd_rand gen;
+        typedef boost::minstd_rand RNG;
+        RNG rng;
         if(seed != 0)
-            gen.seed(seed);
+            rng.seed(seed);
+        else
+            rng.seed(time(0));
 
         typedef typename GraphBase<DirectedS>::Adjacency Adjacency;
         typedef boost::erdos_renyi_iterator<boost::minstd_rand, Adjacency> ERGen;
-        Adjacency g(ERGen(gen, n, p), ERGen(), n);
+        Adjacency g(ERGen(rng, n, p), ERGen(), n);
         graph.copy_adjacency(g);
     }
 } //end namespace boost::bstream

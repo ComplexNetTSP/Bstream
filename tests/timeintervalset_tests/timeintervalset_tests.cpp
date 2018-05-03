@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(constructor)
 
     TimeIntervalSet tsi(ti);
 
-    auto def = tsi.interval_def();
+    auto def = tsi.definition();
     BOOST_CHECK(def.first == t1);
     BOOST_CHECK(def.second == t2);
     BOOST_CHECK(tsi.definition_length() == 10);
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(empty_constructor)
     auto infinity = std::numeric_limits<time_t>::max();
     TimeIntervalSet tsi;
 
-    auto def = tsi.interval_def();
+    auto def = tsi.definition();
     BOOST_CHECK(def.first == 0);
     BOOST_CHECK(def.second == infinity);
     BOOST_CHECK(tsi.definition_length() == infinity);
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(time_t_constructor)
     time_t t1 = 0, t2 = 10;
     TimeIntervalSet tsi(t1, t2);
 
-    auto def = tsi.interval_def();
+    auto def = tsi.definition();
     BOOST_CHECK(def.first == t1);
     BOOST_CHECK(def.second == t2);
     BOOST_CHECK(tsi.definition_length() == 10);

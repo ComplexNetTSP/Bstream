@@ -23,13 +23,13 @@ using namespace std;
 
 BOOST_AUTO_TEST_CASE(Algorithms_erdos_reny)
 {
+    int seed = 11;
     Graph g;
-    erdos_renyi_graph(100, 0.02, g, 11);
-    BOOST_CHECK(g.num_vertices() == 100);
-    BOOST_CHECK(g.num_edges() == 99);
+    erdos_renyi_graph(10000, 0.0002, g, seed);
+    BOOST_CHECK(g.num_vertices() == 10000);
 
     DiGraph d;
-    erdos_renyi_graph(100, 0.02, d, 11);
+    erdos_renyi_graph(100, 0.02, d, seed);
     BOOST_CHECK(d.num_vertices() == 100);
     BOOST_CHECK(d.num_edges() == 199);
 }

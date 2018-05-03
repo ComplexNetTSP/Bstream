@@ -45,13 +45,13 @@ namespace boost::bstream
     }
 
     void
-    TimeIntervalSet::set_interval_def(const time_t &t1, const time_t &t2)
+    TimeIntervalSet::set_definition(const time_t &t1, const time_t &t2)
     {
         interval_definition = make_time_interval(t1, t2);
     }
 
     pair<time_t, time_t>
-    TimeIntervalSet::interval_def() const
+    TimeIntervalSet::definition() const
     {
         auto l = interval_definition.lower();
         auto u = interval_definition.upper();
@@ -109,10 +109,13 @@ namespace boost::bstream
         }
     }
 
+    ///< functions
     TimeInterval make_time_interval(time_t b, time_t e)
     {
         if (e == 0)
             e = std::numeric_limits<time_t>::max();
+        if (b >= e)
+            throw std::runtime_error("invalid time interval definition");
         return TimeInterval::right_open(b, e);
     }
 }
