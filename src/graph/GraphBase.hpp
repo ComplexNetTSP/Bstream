@@ -177,6 +177,10 @@ namespace boost::bstream
 
         // todo: definie the node clustering coefficient
 
+        virtual double clustering(const std::string &v);
+
+        virtual double clustering(const vertex_t &v);
+
         /**
          * @brief return in_degree of a vertex
          * @param v vertex_t

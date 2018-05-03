@@ -18,11 +18,13 @@ namespace bs = boost::bstream;
 #include "GraphType.hpp"
 #include "graph_generators_interface.hpp"
 #include "bipartite_algorithms_interface.hpp"
+#include "metrics_interfaces.hpp"
 
 void algorithms_interface(py::module &m)
 {
     bipartite_algorithms_interface(m);
     graph_generators_interface(m);
+    metrics_interface(m);
 }
 
 #endif //BSTREAM_ALGORITHMS_HPP

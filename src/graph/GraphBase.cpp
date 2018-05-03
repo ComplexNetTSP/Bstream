@@ -305,6 +305,31 @@ namespace boost::bstream
         return boost::vertices(G);
     }
 
+    template<typename DirectedS>
+    double GraphBase<DirectedS>::clustering(const std::string &v)
+    {
+        return this->clustering(this->vertex(v));
+    }
+
+    template<typename DirectedS>
+    double GraphBase<DirectedS>::clustering(const GraphBase::vertex_t &v)
+    {
+        if(!has_vertex(v))
+            throw GraphBaseException("Vertex doesn't exist");
+
+        auto k_i = this->degree(v);
+        double ci = 0;
+        for (auto i = this->neighbors(v).first; i != this->neighbors(v).second; ++i) {
+            for (auto j = this->neighbors(v).first; j != this->neighbors(v).second; ++j) {
+                if (*i != *j) {
+                    if (this->has_edge(*i, *j)) {
+                        ci++;
+                    }
+                }
+            }
+        }
+        return ci / (k_i * (k_i - 1));
+    }
 
     ///**************************************************************************************************
     ///

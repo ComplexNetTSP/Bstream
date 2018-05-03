@@ -374,3 +374,33 @@ BOOST_AUTO_TEST_CASE(GraphBase_read_csv)
     BOOST_CHECK(g.num_vertices() == 4);
     BOOST_CHECK(g.num_edges() == 6);
 }
+
+BOOST_AUTO_TEST_CASE(GraphBase_clustering)
+{
+    Graph g;
+    g.add_vertex("i");
+    g.add_vertex("A");
+    g.add_vertex("B");
+    g.add_vertex("C");
+    g.add_vertex("D");
+
+    g.add_edge("i", "A");
+    g.add_edge("i", "B");
+    g.add_edge("i", "C");
+    g.add_edge("i", "D");
+
+    BOOST_CHECK(g.clustering("i") == 0);
+
+    g.add_edge("A", "B");
+    g.add_edge("B", "C");
+    g.add_edge("C", "D");
+
+    BOOST_CHECK(g.clustering("i") == 0.5);
+
+    g.add_edge("D", "A");
+    g.add_edge("A", "C");
+    g.add_edge("B", "D");
+
+    BOOST_CHECK(g.clustering("i") == 1);
+
+}
