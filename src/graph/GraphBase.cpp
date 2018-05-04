@@ -429,7 +429,7 @@ namespace boost::bstream
     void GraphBase<DirectedS>::clear_edges()
     {
         vertex_iterator vit, vit_end;
-        for (boost::tie(vit, vit_end) = this->vertices(); vit != vit_end; ++vit) {
+        for (tie(vit, vit_end) = this->vertices(); vit != vit_end; ++vit) {
             boost::clear_vertex(*vit, G);
         }
     }

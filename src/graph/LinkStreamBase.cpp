@@ -180,11 +180,11 @@ namespace boost::bstream
 
     template<typename DirectedS>
     typename LinkStreamBase<DirectedS>::edge_t
-    LinkStreamBase<DirectedS>::add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t &s,
-                                               const typename GraphBase<DirectedS>::vertex_t &t,
+    LinkStreamBase<DirectedS>::add_edge_w_time(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                               const typename LinkStreamBase<DirectedS>::vertex_t &t,
                                                time_t b, time_t e)
     {
-        typename GraphBase<DirectedS>::edge_t edge_exist;
+        typename LinkStreamBase<DirectedS>  ::edge_t edge_exist;
         bool ok;
 
         ///< check that the edge time interval is in the linkstream definition interval
@@ -195,7 +195,7 @@ namespace boost::bstream
             throw LinkStreamBaseException(msg.str());
         }
 
-        std::tie(edge_exist, ok) = boost::edge(s, t, this->G);
+        tie(edge_exist, ok) = boost::edge(s, t, this->G);
         if (ok) {
             TimeIntervalSetVertexMap[edge_exist].append(b, e);
             return edge_exist;
@@ -302,10 +302,10 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    pair<typename GraphBase<DirectedS>::edge_t, bool>
+    pair<typename LinkStreamBase<DirectedS>::edge_t, bool>
     LinkStreamBase<DirectedS>::is_edge_active(
-            const typename GraphBase<DirectedS>::vertex_t &s,
-            const typename GraphBase<DirectedS>::vertex_t &t,
+            const typename LinkStreamBase<DirectedS>::vertex_t &s,
+            const typename LinkStreamBase<DirectedS>::vertex_t &t,
             time_t b, time_t e)
     {
         auto res = boost::edge(s, t, this->G);

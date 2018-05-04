@@ -175,8 +175,6 @@ namespace boost::bstream
 
         virtual double degree(const std::string &v);
 
-        // todo: definie the node clustering coefficient
-
         virtual double clustering(const std::string &v);
 
         virtual double clustering(const vertex_t &v);
@@ -242,6 +240,13 @@ namespace boost::bstream
         virtual void remove_edge(const std::string &s, const std::string &t);
 
         std::pair<edge_iterator, edge_iterator> edges();
+
+        ///**************************************************************************************************
+        ///
+        ///  Property method
+        ///
+        ///**************************************************************************************************
+
 
         friend std::ostream &operator<<(std::ostream &out, GraphBase &g)
         {

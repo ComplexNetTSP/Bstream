@@ -82,6 +82,8 @@ namespace boost::bstream
 
         void remove_vertex(const std::string &v);
 
+        // todo: add a method to compute the density
+
         ///**************************************************************************************************
         ///
         ///  Edge method
@@ -97,8 +99,8 @@ namespace boost::bstream
 
 
         virtual typename LinkStreamBase<DirectedS>::edge_t
-        add_edge_w_time(const typename GraphBase<DirectedS>::vertex_t &s,
-                        const typename GraphBase<DirectedS>::vertex_t &t,
+        add_edge_w_time(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                        const typename LinkStreamBase<DirectedS>::vertex_t &t,
                         time_t b, time_t e);
 
         virtual typename LinkStreamBase<DirectedS>::edge_t
@@ -124,9 +126,9 @@ namespace boost::bstream
 
         virtual TimeIntervalSet edges_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e);
 
-        std::pair<typename GraphBase<DirectedS>::edge_t, bool>
-        is_edge_active(const typename GraphBase<DirectedS>::vertex_t &s,
-                       const typename GraphBase<DirectedS>::vertex_t &t,
+        std::pair<typename LinkStreamBase<DirectedS>::edge_t, bool>
+        is_edge_active(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                       const typename LinkStreamBase<DirectedS>::vertex_t &t,
                        time_t b, time_t e);
 
         friend std::ostream &operator<<(std::ostream &out, LinkStreamBase &l)
@@ -142,7 +144,7 @@ namespace boost::bstream
 
     protected:
         TimeInterval interval_def;
-        std::map<typename GraphBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalSetVertexMap;
+        std::map<typename LinkStreamBase<DirectedS>::edge_t, TimeIntervalSet> TimeIntervalSetVertexMap;
     };
 }
 

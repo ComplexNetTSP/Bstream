@@ -25,5 +25,5 @@ namespace boost::bstream
         }
         return avg_degree / g.num_vertices();
     }
-}
+} // end namespace boost::bstream
 #endif //BSTREAM_DEGREE_HPP
