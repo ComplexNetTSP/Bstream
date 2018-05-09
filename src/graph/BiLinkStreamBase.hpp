@@ -13,6 +13,8 @@
 #ifndef BSTREAM_DILINKSTREAM_HPP
 #define BSTREAM_DILINKSTREAM_HPP
 
+#include <string>
+
 #include "GraphBase.hpp"
 #include "LinkStreamBase.hpp"
 #include "TimeIntervalSet.hpp"
@@ -61,7 +63,7 @@ namespace boost::bstream
 
         virtual int num_bottom_vertices();
 
-        void print_edges();
+        std::string print_edges();
 
         ///**************************************************************************************************
         ///

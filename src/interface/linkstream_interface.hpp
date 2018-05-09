@@ -44,11 +44,16 @@ void linkstream_interface(py::module &m)
     linkstream.def("add_edge_w_time", py::overload_cast<const std::string &, const std::string &, time_t, time_t>(
             &bs::LinkStream::add_edge_w_time));
 
+    linkstream.def("edge_tinterval_set", py::overload_cast<const bs::LinkStream::edge_t &>(&bs::LinkStream::edge_tinterval_set));
+    // todo: add edge_tinterval_set method for the other interface
+
     linkstream.def("is_edge_active", &bs::LinkStream::is_edge_active);
     linkstream.def("degree", &bs::LinkStream::degree);
     linkstream.def("density", &bs::LinkStream::density);
-    linkstream.def("print_edges", &bs::LinkStream::print_edges);
+
     linkstream.def("read_csv", &bs::LinkStream::read_csv, py::arg("path"), py::arg("delimiter") = ',');
+
+    linkstream.def("print_edges", &bs::LinkStream::print_edges);
 
     linkstream.def("__repr__", [](bs::LinkStream &g) {
         std::ostringstream out;

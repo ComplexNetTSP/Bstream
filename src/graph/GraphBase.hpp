@@ -125,7 +125,7 @@ namespace boost::bstream
          */
         double num_edges();
 
-        void print_edges();
+        std::string print_edges();
 
         void clear_vertices();
 
@@ -219,6 +219,8 @@ namespace boost::bstream
         virtual std::pair<edge_t, bool> edge(const vertex_t &s, const vertex_t &t);
 
         virtual std::pair<edge_t, bool> edge(const std::string &s, const std::string &t);
+
+        virtual std::pair<vertex_t, vertex_t> edge_endpoint(const edge_t &e);
 
         /**
          * @brief test if the edge (u,v) exist

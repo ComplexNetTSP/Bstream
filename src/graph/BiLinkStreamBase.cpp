@@ -2,6 +2,8 @@
 // Created by Vincent Gauthier on 30/04/2018.
 //
 
+#include <iostream>
+#include <sstream>
 #include "BiLinkStreamBase.hpp"
 
 namespace boost::bstream
@@ -35,22 +37,24 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void BiLinkStreamBase<DirectedS>::print_edges()
+    std::string BiLinkStreamBase<DirectedS>::print_edges()
     {
-        std::cout << *this << std::endl;
+        std::ostringstream os;
+        os << *this << std::endl;
         auto e_iterator = this->edges();
         for(auto it=e_iterator.first; it != e_iterator.second; ++it){
             auto s = boost::source(*it, this->G);
             auto t = boost::target(*it, this->G);
             auto s_name = this->label(s);
             auto t_name = this->label(t);
-            std::cout << "\t" << this->TimeIntervalSetVertexMap[*it] << " x "
+            os << "\t" << this->TimeIntervalSetVertexMap[*it] << " x "
                  << "(" << s << "," << t << ")" ;
             if(!s_name.empty() && !t_name.empty())
-                std::cout << " with name (" << s_name << "," << t_name << ")" ;
-            std::cout << " with group (" << std::to_string(this->group(s)) << "," << std::to_string(this->group(t))<< ")" ;
-            std::cout << std::endl;
+                os << " with name (" << s_name << "," << t_name << ")" ;
+            os << " with group (" << std::to_string(this->group(s)) << "," << std::to_string(this->group(t))<< ")" ;
+            os << std::endl;
         }
+        return os.str();
     }
 
     ///**************************************************************************************************

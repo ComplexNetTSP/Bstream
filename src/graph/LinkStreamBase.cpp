@@ -74,21 +74,23 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void LinkStreamBase<DirectedS>::print_edges()
+    std::string LinkStreamBase<DirectedS>::print_edges()
     {
-        cout << *this << endl;
+        std::ostringstream os;
+        os << *this << endl;
         auto e_iterator = this->edges();
         for (auto it = e_iterator.first; it != e_iterator.second; ++it) {
             auto s = boost::source(*it, this->G);
             auto t = boost::target(*it, this->G);
             auto s_name = this->label(s);
             auto t_name = this->label(t);
-            cout << "\t" << TimeIntervalSetVertexMap[*it] << " x "
+            os << "\t" << TimeIntervalSetVertexMap[*it] << " x "
                  << "(" << s << "," << t << ")";
             if (!s_name.empty() && !t_name.empty())
-                cout << " with name (" << s_name << "," << t_name << ")";
-            cout << endl;
+                os << " with name (" << s_name << "," << t_name << ")";
+            os << endl;
         }
+        return os.str();
     }
 
     template<typename DirectedS>
@@ -273,7 +275,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     TimeIntervalSet
-    LinkStreamBase<DirectedS>::edges_tinterval_set(const std::string &s, const std::string &t)
+    LinkStreamBase<DirectedS>::edge_tinterval_set(const std::string &s, const std::string &t)
     {
         auto e = this->edge(s, t);
         if (e.second)
@@ -284,7 +286,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     TimeIntervalSet
-    LinkStreamBase<DirectedS>::edges_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+    LinkStreamBase<DirectedS>::edge_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
                                                    const typename LinkStreamBase<DirectedS>::vertex_t &t)
     {
         auto e = this->edge(s, t);
@@ -296,7 +298,7 @@ namespace boost::bstream
 
     template<typename DirectedS>
     TimeIntervalSet
-    LinkStreamBase<DirectedS>::edges_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e)
+    LinkStreamBase<DirectedS>::edge_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e)
     {
         return TimeIntervalSetVertexMap[e];
     }

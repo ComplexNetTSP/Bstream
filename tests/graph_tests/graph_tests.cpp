@@ -10,11 +10,15 @@
 ///-------------------------------------------------------------------------------------------------
 
 #include <Eigen/Core>
+#include <boost/property_map/property_map.hpp>
+#include <boost/property_map/dynamic_property_map.hpp>
+
 #include "GraphType.hpp"
 
 #define BOOST_TEST_MODULE GraphBase_tests
 
 #include <boost/test/included/unit_test.hpp>
+
 
 using namespace std;
 using namespace boost;
@@ -402,5 +406,29 @@ BOOST_AUTO_TEST_CASE(GraphBase_clustering)
     g.add_edge("B", "D");
 
     BOOST_CHECK(g.clustering("i") == 1);
+
+}
+
+BOOST_AUTO_TEST_CASE(GraphBase_boosttest)
+{
+    using boost::get;
+    std::map<std::string, int> name2age;
+    std::map<std::string, double> name2gpa;
+    boost::associative_property_map< std::map<std::string, int> > age_map(name2age);
+    boost::associative_property_map< std::map<std::string, double> > gpa_map(name2gpa);
+
+    std::string fred("Fred");
+    // add key-value information
+    name2age.insert(make_pair(fred,17));
+    name2gpa.insert(make_pair(fred,2.7));
+    name2age.insert(make_pair("vincent",77));
+
+    // build and populate dynamic interface
+    boost::dynamic_properties properties;
+    properties.property("age",age_map);
+    properties.property("gpa",gpa_map);
+
+
+    cout << get(age_map, "vincent") << endl;
 
 }

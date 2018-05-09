@@ -27,7 +27,13 @@ void bipartite_algorithms_interface(py::module &m)
     ///
     ///**************************************************************************************************
 
-    m.def("projected_graph", [](int projection_node, bs::Bipartite& b){
+    m.def("projected_graph", [](bs::vertex_group projection_node, bs::BiLinkStream& b){
+        bs::LinkStream *g = new bs::LinkStream();
+        bs::projected_graph(projection_node, b, *g);
+        return g;
+    }, py::arg("projection_node"), py::arg("Bipartite"));
+
+    m.def("projected_graph", [](bs::vertex_group projection_node, bs::Bipartite& b){
         bs::Graph *g = new bs::Graph();
         bs::projected_graph(projection_node, b, *g);
         return g;
@@ -49,5 +55,6 @@ void bipartite_algorithms_interface(py::module &m)
 
     )pbdoc");
 }
+
 
 #endif //BSTREAM_BIPARTITE_ALGORITHMS_INTERFACE_HPP

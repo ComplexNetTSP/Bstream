@@ -68,7 +68,7 @@ namespace boost::bstream
 
         double density();
 
-        void print_edges();
+        std::string print_edges();
 
         void read_csv(std::string path, char delimiter = ',');
 
@@ -119,12 +119,12 @@ namespace boost::bstream
                         TimeIntervalSet &tis);
 
 
-        virtual TimeIntervalSet edges_tinterval_set(const std::string &s, const std::string &t);
+        virtual TimeIntervalSet edge_tinterval_set(const std::string &s, const std::string &t);
 
-        virtual TimeIntervalSet edges_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+        virtual TimeIntervalSet edge_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
                                                     const typename LinkStreamBase<DirectedS>::vertex_t &t);
 
-        virtual TimeIntervalSet edges_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e);
+        virtual TimeIntervalSet edge_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e);
 
         std::pair<typename LinkStreamBase<DirectedS>::edge_t, bool>
         is_edge_active(const typename LinkStreamBase<DirectedS>::vertex_t &s,

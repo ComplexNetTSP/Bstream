@@ -323,6 +323,9 @@ Args:
 )pbdoc"
     );
 
+    // todo: add this method to the digraph interface
+    graph.def("edge_endpoint", &bs::Graph::edge_endpoint);
+
 
     graph.def("clear", &bs::Graph::clear, R"pbdoc(
 Remove all the vertices and edges present inside the adjacency list.

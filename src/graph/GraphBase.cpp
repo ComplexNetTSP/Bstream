@@ -133,19 +133,21 @@ namespace boost::bstream
     }
 
     template<typename DirectedS>
-    void GraphBase<DirectedS>::print_edges()
+    std::string GraphBase<DirectedS>::print_edges()
     {
-        std::cout << *this;
+        std::ostringstream os;
+        os << *this;
         for (auto it = this->edges().first; it != this->edges().second; ++it) {
             auto s = boost::source(*it, this->G);
             auto t = boost::target(*it, this->G);
             auto s_name = this->label(s);
             auto t_name = this->label(t);
-            cout << "\t" << "(" << s << "," << t << ")";
+            os << "\t" << "(" << s << "," << t << ")";
             if (!s_name.empty() && !t_name.empty())
-                cout << "\t (" << s_name << "," << t_name << ")";
-            cout << endl;
+                os << "\t (" << s_name << "," << t_name << ")";
+            os << endl;
         }
+        return os.str();
     }
 
     ///**************************************************************************************************
@@ -477,6 +479,15 @@ namespace boost::bstream
     GraphBase<DirectedS>::edge(const std::string &s, const std::string &t)
     {
         return boost::edge(this->vertex(s), this->vertex(t), this->G);
+    }
+
+    template<typename DirectedS>
+    std::pair<typename GraphBase<DirectedS>::vertex_t, typename GraphBase<DirectedS>::vertex_t>
+    GraphBase<DirectedS>::edge_endpoint(const typename GraphBase<DirectedS>::edge_t &e)
+    {
+        auto source = boost::source(e, this->G);
+        auto target = boost::target(e, this->G);
+        return std::make_pair(source, target);
     }
 
     template
