@@ -27,33 +27,34 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_constructor)
     BOOST_CHECK(g.is_directed() == false);
 }
 
+// todo: make sure I declared correctly the vertex_group
 BOOST_AUTO_TEST_CASE(BipartiteBase_add_vertex)
 {
     Bipartite g;
 
-    auto v1 = g.add_vertex_w_group(Bipartite::bipartite::top, "A");
-    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
-    g.add_vertex_w_group(Bipartite::bipartite::top, "C");
+    auto v1 = g.add_vertex_w_group(vertex_group::top, "A");
+    g.add_vertex_w_group(vertex_group::bottom, "B");
+    g.add_vertex_w_group(vertex_group::top, "C");
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 0);
     BOOST_CHECK(g.is_directed() == false);
-    BOOST_CHECK(g.group(v1) == Bipartite::bipartite::top);
-    BOOST_CHECK(g.group("A") == Bipartite::bipartite::top);
+    BOOST_CHECK(g.group(v1) == vertex_group::top);
+    BOOST_CHECK(g.group("A") == vertex_group::top);
 }
 
 BOOST_AUTO_TEST_CASE(BipartiteBase_add_edge)
 {
     Bipartite g;
 
-    auto v1 = g.add_vertex_w_group(Bipartite::bipartite::top, "A");
-    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
-    g.add_vertex_w_group(Bipartite::bipartite::top, "C");
+    auto v1 = g.add_vertex_w_group(vertex_group::top, "A");
+    g.add_vertex_w_group(vertex_group::bottom, "B");
+    g.add_vertex_w_group(vertex_group::top, "C");
 
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 0);
     BOOST_CHECK(g.is_directed() == false);
-    BOOST_CHECK(g.group(v1) == Bipartite::bipartite::top);
-    BOOST_CHECK(g.group("A") == Bipartite::bipartite::top);
+    BOOST_CHECK(g.group(v1) == vertex_group::top);
+    BOOST_CHECK(g.group("A") == vertex_group::top);
 
     g.add_edge("A", "B");
     g.add_edge("C", "B");
@@ -63,15 +64,15 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_add_edge_exception)
 {
     Bipartite g;
 
-    auto v1 = g.add_vertex_w_group(Bipartite::bipartite::top, "A");
-    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
-    g.add_vertex_w_group(Bipartite::bipartite::top, "C");
+    auto v1 = g.add_vertex_w_group(vertex_group::top, "A");
+    g.add_vertex_w_group(vertex_group::bottom, "B");
+    g.add_vertex_w_group(vertex_group::top, "C");
 
     BOOST_CHECK(g.num_vertices() == 3);
     BOOST_CHECK(g.num_edges() == 0);
     BOOST_CHECK(g.is_directed() == false);
-    BOOST_CHECK(g.group(v1) == Bipartite::bipartite::top);
-    BOOST_CHECK(g.group("A") == Bipartite::bipartite::top);
+    BOOST_CHECK(g.group(v1) == vertex_group::top);
+    BOOST_CHECK(g.group("A") == vertex_group::top);
 
     BOOST_CHECK_THROW(g.add_edge("A", "C"), BipartiteBaseException);
 }
@@ -81,13 +82,13 @@ BOOST_AUTO_TEST_CASE(BipartiteBase_projected_graph)
     Bipartite g;
     Graph gproj;
 
-    g.add_vertex_w_group(Bipartite::bipartite::top, "A");
-    g.add_vertex_w_group(Bipartite::bipartite::bottom, "B");
-    g.add_vertex_w_group(Bipartite::bipartite::top, "C");
+    g.add_vertex_w_group(vertex_group::top, "A");
+    g.add_vertex_w_group(vertex_group::bottom, "B");
+    g.add_vertex_w_group(vertex_group::top, "C");
     g.add_edge("A", "B");
     g.add_edge("C", "B");
 
-    projected_graph(Bipartite::bipartite::top, g, gproj);
+    projected_graph(vertex_group::top, g, gproj);
     BOOST_CHECK(gproj.num_vertices() == 2);
     BOOST_CHECK(gproj.num_edges() == 1);
     BOOST_CHECK(gproj.is_directed() == false);
