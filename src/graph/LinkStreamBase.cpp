@@ -11,6 +11,7 @@
 
 
 #include <limits>
+#include <map>
 #include <boost/icl/interval_set.hpp>
 
 #include "LinkStreamBase.hpp"
@@ -287,7 +288,7 @@ namespace boost::bstream
     template<typename DirectedS>
     TimeIntervalSet
     LinkStreamBase<DirectedS>::edge_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
-                                                   const typename LinkStreamBase<DirectedS>::vertex_t &t)
+                                                  const typename LinkStreamBase<DirectedS>::vertex_t &t)
     {
         auto e = this->edge(s, t);
         if (e.second)
@@ -340,6 +341,63 @@ namespace boost::bstream
             sum += TimeIntervalSetVertexMap[e.first].length();
         }
         return sum / (interval_def.upper() - interval_def.lower());
+    }
+
+    template<typename DirectedS>
+    double LinkStreamBase<DirectedS>::degree(const std::string &v)
+    {
+        return degree(this->vertex(v));
+    }
+
+    template<typename DirectedS>
+    std::map<time_t, int>
+    LinkStreamBase<DirectedS>::instantaneous_degree(const typename GraphBase<DirectedS>::vertex_t &v)
+    {
+        std::map<time_t, int> inst_degree ;
+        std::map<time_t, int> cum_inst_degree ;
+
+        ///< return and empty map when a vertex a no neighbor
+        if(this->neighbors(v).first == this->neighbors(v).second){
+            cum_inst_degree.insert( std::make_pair( definition().first, 0 ) );
+            return cum_inst_degree;
+        }
+
+
+        for(auto it = this->neighbors(v).first; it != this->neighbors(v).second; ++it){
+            auto e = this->edge(v, *it);
+            for(auto ti = TimeIntervalSetVertexMap[e.first].begin(); ti != TimeIntervalSetVertexMap[e.first ].end(); ++ti){
+                auto map_it_lower = inst_degree.find((*ti).lower());
+
+                if ( map_it_lower != inst_degree.end() ) {
+                    ++inst_degree[(*ti).lower()];
+                } else {
+                    inst_degree.insert( std::make_pair( (*ti).lower(), +1 ) );
+                }
+
+                auto map_it_upper = inst_degree.find((*ti).upper());
+                if ( map_it_upper != inst_degree.end() ) {
+                    --inst_degree[(*ti).upper()];
+                } else {
+                    inst_degree.insert( std::make_pair( (*ti).upper(), -1 ) );
+                }
+            }
+        }
+
+        ///< compute the cumsum of the degree over time
+        double cumsum = 0;
+        for(auto it = inst_degree.begin(); it != inst_degree.end(); ++it){
+            cumsum += (*it).second;
+            cum_inst_degree.insert( std::make_pair((*it).first, cumsum ) );
+        }
+
+        return cum_inst_degree;
+    }
+
+    template<typename DirectedS>
+    std::map<time_t, int>
+    LinkStreamBase<DirectedS>::instantaneous_degree(const std::string &v)
+    {
+        return instantaneous_degree(this->vertex(v));
     }
 
     template<typename DirectedS>

@@ -490,6 +490,7 @@ namespace boost::bstream
         return std::make_pair(source, target);
     }
 
+
     template
     class GraphBase<boost::undirectedS>;
 

@@ -80,6 +80,12 @@ namespace boost::bstream
 
         double degree(const typename GraphBase<DirectedS>::vertex_t &v);
 
+        double degree(const std::string &v);
+
+        std::map<time_t, int> instantaneous_degree(const typename GraphBase<DirectedS>::vertex_t &v);
+
+        std::map<time_t, int> instantaneous_degree(const std::string &v);
+
         void remove_vertex(const std::string &v);
 
         // todo: add a method to compute the density

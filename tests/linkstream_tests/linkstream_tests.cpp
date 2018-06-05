@@ -257,3 +257,34 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge_with_timeintervalset)
     BOOST_CHECK(def.first == 0);
     BOOST_CHECK(def.second == 10);
 }
+
+BOOST_AUTO_TEST_CASE(LinkStream_instantaneous_degree)
+{
+    LinkStream L(0, 10);
+    auto a = L.add_vertex("A");
+    auto b = L.add_vertex("B");
+    auto c = L.add_vertex("C");
+    L.add_edge_w_time(a, b, 1, 4);
+    L.add_edge_w_time(a, b, 5, 9);
+    L.add_edge_w_time(b, c, 0, 10);
+    L.add_edge_w_time(c, a, 1, 2);
+    L.add_edge_w_time(c, a, 3, 6);
+    L.add_edge_w_time(c, a, 7, 9);
+    auto ret = L.instantaneous_degree(a);
+    std::vector<int> results = {2, 1, 2, 1, 2, 1, 2, 0};
+    auto v_it = results.begin();
+    for(auto it = ret.begin(); it != ret.end(); ++it){
+        BOOST_CHECK(*v_it == it->second );
+        ++v_it;
+    }
+}
+
+
+BOOST_AUTO_TEST_CASE(LinkStream_test_bidirectional)
+{
+    LinkStream L(0, 10);
+    auto a = L.add_vertex("A");
+    auto b = L.add_vertex("B");
+    L.add_edge_w_time(a, b, 0, 10);
+    BOOST_CHECK(L.edge(a, b) == L.edge(b, a));
+}
