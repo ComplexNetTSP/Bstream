@@ -33,3 +33,5 @@ BOOST_AUTO_TEST_CASE(Algorithms_erdos_reny)
     BOOST_CHECK(d.num_vertices() == 100);
     BOOST_CHECK(d.num_edges() == 199);
 }
+
+//todo: add test with more complex example with time_t variable

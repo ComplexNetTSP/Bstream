@@ -77,6 +77,8 @@ namespace boost::bstream
 
         virtual int group(const std::string &v);
 
+        std::map<time_t, int> instantaneous_group_degree(vertex_group group);
+
         virtual void clear_vertex_w_group(vertex_group group);
 
         ///**************************************************************************************************

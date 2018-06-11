@@ -128,9 +128,18 @@ namespace boost::bstream
         virtual TimeIntervalSet edge_tinterval_set(const std::string &s, const std::string &t);
 
         virtual TimeIntervalSet edge_tinterval_set(const typename LinkStreamBase<DirectedS>::vertex_t &s,
-                                                    const typename LinkStreamBase<DirectedS>::vertex_t &t);
+                                                   const typename LinkStreamBase<DirectedS>::vertex_t &t);
 
         virtual TimeIntervalSet edge_tinterval_set(const typename LinkStreamBase<DirectedS>::edge_t &e);
+
+        //todo add the following definition
+        /*
+        virtual time_t edge_tinterval_length(const std::string &s, const std::string &t);
+
+        virtual time_t edge_tinterval_length(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                             const typename LinkStreamBase<DirectedS>::vertex_t &t);
+        */
+        virtual time_t edge_tinterval_length(const typename LinkStreamBase<DirectedS>::edge_t &e);
 
         std::pair<typename LinkStreamBase<DirectedS>::edge_t, bool>
         is_edge_active(const typename LinkStreamBase<DirectedS>::vertex_t &s,

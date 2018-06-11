@@ -66,7 +66,7 @@ Base class for undirected graphs.
                      py::arg("group"), py::arg("label") = "");
     bilinkstream.def("group", py::overload_cast<const std::string &>(&bs::BiLinkStream::group));
     bilinkstream.def("group", py::overload_cast<const bs::BiLinkStream::vertex_t &>(&bs::BiLinkStream::group));
-
+    bilinkstream.def("instantaneous_group_degree", &bs::BiLinkStream::instantaneous_group_degree);
     ///**************************************************************************************************
     ///
     ///  Edge methods

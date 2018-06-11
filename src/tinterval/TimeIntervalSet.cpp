@@ -61,12 +61,10 @@ namespace boost::bstream
     time_t
     TimeIntervalSet::length()
     {
-        time_t sum;
-        sum = accumulate(interval_set.begin(), interval_set.end(), 0,
-                         [](time_t a, TimeInterval b) {
-                             return a + (b.upper() - b.lower());
-                         });
-
+        time_t sum=0;
+        for(auto it = interval_set.begin(); it != interval_set.end(); ++it){
+            sum += it->upper() - it->lower();
+        }
         return sum;
     }
 

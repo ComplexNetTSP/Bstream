@@ -123,22 +123,26 @@ namespace boost::bstream
     {
         auto cvs = CSVReader(delimiter);
         auto graph = cvs.read(path);
-        int min_interval = std::numeric_limits<int>::max();
-        int max_interval = 0;
+        time_t min_interval = std::numeric_limits<time_t>::max();
+        time_t max_interval = 0;
         for (auto edge_it = graph.begin(); edge_it != graph.end(); ++edge_it) {
-            if (min_interval > std::stoi((*edge_it)[2]))
-                min_interval = std::stoi((*edge_it)[2]);
-            if (max_interval < std::stoi((*edge_it)[3]))
-                max_interval = std::stoi((*edge_it)[3]);
+            if (min_interval > std::stoull((*edge_it)[2]))
+                min_interval = std::stoull((*edge_it)[2]);
+            if (max_interval < std::stoull((*edge_it)[3]))
+                max_interval = std::stoull((*edge_it)[3]);
         }
 
         this->set_definition(min_interval, max_interval);
 
+        time_t tb, te;
         for (auto edge_it = graph.begin(); edge_it != graph.end(); ++edge_it) {
-            min_interval = std::stoi((*edge_it)[2]);
-            max_interval = std::stoi((*edge_it)[3]);
-            this->add_edge_w_time((*edge_it)[0], (*edge_it)[1], min_interval, max_interval);
+            tb = std::stoull((*edge_it)[2]);
+            te = std::stoull((*edge_it)[3]);
+            this->add_edge_w_time((*edge_it)[0], (*edge_it)[1], tb, te);
         }
+
+        graph.clear();
+        graph.shrink_to_fit();
     }
 
 
@@ -187,7 +191,7 @@ namespace boost::bstream
                                                const typename LinkStreamBase<DirectedS>::vertex_t &t,
                                                time_t b, time_t e)
     {
-        typename LinkStreamBase<DirectedS>  ::edge_t edge_exist;
+        typename LinkStreamBase<DirectedS>::edge_t edge_exist;
         bool ok;
 
         ///< check that the edge time interval is in the linkstream definition interval
@@ -334,13 +338,13 @@ namespace boost::bstream
     template<typename DirectedS>
     double LinkStreamBase<DirectedS>::degree(const typename GraphBase<DirectedS>::vertex_t &v)
     {
-        double sum = 0;
+        time_t sum = 0;
         auto n_it = this->neighbors(v);
         for (auto it = n_it.first; it != n_it.second; ++it) {
             auto e = boost::edge(v, *it, this->G);
             sum += TimeIntervalSetVertexMap[e.first].length();
         }
-        return sum / (interval_def.upper() - interval_def.lower());
+        return static_cast<double>(sum) / this->definition_length();
     }
 
     template<typename DirectedS>
@@ -410,6 +414,12 @@ namespace boost::bstream
             }
         }
         GraphBase<DirectedS>::remove_vertex(v);
+    }
+
+    template<typename DirectedS>
+    time_t LinkStreamBase<DirectedS>::edge_tinterval_length(const typename LinkStreamBase<DirectedS>::edge_t &e)
+    {
+        return TimeIntervalSetVertexMap[e].length();
     }
 
     template

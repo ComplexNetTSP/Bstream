@@ -21,6 +21,8 @@
 using namespace boost::bstream;
 using namespace std;
 using namespace boost::icl;
+namespace utf = boost::unit_test;
+namespace tt = boost::test_tools;
 
 BOOST_AUTO_TEST_CASE(LinkStream_constructor)
 {
@@ -158,7 +160,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_is_active)
 ///     https://arxiv.org/pdf/1710.04073.pdf
 ///
 ///*********************************************************************************************************************
-BOOST_AUTO_TEST_CASE(LinkStream_degree)
+BOOST_AUTO_TEST_CASE(LinkStream_degree, * utf::tolerance(0.00001))
 {
     LinkStream L(0, 10);
     auto a = L.add_vertex("A");
@@ -178,7 +180,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_degree)
     double sum_degree = 0;
     for (auto it = L.vertices().first; it != L.vertices().second; ++it)
         sum_degree += L.degree(*it);
-    BOOST_CHECK(sum_degree == 2 * L.num_edges());
+    BOOST_TEST(sum_degree == 2 * L.num_edges());
 }
 
 BOOST_AUTO_TEST_CASE(LinkStream_handshaking_lemma)
@@ -250,7 +252,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_add_edge_with_timeintervalset)
     auto e1 = L.add_edge_w_time("A", "B", t1);
     auto e1_prime = L.add_edge_w_time("A", "B", t2);
     BOOST_CHECK(e1 == e1_prime);
-    BOOST_CHECK(L.edge_tinterval_set("A", "B").length() == 7);
+    BOOST_TEST(L.edge_tinterval_set("A", "B").length() == 7);
     BOOST_CHECK(L.edge_tinterval_set(e1).length() == 7);
 
     auto def = L.edge_tinterval_set(e1).definition();
@@ -274,7 +276,7 @@ BOOST_AUTO_TEST_CASE(LinkStream_instantaneous_degree)
     std::vector<int> results = {2, 1, 2, 1, 2, 1, 2, 0};
     auto v_it = results.begin();
     for(auto it = ret.begin(); it != ret.end(); ++it){
-        BOOST_CHECK(*v_it == it->second );
+        BOOST_TEST(*v_it == it->second );
         ++v_it;
     }
 }
@@ -287,4 +289,18 @@ BOOST_AUTO_TEST_CASE(LinkStream_test_bidirectional)
     auto b = L.add_vertex("B");
     L.add_edge_w_time(a, b, 0, 10);
     BOOST_CHECK(L.edge(a, b) == L.edge(b, a));
+}
+
+
+BOOST_AUTO_TEST_CASE(LinkStream_test_time_t)
+{
+    auto L = LinkStream();
+    L.read_csv("test_linkstream.csv", ';');
+
+    // check the first edge duration
+    auto e = L.edge(0,1);
+    BOOST_CHECK(L.edge_tinterval_length(e.first) == 1800000000000);
+
+    // check the definition duration
+    BOOST_CHECK(L.definition_length() == 8683000000000);
 }
