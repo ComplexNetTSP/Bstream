@@ -422,6 +422,24 @@ namespace boost::bstream
         return TimeIntervalSetVertexMap[e].length();
     }
 
+    template<typename DirectedS>
+    time_t LinkStreamBase<DirectedS>::edge_tinterval_length(const typename LinkStreamBase<DirectedS>::vertex_t &s,
+                                                            const typename LinkStreamBase<DirectedS>::vertex_t &t)
+    {
+        auto e = this->edge(s,t);
+        if(e.second){
+            return this->edge_tinterval_length(e.first);
+        }else{
+            return 0;
+        }
+    }
+
+    template<typename DirectedS>
+    time_t LinkStreamBase<DirectedS>::edge_tinterval_length(const std::string &s, const std::string &t)
+    {
+        return this->edge_tinterval_length(this->vertex(s), this->vertex(t));
+    }
+
     template
     class LinkStreamBase<boost::undirectedS>;
 
